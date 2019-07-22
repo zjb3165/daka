@@ -23,19 +23,10 @@ class WeixinController extends Controller
     {
         $this->server = $app->server;
     }
-
-    /**
-     * get 验证
-     */
-    public function get()
-    {
-        return $this->server->server();
-    }
-    
     /**
      * 消息处理
      */
-    public function post()
+    public function server()
     {
         $this->server->push(function($msg){
             /**
