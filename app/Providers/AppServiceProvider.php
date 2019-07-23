@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->make(EasyWeChat\OfficialAccount\Application::class, function($app){
+        $this->app->bind(EasyWeChat\OfficialAccount\Application::class, function($app){
             $config = [
                 'app_id' => '',
                 'secret' => '',
