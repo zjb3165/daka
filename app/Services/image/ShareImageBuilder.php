@@ -13,7 +13,7 @@ class ShareImageBuilder
      * @param String    $bg    背景图片地址
      * @param Array     $settings   贴图文字设置
      */
-    public function build($bg, $settings=[])
+    public function build($bg, $settings=[], $save=true)
     {
         if (empty($bg)) {
             throw new ShareImageException('background image empty');
@@ -34,9 +34,12 @@ class ShareImageBuilder
             }
         }
 
-        $new_file_path = date('Ymd') . '/' . time().uniqid() . '.jpg';
-        $bg_img->save(upload_path($new_file_path), 80, 'jpg');
-        return $new_file_path;
+        if ($save) {
+            $new_file_path = date('Ymd') . '/' . time().uniqid() . '.jpg';
+            $bg_img->save(upload_path($new_file_path), 60, 'jpg');
+            return $new_file_path;
+        }
+        return $bg_img->stream('jpg', 60);
     }
     
     /**
