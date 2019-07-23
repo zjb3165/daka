@@ -10,6 +10,8 @@ class ShareImageBuilder
 {
     /**
      * 生成分享图片
+     * @param String    $bg    背景图片地址
+     * @param Array     $settings   贴图文字设置
      */
     public function build($bg, $settings=[])
     {
