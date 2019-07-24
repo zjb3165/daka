@@ -6,6 +6,36 @@
  
 namespace App\Services\image;
 
+/**
+ * $share = new ShareImageBuilder();
+ * $share->build(upload_path('20190724/sdflkj12l34jazldjfa.jpg'), [
+ *  [
+ *      'type' => 'image',
+ *      'path' => upload_path('20190724/laldskfjl.jpg'),
+ *      'width' => 150,
+ *      'height' => 150,
+ *      'position' => [
+ *          'align' => 'top-left',
+ *          'x' => 0,
+ *          'y' => 0,
+ *      ],
+ *      'round' => true/false   //是否圆形图片
+ *  ],
+ *  [
+ *      'type' => 'text',
+ *      'content' => '不积跬步，无以至千里',
+ *      'font' => TextFont::MSYH,
+ *      'position' => [
+ *          'x' => 0,
+ *          'y' => 0,
+ *      ],
+ *      'size' => 30,
+ *      'color' => '#000000',
+ *      'align' => 'left',
+ *      'valign' => 'middle',
+ *  ]
+ * ]);
+ */
 class ShareImageBuilder
 {
     /**
@@ -14,12 +44,8 @@ class ShareImageBuilder
      * @param Array     $settings   贴图文字设置
      * @param Bool      $save   是否保存图片
      */
-    public function build($bg, $settings=[], $save=true)
+    public function build($bgfile, $settings=[], $save=true)
     {
-        if (empty($bg)) {
-            throw new ShareImageException('background image empty');
-        }
-        $bgfile = upload_path($bg);
         if (!file_exists($bgfile)) {
             throw new ShareImageException('background image is not exists');
         }
@@ -48,15 +74,14 @@ class ShareImageBuilder
      */
     private function image($img, $setting)
     {
-        if (!isset($setting['image']) || $setting['image'] == '') return;
-        $source = upload_path($img);
-        if (!file_exists($source)) return;
+        if (!isset($setting['path']) || $setting['path'] == '') return;
+        $source = $setting['path'];
         
         if (!isset($setting['width'])) {
             $setting['width'] = 150;
         }
         if (!isset($setting['height'])) {
-            $setting['height'] = 150;
+            $setting['height'] = $setting['width'];
         }
         if (!isset($setting['position'])) {
             $setting['position'] = [
@@ -68,7 +93,7 @@ class ShareImageBuilder
 
         $src_img = \Image::make($source)->resize($setting['width'], $setting['height']);
         if (isset($setting['round']) && $setting['round']) {
-            $src_img = $this->roundImage($img);
+            $src_img = $this->roundImage($src_img);
         }
         $img->insert($src_img, $setting['position']['align'], $setting['position']['x'], $setting['position']['y']);
     }

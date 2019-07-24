@@ -13,8 +13,32 @@ class HomeController extends Controller
 {
     public function test()
     {
-        $bg = '20190724/2017012014754568.jpg';
+        $bg = upload_path('20190724/2017012014754568.jpg');
         $settings = [
+            [
+                'type' => 'image',
+                'path' => 'http://shop.nb800.cn/image/20171215/15133212775a33733dcf4c5.jpg',
+                'width' => 100,
+                'height' => 100,
+                'position' => [
+                    'align' => 'top-left',
+                    'x' => 910,
+                    'y' => 490,
+                ],
+                'round' => true,
+            ],
+            [
+                'type' => 'image',
+                'path' => 'http://shop.nb800.cn/image/20171215/15133212775a33733dcf4c5.jpg',
+                'width' => 150,
+                'height' => 150,
+                'position' => [
+                    'align' => 'bottom-right',
+                    'x' => 50,
+                    'y' => 50,
+                ],
+                'round' => false,
+            ],
             [
                 'type' => 'text',
                 'content' => 'Jumper',
@@ -48,8 +72,9 @@ class HomeController extends Controller
                     'x' => 80,
                     'y' => 50,
                 ],
+                'font' => TextFont::TNR,
                 'size' => 32,
-                'color' => '#333333',
+                'color' => '#FFFFFF',
                 'align' => 'left',
                 'valign' => 'middle',
             ],
