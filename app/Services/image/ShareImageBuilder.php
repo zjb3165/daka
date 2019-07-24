@@ -11,7 +11,7 @@ namespace App\Services\image;
  * $share->build(upload_path('20190724/sdflkj12l34jazldjfa.jpg'), [
  *  [
  *      'type' => 'image',
- *      'path' => upload_path('20190724/laldskfjl.jpg'),
+ *      'path' => upload_path('20190724/laldskfjl.jpg'),    //http://www.aaa.com/adsfal.jpg
  *      'width' => 150,
  *      'height' => 150,
  *      'position' => [
@@ -43,8 +43,9 @@ class ShareImageBuilder
      * @param String    $bg    背景图片地址
      * @param Array     $settings   贴图文字设置
      * @param Bool      $save   是否保存图片
+     * @param String    $savefile   
      */
-    public function build($bgfile, $settings=[], $save=true)
+    public function build($bgfile, $settings=[], $save=true, $savefile='')
     {
         if (!file_exists($bgfile)) {
             throw new ShareImageException('background image is not exists');
@@ -62,7 +63,7 @@ class ShareImageBuilder
         }
 
         if ($save) {
-            $new_file_path = date('Ymd') . '/' . time().uniqid() . '.jpg';
+            $new_file_path = date('Ymd') . '/' . ($savefile !== '' ? $savefile : time().uniqid() . '.jpg');
             $bg_img->save(upload_path($new_file_path), 60, 'jpg');
             return $new_file_path;
         }
