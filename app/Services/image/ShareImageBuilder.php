@@ -12,6 +12,7 @@ class ShareImageBuilder
      * 生成分享图片
      * @param String    $bg    背景图片地址
      * @param Array     $settings   贴图文字设置
+     * @param Bool      $save   是否保存图片
      */
     public function build($bg, $settings=[], $save=true)
     {
