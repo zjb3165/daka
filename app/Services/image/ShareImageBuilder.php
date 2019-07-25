@@ -22,6 +22,23 @@ namespace App\Services\image;
  *      'round' => true/false   //是否圆形图片
  *  ],
  *  [
+ *      'type' => 'bg',
+ *      'width' => 500,
+ *      'height' => 500,
+ *      'color' => 'rgba(255,255,255,0.7)',
+ *      'position' => [
+ *          'x' => 50,
+ *          'y' => 50,
+ *      ],
+ *      'radius' => [
+ *          'r' => 15,
+ *          'top-left' => true,
+ *          'top-right' => true,
+ *          'bottom-left' => true,
+ *          'bottom-right' => true,
+ *      ],
+ *  ],
+ *  [
  *      'type' => 'text',
  *      'content' => '不积跬步，无以至千里',
  *      'font' => TextFont::MSYH,
@@ -50,6 +67,9 @@ class ShareImageBuilder
         if (!file_exists($bgfile)) {
             throw new ShareImageException('background image is not exists');
         }
+        if (! is_array($settings)) {
+            throw new ShareImageException('param settings error. must be an array.');
+        }
 
         $bg_img = \Image::make($bgfile);
         foreach($settings as $setting) {
@@ -59,11 +79,17 @@ class ShareImageBuilder
                 $this->image($bg_img, $setting);
             } else if ($setting['type'] == 'text') {
                 $this->text($bg_img, $setting);
+            } else if ($setting['type'] == 'bg') {
+                $this->bg($bg_img, $setting);
             }
         }
 
         if ($save) {
             $new_file_path = date('Ymd') . '/' . ($savefile !== '' ? $savefile : time().uniqid() . '.jpg');
+            $dir = pathinfo(upload_path($new_file_path), PATHINFO_DIRNAME);
+            if (! is_dir($dir)) {
+                mkdir($dir, 0777, true);
+            }
             $bg_img->save(upload_path($new_file_path), 60, 'jpg');
             return $new_file_path;
         }
@@ -155,5 +181,109 @@ class ShareImageBuilder
             $font->align($setting['align']);
             $font->valign($setting['valign']);
         });
+    }
+    
+    /**
+     * 添加背景颜色框
+     */
+    private function bg($bg, $setting)
+    {
+        if (!isset($setting['width']) || !isset($setting['height'])
+            || $setting['width'] <= 0 || $setting['height'] <= 0) return;
+        
+        $width = intval($setting['width']);
+        $height = intval($setting['height']);
+        $color = 'rgba(255,255,255,0.5)';
+        if (isset($setting['color'])) $color = $setting['color'];
+        if (! isset($setting['align'])) $setting['align'] = 'top-left';
+        if (! isset($setting['position'])) {
+            $setting['position'] = [
+                'x' => 0,
+                'y' => 0,
+            ];
+        }
+
+        $img = \Image::canvas($width, $height);
+        //如果设置了圆角，则将圆角外部分填充为透明
+        if (isset($setting['radius']) && isset($setting['radius']['r']) && $setting['radius']['r'] > 0) {
+            $r = intval($setting['radius']['r']);
+            $r = min($r, $width, $height);
+            $rects = [[0, 0, $width, $height]];
+            if (isset($setting['radius']['top-left'])) {
+                for($x = 0; $x < $r; $x++) {
+                    for($y = 0; $y < $r; $y++) {
+                        if ((($r - $x) * ($r - $x) + ($r - $y) * ($r - $y)) < $r * $r){
+                            $img->pixel($color, $x, $y);
+                        }
+                    }
+                }
+                $rects[0] = [$r, 0, $width, $r];
+                $rects[1] = [0, $r, $width, $height];
+            }
+            if (isset($setting['radius']['top-right'])) {
+                $x1 = $width - $r;
+                $y1 = $r;
+                for($x = $x1; $x < $width; $x++){
+                    for($y = 0; $y < $r; $y++) {
+                        if ((($x1 - $x) * ($x1 - $x) + ($y - $y1) * ($y - $y1)) < $r * $r) {
+                            $img->pixel($color, $x, $y);
+                        }
+                    }
+                }
+                $rects[0][2] = $width - $r;
+                if (! isset($rects[1])) {
+                    $rects[1] = [0, $r, $width, $height];
+                }
+            }
+            if (isset($setting['radius']['bottom-left'])) {
+                $x1 = $r;
+                $y1 = $height - $r;
+                for($x = 0; $x < $r; $x++) {
+                    for($y = $y1; $y < $height; $y++){
+                        if ((($x - $x1) * ($x - $x1) + ($y - $y1) * ($y - $y1)) < $r * $r) {
+                            $img->pixel($color, $x, $y);
+                        }
+                    }
+                }
+                if (isset($rects[1])) {
+                    $rects[1][3] = $height - $r;
+                    $rects[2] = [$r, $height - $r, $width, $height];
+                } else {
+                    $rects[0][3] = $height - $r;
+                    $rects[1] = [$r, $height - $r, $width, $height];
+                }
+            }
+            if (isset($setting['radius']['bottom-right'])) {
+                $x1 = $width - $r;
+                $y1 = $height - $r;
+                for($x = $x1; $x < $width; $x++) {
+                    for($y = $y1; $y < $height; $y++) {
+                        if ((($x - $x1) * ($x - $x1) + ($y - $y1) * ($y - $y1)) < $r * $r) {
+                            $img->pixel($color, $x, $y);
+                        }
+                    }
+                }
+                if (isset($rects[2])) {
+                    $rects[2][2] = $width - $r;
+                } else if (isset($rects[1])) {
+                    $rects[1][2] = $width - $r;
+                } else {
+                    $rects[0][3] = $height - $r;
+                    $rects[1] = [0, $height - $r, $width - $r, $height];
+                }
+            }
+            //dd($rects);
+
+            foreach($rects as $rect) {
+                for($x = $rect[0]; $x < $rect[2]; $x++) {
+                    for($y = $rect[1]; $y < $rect[3]; $y++) {
+                        $img->pixel($color, $x, $y);
+                    }
+                }
+            }
+        } else {
+            $img->fill($color);
+        }
+        $bg->insert($img, $setting['align'], $setting['position']['x'], $setting['position']['y']);
     }
 }
