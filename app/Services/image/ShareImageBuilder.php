@@ -150,7 +150,7 @@ class ShareImageBuilder
      */
     private function text($img, $setting)
     {
-        if (! isset($setting['content']) || $setting['content'] == '') return;
+        if (! isset($setting['content']) || empty($setting['content'])) return;
 
         if (! isset($setting['font'])){
             $setting['font'] = TextFont::MSYH;
@@ -171,7 +171,53 @@ class ShareImageBuilder
             $setting['align'] = 'top-left';
         }
 
-        $box = imagettfbbox($setting['size'], 0, TextFont::getPath($setting['font']), $setting['content']);
+        if (is_array($setting['content'])) {
+            $w = $h = 0;
+            $imgs = [];
+            $width = 0;
+            $height = 0;
+            $tmp = [];
+            foreach($setting['content'] as $item) {
+                $_img = $this->renderText($item);
+                if ($_img != null) {
+                    $imgs[] = $_img;
+                    $width = $width + $_img->width() + 15;
+                    if ($_img->height() > $height) {
+                        $height = $_img->height();
+                    }
+                    $tmp[] = [$_img->width(), $_img->height()];
+                }
+            }
+            $text_img = \Image::canvas($width, $height);
+            $left = 0;
+            foreach($imgs as $_img) {
+                $bottom = 0;
+                if ($_img->height() + 5 < $height) {
+                    $bottom = 5;
+                }
+                $text_img->insert($_img, 'bottom-left', $left, $bottom);
+                $left += $_img->width() + 15;
+            }
+            $img->insert($text_img, $setting['align'], $setting['position']['x'], $setting['position']['y']);
+        } else {
+            $text_img = $this->renderText($setting);
+            if ($text_img != null) {
+                $img->insert($text_img, $setting['align'], $setting['position']['x'], $setting['position']['y']);
+            }
+        }
+    }
+
+    /**
+     * 生成文字图片
+     */
+    private function renderText($setting)
+    {
+        if (empty($setting['content'])) return null;
+        $size = isset($setting['size']) ? intval($setting['size']) : 20;
+        $fontfile = TextFont::getPath(isset($setting['font']) ? $setting['font'] : TextFont::MSYH);
+        $color = isset($setting['color']) ? $setting['color'] : '#ffffff';
+
+        $box = imagettfbbox($size, 0, $fontfile, $setting['content']);
         $h = $box[3] - $box[5];
         $w = ($box[4] - $box[6]);
         if (strlen($setting['content']) <= 15) {
@@ -179,25 +225,17 @@ class ShareImageBuilder
         } else {
             $w = $w * 0.75;
         }
-
-        $text_img = \Image::canvas($w, $h);
-        //$text_img->fill('rgba(0, 0, 0, 0.7)');
-        $text_img->text($setting['content'], 0, 0, function($font)use($setting){
-            $font->file(TextFont::getPath($setting['font']));
-            $font->size($setting['size']);
-            $font->color($setting['color']);
+        
+        $img = \Image::canvas($w, $h);
+        //$img->fill('rgba(0,0,0,.7)');
+        $img->text($setting['content'], 0, 0, function($font) use($size, $fontfile, $color){
+            $font->file($fontfile);
+            $font->size($size);
+            $font->color($color);
             $font->align('left');
             $font->valign('top');
         });
-        $img->insert($text_img, $setting['align'], $setting['position']['x'], $setting['position']['y']);
-
-        /*$img->text($setting['content'], $setting['position']['x'], $setting['position']['y'], function($font)use($setting){
-            $font->file(TextFont::getPath($setting['font']));
-            $font->size($setting['size']);
-            $font->color($setting['color']);
-            $font->align($setting['align']);
-            $font->valign($setting['valign']);
-        });*/
+        return $img;
     }
     
     /**

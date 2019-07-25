@@ -182,25 +182,24 @@ class HomeController extends Controller
             ],
             [
                 'type' => 'text',
-                'content' => '3',
+                'content' => [
+                    [
+                        'content' => '6',
+                        'color' => '#ffffff',
+                        'font' => TextFont::MSYH,
+                        'size' => 70,
+                    ],
+                    [
+                        'content' => '天',
+                        'color' => '#ffffff',
+                        'font' => TextFont::MSYH,
+                        'size' => 24,
+                    ]
+                ],
                 'position' => [
                     'x' => 30,
-                    'y' => 230,
+                    'y' => 240,
                 ],
-                'color' => '#ffffff',
-                'font' => TextFont::TNR,
-                'size' => 70,
-            ],
-            [
-                'type' => 'text',
-                'content' => '天',
-                'position' => [
-                    'x' => 80,
-                    'y' => 260,
-                ],
-                'color' => '#ffffff',
-                'font' => TextFont::MSYH,
-                'size' => 24,
             ],
             [
                 'type' => 'text',
