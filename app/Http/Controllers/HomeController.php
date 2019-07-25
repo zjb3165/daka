@@ -13,7 +13,7 @@ class HomeController extends Controller
 {
     public function test()
     {
-        $bg = upload_path('20190724/2017012014754568.jpg');
+        $bg = upload_path('20190725/734352.jpg');
         $settings = [
             [
                 'type' =>'bg',
@@ -97,8 +97,172 @@ class HomeController extends Controller
             ],
         ];
 
+        $style1 = [
+            [
+                'type' => 'image',
+                'path' => upload_path('20190725/avatar.png'),
+                'width' => 100,
+                'height' => 100,
+                'position' => [
+                    'align' => 'top-left',
+                    'x' => 30,
+                    'y' => 30,
+                ],
+                'round' => true,
+            ],
+            [
+                'type' => 'image',
+                'path' => upload_path('20190725/qr.jpg'),
+                'width' => 100,
+                'height' => 100,
+                'position' => [
+                    'align' => 'bottom-right',
+                    'x' => 25,
+                    'y' => 25,
+                ],
+            ],
+            [
+                'type' => 'text',
+                'content' => date('d'),
+                'position' => [
+                    'x' => 20,
+                    'y' => 30,
+                ],
+                'align' => 'top-right',
+                'font' => TextFont::TNR,
+                'size' => 60,
+                'color' => '#ffffff',
+            ],
+            [
+                'type' => 'text',
+                'content' => date('Y.m'),
+                'position' => [
+                    'x' => 20,
+                    'y' => 85,
+                ],
+                'align' => 'top-right',
+                'font' => TextFont::TNR,
+                'size' => 24,
+                'color' => '#ffffff',
+            ],
+            [
+                'type' => 'text',
+                'content' => '风雨里像个大人，阳光下像个孩子',
+                'position' => [
+                    'x' => 155,
+                    'y' => 75,
+                ],
+                'color' => '#ffffff',
+                'font' => TextFont::MSYH,
+                'size' => 24,
+                'align' => 'bottom-right',
+            ],
+            [
+                'type' => 'text',
+                'content' => '扫码和我互道早安',
+                'position' => [
+                    'x' => 155,
+                    'y' => 30,
+                ],
+                'color' => '#ffffff',
+                'size' => 20,
+                'align' => 'bottom-right',
+                'font' => TextFont::MSYH,
+            ],
+            [
+                'type' => 'text',
+                'content' => '连续早起',
+                'position' => [
+                    'x' => 30,
+                    'y' => 190,
+                ],
+                'color' => '#ffffff',
+                'font' => TextFont::MSYH,
+                'size' => 22,
+            ],
+            [
+                'type' => 'text',
+                'content' => '3',
+                'position' => [
+                    'x' => 30,
+                    'y' => 230,
+                ],
+                'color' => '#ffffff',
+                'font' => TextFont::TNR,
+                'size' => 70,
+            ],
+            [
+                'type' => 'text',
+                'content' => '天',
+                'position' => [
+                    'x' => 80,
+                    'y' => 260,
+                ],
+                'color' => '#ffffff',
+                'font' => TextFont::MSYH,
+                'size' => 24,
+            ],
+            [
+                'type' => 'text',
+                'content' => '今日早起',
+                'position' => [
+                    'x' => 30,
+                    'y' => 320,
+                ],
+                'color' => '#ffffff',
+                'font' => TextFont::MSYH,
+                'size' => 24,
+            ],
+            [
+                'type' => 'text',
+                'content' => date('H:i'),
+                'position' => [
+                    'x' => 30,
+                    'y' => 360,
+                ],
+                'color' => '#ffffff',
+                'font' => TextFont::TNR,
+                'size' => 70,
+            ],
+            [
+                'type' => 'bg',
+                'width' => 240,
+                'height' => 1,
+                'color' => '#ffffff',
+                'position' => [
+                    'x' => 30,
+                    'y' => 445,
+                ],
+            ],
+            [
+                'type' => 'text',
+                'content' => '3455223人正在参与',
+                'position' => [
+                    'x' => 30,
+                    'y' => 465,
+                ],
+                'color' => '#ffffff',
+                'font' => TextFont::MSYH,
+                'size' => 24,
+            ],
+            [
+                'type' => 'text',
+                'content' => '比123万人起的早',
+                'position' => [
+                    'x' => 30,
+                    'y' => 505,
+                ],
+                'color' => '#ffffff',
+                'font' => TextFont::MSYH,
+                'size' => 24,
+            ]
+        ];
+
+        //$b = imagettfbbox(28, 0, TextFont::getPath(TextFont::MSYH), '风雨里像个大人，阳光下像个孩子');
+        //dd($b);
+
         $build = new ShareImageBuilder();
-        $result = $build->build($bg, $settings, true, '223344556677.jpg');
+        $result = $build->build($bg, $style1, true, 'style1.jpg');
         return '<img src="'. image_url($result) .'" />';
     }
 }

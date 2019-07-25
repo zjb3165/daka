@@ -150,37 +150,54 @@ class ShareImageBuilder
      */
     private function text($img, $setting)
     {
-        if (!isset($setting['content']) || $setting['content'] == '') return;
+        if (! isset($setting['content']) || $setting['content'] == '') return;
 
-        if (!isset($setting['font'])){
+        if (! isset($setting['font'])){
             $setting['font'] = TextFont::MSYH;
         }
-        if (!isset($setting['position'])) {
+        if (! isset($setting['position'])) {
             $setting['position'] = [
                 'x' => 0,
                 'y' => 0,
             ];
         }
-        if (!isset($setting['size'])) {
+        if (! isset($setting['size'])) {
             $setting['size'] = 20;
         }
-        if (!isset($setting['color'])) {
+        if (! isset($setting['color'])) {
             $setting['color'] = '#ffffff';
         }
-        if (!isset($setting['align'])) {
-            $setting['align'] = 'left';
-        }
-        if (!isset($setting['valign'])) {
-            $setting['valign'] = 'middle';
+        if (! isset($setting['align'])) {
+            $setting['align'] = 'top-left';
         }
 
-        $img->text($setting['content'], $setting['position']['x'], $setting['position']['y'], function($font)use($setting){
+        $box = imagettfbbox($setting['size'], 0, TextFont::getPath($setting['font']), $setting['content']);
+        $h = $box[3] - $box[5];
+        $w = ($box[4] - $box[6]);
+        if (strlen($setting['content']) <= 15) {
+            $w = $w * 0.8;
+        } else {
+            $w = $w * 0.75;
+        }
+
+        $text_img = \Image::canvas($w, $h);
+        //$text_img->fill('rgba(0, 0, 0, 0.7)');
+        $text_img->text($setting['content'], 0, 0, function($font)use($setting){
+            $font->file(TextFont::getPath($setting['font']));
+            $font->size($setting['size']);
+            $font->color($setting['color']);
+            $font->align('left');
+            $font->valign('top');
+        });
+        $img->insert($text_img, $setting['align'], $setting['position']['x'], $setting['position']['y']);
+
+        /*$img->text($setting['content'], $setting['position']['x'], $setting['position']['y'], function($font)use($setting){
             $font->file(TextFont::getPath($setting['font']));
             $font->size($setting['size']);
             $font->color($setting['color']);
             $font->align($setting['align']);
             $font->valign($setting['valign']);
-        });
+        });*/
     }
     
     /**
