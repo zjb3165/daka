@@ -13,18 +13,24 @@ class MemberRepo
 {
     /**
      * 读取社交登录表openid记录
-     * @param String    $openid
-     * @param String    $type       默认weixin
+     * @param mixed     $openid
+     * @param string    $type       默认weixin
      * @return App\Models\SocialLogins
      */
     public function getSocial($openid, $type='weixin')
     {
-        return SocialLogins::where('type', $type)->where('openid', $openid)->first();
+        $cursor = SocialLogins::where('type', $type);
+        if (is_array($openid)) {
+            $cursor->whereIn('openid', $openid);
+        } else {
+            $cursor->where('openid', $openid);
+        }
+        return $cursor->first();
     }
 
     /**
      * 根据id读取会员信息
-     * @param Integer   $id
+     * @param integer   $id
      * @return App\Models\Member
      */
     public function getMemberById($id)
@@ -34,8 +40,8 @@ class MemberRepo
 
     /**
      * 读取会员信息
-     * @param String    $openid
-     * @param String    $type       默认weixin
+     * @param string    $openid
+     * @param string    $type       默认weixin
      * @return App\Models\Member;
      */
     public function getMemberByOpenid($openid, $type='weixin')
@@ -48,7 +54,7 @@ class MemberRepo
     
     /**
      * 创建用户
-     * @param Array     $info
+     * @param array     $info
      * @return App\Models\Member
      */
     public function createMember($info)
@@ -56,10 +62,15 @@ class MemberRepo
         if (! isset($info['nickname']) || $info['nickname'] == '')  return null;
 
         $member = new Member();
-        $member->fill($info);
+        $member->nickname = $info['nickname'];
+        $member->avatar = $info['headimgurl'];
+        $member->phone = isset($info['phone']) ? $info['phone'] : '';
+        $member->gender = $info['sex'];
+        $member->birthday = isset($info['birthday']) ? $info['birthday'] : 0;
+        $member->parent_id = 0;
         $member->credits = 0;
         $member->balance = 0;
-        $member->subscribed_at = isset($info['subscribed']) ? time() : 0;
+        $member->subscribed_at = isset($info['subscribe_time']) ? $info['subscribe_time'] : 0;
         $member->actived_at = time();
         $member->save();
 
@@ -68,12 +79,12 @@ class MemberRepo
     
     /**
      * 创建社交登录用户
-     * @param Integer   $member_id
-     * @param String    $openid
-     * @param String    $type       默认weixin
-     * @return Boolean
+     * @param integer   $member_id
+     * @param string    $openid
+     * @param string    $type       默认weixin
+     * @return boolean
      */
-    public function createSocial($member_id, $openid, $type='weixin')
+    public function createOrUpdateSocial($member_id, $openid, $type='weixin')
     {
         $login = $this->getSocial($openid, $type);
         if ($login == null) {
@@ -90,9 +101,9 @@ class MemberRepo
 
     /**
      * 更新社交登录会员关联
-     * @param Integer   $member_id
-     * @param String    $openid
-     * @param String    $type
+     * @param integer   $member_id
+     * @param string    $openid
+     * @param string    $type
      */
     public function updateSocial($member_id, $openid, $type='weixin')
     {
@@ -101,23 +112,29 @@ class MemberRepo
 
     /**
      * 创建新用户
-     * @param String    $openid
-     * @param Array     $info
-     * @param String    $type
+     * @param string    $openid
+     * @param array     $info
+     * @param string    $type
      */
-    public function newMember($openid, $info, $type='weixin')
+    public function newMember($info, $type='weixin')
     {
+        if (! isset($info['openid'])) return null;
+        
+        $openid = $info['openid'];
+        if (isset($info['unionid']) && $info['unionid'] != '') {
+            $openid = [$info['openid'], $info['unionid']];
+        }
         $login = $this->getSocial($openid, $type);
+
         if ($login != null) {
             $member = $this->getMemberById($login->member_id);
         }
         if ($member == null) {
             $member = $this->createMember($info);
         }
-        if ($login == null) {
-            $login = $this->createSocial($member->id, $openid, $type);
-        } else {
-            $this->updateSocial($member->id, $openid, $type);
+        $this->createOrUpdateSocial($member->id, $info['openid'], $type);
+        if (isset($info['unionid']) && $info['unionid'] != '') {
+            $this->createOrUpdateSocial($member->id, $info['unionid'], $type);
         }
         
         return $member;
@@ -126,7 +143,8 @@ class MemberRepo
     /**
      * 更新会员信息
      * @param mixed     $member_or_id
-     * @param Array     $info
+     * @param array     $info
+     * @return App\Models\Member
      */
     public function updateMember($member_or_id, $info)
     {

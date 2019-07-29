@@ -19,7 +19,7 @@ class WeixinController extends Controller
      */
     private $server = null;
 
-    public function __construct(EasyWeChat\OfficialAccount\Application $app)
+    public function __construct(Application $app)
     {
         $this->server = $app->server;
     }
@@ -33,6 +33,7 @@ class WeixinController extends Controller
             /**
              * 消息处理
              */
+            
             return new Transfer();
         });
         return $this->server->server();
