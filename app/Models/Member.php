@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Member extends Model
 {
+    protected $fillable = ['nickname', 'avatar', 'phone', 'gender', 'birthday',];
     protected $casts = [
         'parent_id' => 'integer',
         'gender' => 'integer',

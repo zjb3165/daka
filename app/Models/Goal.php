@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * 打卡目标
  * @property    String  $title          目标名称
- * @property    String  $start_time     打卡开始时间
- * @property    String  $end_time       打卡结束时间
+ * @property    Integer $start_time     打卡开始时间,小时
+ * @property    Integer $end_time       打卡结束时间,小时
  * @property    Integer $credits        可得到的积分
  * @property    String  $order_index    排序位置
  */

@@ -100,7 +100,7 @@ class HomeController extends Controller
         $style1 = [
             [
                 'type' => 'image',
-                'path' => upload_path('20190725/avatar.png'),
+                'path' => upload_path('20190725/avatar2.jpg'),
                 'width' => 100,
                 'height' => 100,
                 'position' => [
@@ -259,9 +259,316 @@ class HomeController extends Controller
 
         //$b = imagettfbbox(28, 0, TextFont::getPath(TextFont::MSYH), '风雨里像个大人，阳光下像个孩子');
         //dd($b);
+        
+        $style2 = [
+            [
+                'type' => 'bg',
+                'width' => 95,
+                'height' => 95,
+                'color' => 'rgba(0,0,0,0.5)',
+                'position' => [
+                    'x' => 45,
+                    'y' => 0,
+                ],
+                'align' => 'top-right',
+                'radius' => [
+                    'r' => 8,
+                    'bottom-left' => true,
+                    'bottom-right' => true,
+                ],
+            ],
+            [
+                'type' => 'text',
+                'content' => date('d'),
+                'size' => 60,
+                'color' => '#ffffff',
+                'position' => [
+                    'x' => 58,
+                    'y' => 15,
+                ],
+                'align' => 'top-right',
+            ],
+            [
+                'type' => 'text',
+                'content' => date('Y.m'),
+                'size' => 20,
+                'color' => '#ffffff',
+                'position' => [
+                    'x' => 50,
+                    'y' => 70,
+                ],
+                'align' => 'top-right',
+            ],
+            [
+                'type' => 'bg',
+                'width' => 670,
+                'height' => 170,
+                'position' => [
+                    'x' => 40,
+                    'y' => 280,
+                ],
+                'align' => 'top-left',
+                'color' => 'rgba(255,255,255,0.5)',
+                'radius' => [
+                    'r' => 15,
+                    'top-left' => true,
+                    'top-right' => true,
+                    'bottom-left' => true,
+                    'bottom-right' => true,
+                ],
+            ],
+            [
+                'type' => 'image',
+                'path' => upload_path('20190725/avatar2.jpg'),
+                'width' => 120,
+                'height' => 120,
+                'position' => [
+                    'align' => 'top-left',
+                    'x' => 70,
+                    'y' => 300,
+                ],
+                'round' => true,
+            ],
+            [
+                'type' => 'image',
+                'path' => upload_path('20190725/qr.jpg'),
+                'width' => 100,
+                'height' => 100,
+                'position' => [
+                    'align' => 'bottom-right',
+                    'x' => 30,
+                    'y' => 30,
+                ],
+            ],
+            [
+                'type' => 'text',
+                'content' => [
+                    [
+                        'content' => date('H:i'),
+                        'size' => 60,
+                        'color' => '#34362c',
+                    ],
+                    [
+                        'content' => '连续早起',
+                        'size' => 24,
+                        'color' => '#34362c',
+                        'padding' => [
+                            'left' => 15,
+                            'bottom' => 5,
+                            'right' => 15,
+                        ],
+                    ],
+                    [
+                        'content' => 6,
+                        'size' => 60,
+                        'color' => '#34362c'
+                    ],
+                    [
+                        'content' => '天',
+                        'size' => 24,
+                        'color' => '#34362c',
+                        'padding' => [
+                            'left' => 15,
+                            'bottom' => 5,
+                        ],
+                    ]
+                ],
+                'position' => [
+                    'x' => 220,
+                    'y' => 310,
+                ],
+            ],
+            [
+                'type' => 'text',
+                'content' => '132433人正在参与，比12万人起的早',
+                'size' => 28,
+                'color' => '#816463',
+                'position' => [
+                    'x' => 220,
+                    'y' => 395,
+                ],
+            ],
+            [
+                'type' => 'text',
+                'content' => '所求皆如愿，所行皆坦途，多喜乐、长安宁',
+                'size' => 24,
+                'color' => '#000000',
+                'position' => [
+                    'x' => 145,
+                    'y' => 70,
+                ],
+                'align' => 'bottom-right',
+            ],
+            [
+                'type' => 'text',
+                'content' => '扫码与我互道早安',
+                'color' => '#6b6965',
+                'size' => 24,
+                'position' => [
+                    'x' => 145,
+                    'y' => 30,
+                ],
+                'align' => 'bottom-right',
+            ]
+        ];
+
+        $style3 = [
+            [
+                'type' => 'image',
+                'path' => upload_path('20190725/avatar2.jpg'),
+                'width' => 60,
+                'height' => 60,
+                'position' => [
+                    'align' => 'top-left',
+                    'x' => 30,
+                    'y' => 30,
+                ],
+                'round' => true,
+            ],
+            [
+                'type' => 'text',
+                'content' => '时光，浓淡相宜，人心，远近相安',
+                'size' => 24,
+                'color' => '#333333',
+                'position' => [
+                    'x' => 115,
+                    'y' => 50,
+                ],
+            ],
+            [
+                'type' => 'text',
+                'content' => date('d'),
+                'color' => '#333333',
+                'size' => 60,
+                'position' => [
+                    'x' => 25,
+                    'y' => 30,
+                ],
+                'align' => 'top-right',
+            ],
+            [
+                'type' => 'text',
+                'content' => date('Y.m月'),
+                'color' => '#333333',
+                'size' => 20,
+                'position' => [
+                    'x' => 25,
+                    'y' => 85,
+                ],
+                'align' => 'top-right',
+            ],
+            [
+                'type' => 'bg',
+                'width' => 670,
+                'height' => 170,
+                'position' => [
+                    'x' => 30,
+                    'y' => 30,
+                ],
+                'align' => 'bottom-left',
+                'color' => 'rgba(255,255,255,0.7)',
+                'radius' => [
+                    'r' => 15,
+                    'top-left' => true,
+                    'top-right' => true,
+                    'bottom-left' => true,
+                    'bottom-right' => true,
+                ],
+            ],
+            [
+                'type' => 'image',
+                'path' => upload_path('20190725/qr.jpg'),
+                'width' => 100,
+                'height' => 100,
+                'position' => [
+                    'align' => 'bottom-right',
+                    'x' => 65,
+                    'y' => 45,
+                ],
+            ],
+            [
+                'type' => 'text',
+                'content' => '今日早起',
+                'size' => 24,
+                'color' => '#333333',
+                'position' => [
+                    'x' => 65,
+                    'y' => 155,
+                ],
+                'align' => 'bottom-left',
+            ],
+            [
+                'type' => 'text',
+                'content' => '连续早起',
+                'size' => 24,
+                'color' => '#333333',
+                'position' => [
+                    'x' => 305,
+                    'y' => 155,
+                ],
+                'align' => 'bottom-left',
+            ],
+            [
+                'type' => 'text',
+                'content' => date('H:i'),
+                'size' => 60,
+                'color' => '#333333',
+                'align' => 'bottom-left',
+                'position' => [
+                    'x' => 65,
+                    'y' => 80,
+                ],
+            ],
+            [
+                'type' => 'text',
+                'content' => [
+                    [
+                        'content' => 6,
+                        'size' => 60,
+                        'color' => '#333333',
+                    ],
+                    [
+                        'content' => '天',
+                        'size' => 24,
+                        'color' => '#7e7e7e',
+                        'padding' => [
+                            'bottom' => 10,
+                            'left' => 15,
+                        ]
+                    ]
+                ],
+                'position' => [
+                    'x' => 305,
+                    'y' => 80,
+                ],
+                'align' => 'bottom-left',
+            ],
+            [
+                'type' => 'text',
+                'content' => '124232人正在参与，比12万人起的早',
+                'color' => '#7e7e7e',
+                'size' => 24,
+                'position' => [
+                    'x' => 65,
+                    'y' => 45,
+                ],
+                'align' => 'bottom-left',
+            ],
+            [
+                'type' => 'text',
+                'content' => '扫码与我互道早安',
+                'size' => 24,
+                'color' => '#7e7e7e',
+                'position' => [
+                    'x' => 65,
+                    'y' => 155,
+                ],
+                'align' => 'bottom-right',
+            ]
+        ];
 
         $build = new ShareImageBuilder();
-        $result = $build->build($bg, $style1, true, 'style1.jpg');
+        $result = $build->build($bg, $style3, true, 'style3.jpg');
         return '<img src="'. image_url($result) .'" />';
     }
 }

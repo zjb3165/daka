@@ -48,8 +48,6 @@ namespace App\Services\image;
  *      ],
  *      'size' => 30,
  *      'color' => '#000000',
- *      'align' => 'left',
- *      'valign' => 'middle',
  *  ]
  * ]);
  */
@@ -181,7 +179,7 @@ class ShareImageBuilder
                 $_img = $this->renderText($item);
                 if ($_img != null) {
                     $imgs[] = $_img;
-                    $width = $width + $_img->width() + 15;
+                    $width = $width + $_img->width();
                     if ($_img->height() > $height) {
                         $height = $_img->height();
                     }
@@ -192,11 +190,8 @@ class ShareImageBuilder
             $left = 0;
             foreach($imgs as $_img) {
                 $bottom = 0;
-                if ($_img->height() + 5 < $height) {
-                    $bottom = 5;
-                }
                 $text_img->insert($_img, 'bottom-left', $left, $bottom);
-                $left += $_img->width() + 15;
+                $left += $_img->width();
             }
             $img->insert($text_img, $setting['align'], $setting['position']['x'], $setting['position']['y']);
         } else {
@@ -225,10 +220,29 @@ class ShareImageBuilder
         } else {
             $w = $w * 0.75;
         }
+        $x = 0;
+        $y = 0;
+        if (isset($setting['padding'])){
+            $padding = $setting['padding'];
+            if (isset($padding['top'])){
+                $h += intval($padding['top']);
+                $y = intval($padding['top']);
+            }
+            if (isset($padding['bottom'])){
+                $h += intval($padding['bottom']);
+            }
+            if (isset($padding['left'])) {
+                $w += intval($padding['left']);
+                $x = intval($padding['left']);
+            }
+            if (isset($padding['right'])){
+                $w += intval($padding['right']);
+            }
+        }
         
         $img = \Image::canvas($w, $h);
         //$img->fill('rgba(0,0,0,.7)');
-        $img->text($setting['content'], 0, 0, function($font) use($size, $fontfile, $color){
+        $img->text($setting['content'], $x, $y, function($font) use($size, $fontfile, $color){
             $font->file($fontfile);
             $font->size($size);
             $font->color($color);
