@@ -42,11 +42,10 @@ class CheckInRepo
     /**
      * 查询当前时间段是否有打卡目标
      * @param App\Models\Member     $member
+     * @param Integer               $hour
      */
-    public function searchGoal(Member $member)
+    public function searchGoal(Member $member, $hour)
     {
-        $hour = intval(date('H'));
-
         $records = $this->getTodayGoalRecords($member);
         $exists_goal_ids = $records->map(function($item){
             return $item->goal_id;
