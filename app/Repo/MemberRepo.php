@@ -9,6 +9,7 @@ namespace App\Repo;
 use App\Models\Member;
 use App\Models\SocialLogins;
 use App\Models\QrTicket;
+use App\Models\MemberFriend;
 
 class MemberRepo
 {
@@ -191,6 +192,11 @@ class MemberRepo
         $parent = Member::find($parent_id);
         if ($parent == null) return;    //上级用户不存在
         
+        if ($parent->parent_path != '') {
+            $pp_ids = explode(',', $parent->parent_path);
+            if (in_array($member->id, $pp_ids)) return; //防止循环设置上级推荐人
+        }
+        
         \DB::beginTransaction();
         try {
             $old_path = $member->parent_path;
@@ -247,5 +253,48 @@ class MemberRepo
     public function getQrticketByTicket($ticket)
     {
         return QrTicket::where('ticket', $ticket)->first();
+    }
+
+    /**
+     * 加为好友
+     * @param integer   $member_id
+     * @param integer   $friend_id
+     */
+    public function makeFriends($member_id, $friend_id)
+    {
+        $friend = MemberFriend::where('member_id', $member_id)->where('friend_id', $friend_id)->first();
+        if ($friend == null) {
+            $f = new MemberFriend();
+            $f->member_id = $member_id;
+            $f->friend_id = $friend_id;
+            $f->save();
+
+            $f = new MemberFriend();
+            $f->member_id = $friend_id;
+            $f->friend_id = $member_id;
+            $f->save();
+        }
+    }
+    
+    /**
+     * 读取好友列表
+     * @param mixed     $member_or_id
+     * @return array
+     */
+    public function getFriendList($member_or_id)
+    {
+        if (is_numeric($member_or_id)){
+            $member_id = $member_or_id;
+        } else {
+            $member_id = $member_or_id->id;
+        }
+        
+        $friend_ids = MemberFriend::where('member_id', $member_id)->get()
+                        ->map(function($item){
+                            return $item->friend_id;
+                        })-toArray();
+        
+        if (empty($friend_ids)) return [];
+        return Member::whereIn('id', $friend_ids)->get();
     }
 }

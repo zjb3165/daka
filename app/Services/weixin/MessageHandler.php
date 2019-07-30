@@ -126,13 +126,15 @@ class MessageHandler
      */
     private function subscribe()
     {
-        if ($this->member->parent_id <= 0) {
-            $ticket = $this->memberRepo->getQrticketByTicket($this->msg['Ticket']);
-            if ($ticket != null) {
+        $ticket = $this->memberRepo->getQrticketByTicket($this->msg['Ticket']);
+        if ($ticket != null && $ticket->member_id != $this->member->id) {
+            if ($this->member->parent_id <= 0) {
                 $this->memberRepo->updateMemberParent($this->member, $ticket->member_id);
             }
-            $this->memberRepo->updateMember($this->member, ['actived_at'=>time()]);
+            $this->memberRepo->makeFriends($this->member->id, $ticket->member_id);
         }
+        $this->memberRepo->updateMember($this->member, ['actived_at'=>time()]);
+        //关注回复
         return null;
     }
     
@@ -142,6 +144,7 @@ class MessageHandler
     private function unsubscribe()
     {
         $this->memberRepo->updateMember($this->member, ['subscribed_at'=>0, 'actived_at'=>0]);
+        //todo 取关回复
         return null;
     }
 
