@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * 社交登陆信息
- * @property String     $type       weixin=微信,wxmini=微信小程序
- * @property String     $openid
- * @property Integer    $member_id
+ * @property string     $type       weixin=微信,wxmini=微信小程序
+ * @property string     $openid
+ * @property integer    $member_id
  */
 class SocialLogins extends Model
 {

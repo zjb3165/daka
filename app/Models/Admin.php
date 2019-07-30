@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * 后台管理员
- * @property String     $username
- * @property String     $password
- * @property String     $username
- * @property Array      $permissions
+ * @property string     $username
+ * @property string     $password
+ * @property string     $username
+ * @property array      $permissions
  */
 class Admin extends Model
 {

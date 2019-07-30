@@ -51,7 +51,9 @@ class AppServiceProvider extends ServiceProvider
             ];
             return Factory::officialAccount($config);
         });
-
+        $this->app->singleton(\App\Services\utils\RemoteCatch::class, function($app){
+            return new \App\Services\utils\RemoteCatch();
+        });
         $this->app->bind(\App\Services\image\ShareImageBuilderInterface::class, \App\Services\image\ShareImageBuilder::class);
     }
 }

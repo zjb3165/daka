@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * 会员打卡记录
- * @property Integer    $member_id      会员id
- * @property Integer    $goal_id        打卡目标id
- * @property String     $picture        生成图片地址
+ * @property integer    $member_id      会员id
+ * @property integer    $goal_id        打卡目标id
+ * @property string     $picture        生成图片地址
  */
 class MemberGoalRecord extends Model
 {

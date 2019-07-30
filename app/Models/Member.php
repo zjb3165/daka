@@ -9,16 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * 会员信息
- * @property String     $nickname
- * @property String     $avatar
- * @property String     $phone
- * @property Integer    $parent_id
- * @property Integer    $gender
- * @property Integer    $birthday
- * @property Integer    $credits
- * @property Integer    $balance
- * @property Integer    $subscribed_at
- * @property Integer    $actived_at
+ * @property string     $nickname
+ * @property string     $avatar
+ * @property string     $phone
+ * @property integer    $parent_id
+ * @property string     $parent_path
+ * @property integer    $gender
+ * @property integer    $birthday
+ * @property integer    $credits
+ * @property integer    $balance
+ * @property integer    $subscribed_at
+ * @property integer    $actived_at
  */
 class Member extends Model
 {

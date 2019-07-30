@@ -30,6 +30,6 @@ class UserHandler
      */
     public function get($openid)
     {
-        $user = $this->userClient->get($openid);
+        return $this->userClient->get($openid);
     }
 }

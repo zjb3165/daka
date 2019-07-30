@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * 格言
- * @property    String      $title      格言警句
+ * @property    string      $title      格言警句
  */
 class Mtto extends Model
 {

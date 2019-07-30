@@ -126,6 +126,13 @@ class MessageHandler
      */
     private function subscribe()
     {
+        if ($this->member->parent_id <= 0) {
+            $ticket = $this->memberRepo->getQrticketByTicket($this->msg['Ticket']);
+            if ($ticket != null) {
+                $this->memberRepo->updateMemberParent($this->member, $ticket->member_id);
+            }
+            $this->memberRepo->updateMember($this->member, ['actived_at'=>time()]);
+        }
         return null;
     }
     
@@ -134,7 +141,7 @@ class MessageHandler
      */
     private function unsubscribe()
     {
-        
+        $this->memberRepo->updateMember($this->member, ['subscribed_at'=>0, 'actived_at'=>0]);
         return null;
     }
 
