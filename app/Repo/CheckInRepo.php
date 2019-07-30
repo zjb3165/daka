@@ -23,6 +23,7 @@ class CheckInRepo
      */
     public function checkGoal(Member $member, Goal $goal, $picture)
     {
+        if ($goal == null) return null;
         $record = MemberGoalRecord::where('member_id', $member->id)
                 ->where('goal_id', $goal->id)->first();
         if ($record == null) {
@@ -51,8 +52,7 @@ class CheckInRepo
             return $item->goal_id;
         })->toArray();
         
-        $goal = $this->getGoalByHour($hour, $exists_goal_ids);
-        return $goal;
+        return $this->getGoalByHour($hour, $exists_goal_ids);
     }
     
     /**
@@ -72,12 +72,71 @@ class CheckInRepo
     /**
      * 读取用户今日的打卡记录
      * @param App\Models\Member     $member
+     * @param App\Models\Goal       $goal   指定目标，默认为null;
      * @return Array
      */
-    public function getTodayGoalRecords(Member $member)
+    public function getTodayGoalRecords(Member $member, Goal $goal=null)
     {
         $date = date('Y-m-d');
-        return MemberGoalRecord::where('member_id', $member->id)->where('picture', '<>', '')
-                ->whereBetween('created_at', [$date . ' 00:00:00', $date . ' 23:59:59'])->get();
+        $cursor = MemberGoalRecord::where('member_id', $member->id);
+        if ($goal != null) {
+            $cursor->where('goal_id', $goal->id);
+        }
+        $cursor->where('picture', '<>', '')
+                ->whereBetween('created_at', [$date . ' 00:00:00', $date . ' 23:59:59']);
+        return $cursor->get();
+    }
+
+    /**
+     * 读取打卡目标
+     * @param integer $id
+     * @return App\Models\Goal
+     */
+    public function getGoalById($id)
+    {
+        return Goal::where('id', $id)->first();
+    }
+
+    /**
+     * 判断目标是否可以打卡
+     * @param App\Models\Member         $member
+     * @param App\Models\Goal           $goal
+     * @param integer                   $hour
+     * @param boolean
+     */
+    public function canCheckIn(Member $member, Goal $goal, $hour)
+    {
+        if ($goal->start_time >= $hour || $goal->end_time < $hour) return false;    //不在打卡时间内
+        
+        $records = $this->getTodayGoalRecords($member, $goal);
+        if (count($records)) return false;  //今日已打卡
+        
+        return true;
+    }
+
+    /**
+     * 是否在打卡时间内
+     * @param App\Models\Goal       $goal
+     * @param integer               $hour
+     * @param boolean
+     */
+    public function inTime(Goal $goal, $hour)
+    {
+        if ($goal->start_time >= $hour || $goal->end_time < $hour) return true;
+        return false;
+    }
+
+    /**
+     * 判断目标是否已打过卡
+     * @param App\Models\Member         $member
+     * @param App\Models\Goal           $goal
+     * @param integer                   $hour
+     * @return boolean
+     */
+    public function checked(Member $member, Goal $goal, $hour)
+    {
+        $records = $this->getTodayGoalRecords($member, $goal);
+        if (count($records)) return true;
+        return false;
     }
 }

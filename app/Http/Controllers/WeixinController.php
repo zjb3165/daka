@@ -8,6 +8,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use EasyWeChat\OfficialAccount\Application;
 use EasyWeChat\Kernel\Messages\Transfer;
+use App\Services\weixin\MessageHandler;
 
 /**
  * 微信事件处理控制器
@@ -19,9 +20,15 @@ class WeixinController extends Controller
      */
     private $server = null;
 
-    public function __construct(Application $app)
+    /**
+     * @var App\Services\weixin\MessageHandler;
+     */
+    private $handler = null;
+
+    public function __construct(Application $app, MessageHandler $handler)
     {
         $this->server = $app->server;
+        $this->handler = $handler;
     }
 
     /**
@@ -33,7 +40,10 @@ class WeixinController extends Controller
             /**
              * 消息处理
              */
-            
+            $result = $this->handler->handle($msg);
+            if ($result != null) {
+                return $result;
+            }
             return new Transfer();
         });
         return $this->server->server();

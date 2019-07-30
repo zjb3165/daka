@@ -6,11 +6,16 @@
  
 namespace App\Http\Controllers;
 
-use App\Services\image\ShareImageBuilder;
+use App\Services\image\ShareImageBuilderInterface;
 use App\Services\image\TextFont;
 
 class HomeController extends Controller
 {
+    private $builder;
+    public function __construct(ShareImageBuilderInterface $builder){
+        $this->builder = $builder;
+    }
+
     public function test()
     {
         $bg = upload_path('20190725/734352.jpg');
@@ -567,8 +572,7 @@ class HomeController extends Controller
             ]
         ];
 
-        $build = new ShareImageBuilder();
-        $result = $build->build($bg, $style3, true, 'style3.jpg');
+        $result = $this->builder->build($bg, $style3, true, 'style3.jpg');
         return '<img src="'. image_url($result) .'" />';
     }
 }

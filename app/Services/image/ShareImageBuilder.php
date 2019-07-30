@@ -51,14 +51,15 @@ namespace App\Services\image;
  *  ]
  * ]);
  */
-class ShareImageBuilder
+class ShareImageBuilder implements ShareImageBuilderInterface
 {
     /**
      * 生成分享图片
-     * @param String    $bg    背景图片地址
-     * @param Array     $settings   贴图文字设置
-     * @param Bool      $save   是否保存图片
-     * @param String    $savefile   
+     * @param string    $bg    背景图片地址
+     * @param array     $settings   贴图文字设置
+     * @param bool      $save   是否保存图片
+     * @param string    $savefile   
+     * @return mixed
      */
     public function build($bgfile, $settings=[], $save=true, $savefile='')
     {

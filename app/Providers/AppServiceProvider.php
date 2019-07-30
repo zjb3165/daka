@@ -51,5 +51,7 @@ class AppServiceProvider extends ServiceProvider
             ];
             return Factory::officialAccount($config);
         });
+
+        $this->app->bind(\App\Services\image\ShareImageBuilderInterface::class, \App\Services\image\ShareImageBuilder::class);
     }
 }
