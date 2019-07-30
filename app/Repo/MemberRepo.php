@@ -70,10 +70,18 @@ class MemberRepo
         $member->gender = $info['sex'];
         $member->birthday = isset($info['birthday']) ? $info['birthday'] : 0;
         $member->parent_id = 0;
+        $member->parent_path = '';
         $member->credits = 0;
         $member->balance = 0;
         $member->subscribed_at = isset($info['subscribe_time']) ? $info['subscribe_time'] : 0;
         $member->actived_at = time();
+        if (isset($info['parent_id']) && $info['parent_id'] > 0) {
+            $parent = Member::find($info['parent_id']);
+            if ($parent != null) {
+                $member->parent_id = $parent->id;
+                $member->parent_path = $parent->parent_path != '' ? $parent->parent_path . ',' . $parent->id : $parent->id;
+            }
+        }
         $member->save();
 
         return $member;
@@ -262,6 +270,8 @@ class MemberRepo
      */
     public function makeFriends($member_id, $friend_id)
     {
+        if ($member_id == $friend_id) return;
+
         $friend = MemberFriend::where('member_id', $member_id)->where('friend_id', $friend_id)->first();
         if ($friend == null) {
             $f = new MemberFriend();

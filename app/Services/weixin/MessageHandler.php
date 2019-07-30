@@ -35,7 +35,7 @@ class MessageHandler
     private $member;
     
     /**
-     * @var Array   微信消息结构
+     * @var array   微信消息结构
      */
     private $msg;
 
@@ -90,9 +90,26 @@ class MessageHandler
         $member = $this->memberRepo->getMemberByOpenid($openid);
         if ($member == null) {  //创建新用户
             $info = $this->userClient->get($openid);
+            $ticket = $this->getQrTicket();
+            if ($ticket != null) {
+                $info['parent_id'] = $ticket->member_id;
+            }
             $member = $this->memberRepo->newMember($openid, $info);
         }
         $this->member = $member;
+    }
+    
+    private function getQrTicket()
+    {
+        if (isset($this->msg['qrticket'])) {
+            return $this->msg['qrticket'];
+        }
+        if (isset($this->msg['Ticket'])) {
+            $ticket = $this->memberRepo->getQrticketByTicket($this->msg['Ticket']);
+            $this->msg['qrticket'] = $ticket;
+            return $ticket;
+        }
+        return null;
     }
 
     /**
@@ -126,15 +143,12 @@ class MessageHandler
      */
     private function subscribe()
     {
-        $ticket = $this->memberRepo->getQrticketByTicket($this->msg['Ticket']);
+        $ticket = $this->getQrTicket();
         if ($ticket != null && $ticket->member_id != $this->member->id) {
-            if ($this->member->parent_id <= 0) {
-                $this->memberRepo->updateMemberParent($this->member, $ticket->member_id);
-            }
             $this->memberRepo->makeFriends($this->member->id, $ticket->member_id);
         }
         $this->memberRepo->updateMember($this->member, ['actived_at'=>time()]);
-        //关注回复
+        //todo 关注回复
         return null;
     }
     
@@ -153,6 +167,11 @@ class MessageHandler
      */
     private function scan()
     {
+        $ticket = $this->getQrTicket();
+        if ($ticket != null && $ticket->member_id != $this->member->id) {
+            $this->memberRepo->makeFriends($this->member->id, $ticket->member_id);
+        }
+        $this->memberRepo->updateMember($this->member, ['actived_at'=>time()]);
         return null;
     }
 
@@ -161,6 +180,7 @@ class MessageHandler
      */
     private function menuClick()
     {
+        //todo 读取对应菜单项,判断菜单功能
         $goal = $this->searchGoal($this->member, intval(date('H')));
         return $this->checkIn($goal);
     }
@@ -196,9 +216,11 @@ class MessageHandler
         $hour = intval(date('H'));
         if (! $this->checkinRepo->inTime($goal)) {
             //不在打卡时间内
+            //todo 回复
         }
         if ($this->checkinRepo->checked($this->member, $goal)) {
             //今日已打过
+            //todo 回复
         }
         
         //todo 生成打卡图片
