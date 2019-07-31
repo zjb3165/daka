@@ -7,10 +7,10 @@
 namespace App\Services\weixin;
 
 use App\Services\image\ShareImageBuilderInterface;
-use App\Models\Member;
-use App\Models\Goal;
 use App\Repo\MemberRepo;
 use App\Repo\CheckInRepo;
+use App\Models\Member;
+use App\Models\Goal;
 
 class MessageHandler
 {
@@ -30,6 +30,11 @@ class MessageHandler
     private $userClient;
 
     /**
+     * @var \App\Services\weixin\ReplyHandler
+     */
+    private $replyHandler;
+
+    /**
      * @var \App\Models\Member;
      */
     private $member;
@@ -47,11 +52,12 @@ class MessageHandler
     /**
      * 
      */
-    public function __construct(MemberRepo $memberRepo, CheckInRepo $checkInRepo, UserHandler $userClient, ShareImageBuilderInterface $builder)
+    public function __construct(MemberRepo $memberRepo, CheckInRepo $checkInRepo, UserHandler $userClient, ReplyHandler $replyHandler, ShareImageBuilderInterface $builder)
     {
         $this->memberRepo = $memberRepo;
         $this->checkinRepo = $checkInRepo;
         $this->userClient = $userClient;
+        $this->replyHandler = $replyHandler;
         $this->builder = $builder;
     }
     
@@ -219,19 +225,18 @@ class MessageHandler
         $hour = intval(date('H'));
         if (! $this->checkinRepo->inTime($goal)) {
             //不在打卡时间内
-            //todo 回复
+            return $this->replyHandler->text($goal->not_in_time_reply);
         }
         if ($this->checkinRepo->checked($this->member, $goal)) {
             //今日已打过
-            //todo 回复
+            return $this->replyHandler->text($goal->checked_reply);
         }
         
         //todo 生成打卡图片
         //$picture = $this->builder->build();
         $picture = '20190730/style3.jpg';
         $record = $this->checkinRepo->checkGoal($this->member, $goal, $picture);
-        
-        //return message
-        return $record;
+        //todo 增加一个客服消息回复打卡图片
+        return $this->replyHandler->text($goal->reply);
     }
 }
