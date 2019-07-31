@@ -180,9 +180,12 @@ class MessageHandler
      */
     private function menuClick()
     {
-        //todo 读取对应菜单项,判断菜单功能
-        $goal = $this->searchGoal($this->member, intval(date('H')));
-        return $this->checkIn($goal);
+        $key = $this->msg['EventKey'];
+        if (substr($key, 0, 5) == 'goal_') {    //目标打卡菜单
+            $goal = $this->checkinRepo->getGoalById(intval(substr($key, 5)));
+            return $this->checkIn($goal);
+        }
+        return null;
     }
 
     /**
@@ -191,7 +194,7 @@ class MessageHandler
     private function text()
     {
         if ($text == '去打卡'){
-            $goal = $this->searchGoal($this->member, intval(date('H')));
+            $goal = $this->checkinRepo->searchGoal($this->member, intval(date('H')));
             return $this->checkIn($goal);
         }
         return null;
