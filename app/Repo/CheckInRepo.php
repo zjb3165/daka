@@ -36,6 +36,9 @@ class CheckInRepo
             $record->picture = $picture;
             $record->save();
         }
+        
+        //todo 增加打卡积分
+        //todo 连续打卡
 
         return $record;
     }
