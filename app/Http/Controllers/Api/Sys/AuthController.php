@@ -5,6 +5,7 @@
  */
 namespace App\Http\Controllers\Api\Sys;
 
+use App\Repo\AdminRepo;
 use App\Http\Controllers\Api\BaseController;
 use App\Models\ApiErrorCode;
 
@@ -36,15 +37,34 @@ class AuthController extends BaseController
         if ($admin == null) {
             return $this->error(ApiErrorCode::LOGIN_ERROR, '用户名或密码错误');
         }
-        //todo get token
         
-        $token = '';
+        $token = auth('api')->login($admin);
+        $expires_in = auth('api')->factory()->getTTL() * 60;
         $userInfo = [
             'id' => $admin->id,
             'name' => $admin->name,
             'username' => $admin->username,
         ];
-        return $this->success(['user'=>$userInfo, 'token'=>$token]);
+        return $this->success(['user'=>$userInfo, 'token'=>$token, 'expires_in'=>$expires_in]);
+    }
+    
+    /**
+     * 退出
+     */
+    public function logout()
+    {
+        auth('api')->logout();
+        return $this->success();
+    }
+    
+    /**
+     * 刷新token
+     */
+    public function refresh()
+    {
+        $token = auth('api')->refresh();
+        $expires_in = auth('api')->factory()->getTTL() * 60;
+        return $this->success(['token'=>$token, 'expires_in'=>$expires_in]);
     }
 
     /**
@@ -57,11 +77,11 @@ class AuthController extends BaseController
      */
     public function updatePassword()
     {
-        $admin = Admin::query()->first();   //todo
+        $admin = auth('api')->user();
         $old_pwd = request('old_password');
         $new_pwd = request('new_password');
 
-        if ($admin->password != bcrypt($old_pwd)) {
+        if (! \Hash::check($old_pwd, $admin->password)) {
             return $this->error(ApiErrorCode::OLD_PASSWORD_ERROR, '旧密码错误');
         }
         if ($new_pwd == '' || strlen($new_pwd) < 6 || strlen($new_pwd) > 20) {

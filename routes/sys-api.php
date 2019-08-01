@@ -4,4 +4,9 @@
  */
 
 Route::post('/login', ['uses'=>'AuthController@login']);
-Route::post('/password', ['sues'=>'AuthController@password']);
+
+Route::group(['middleware'=>'auth.sys'], function(){
+    Route::post('/password', ['uses'=>'AuthController@updatePassword']);
+    Route::get('/refresh', ['uses'=>'AuthController@refresh']);
+    Route::get('/logout', ['uses'=>'AuthController@logout']);
+});

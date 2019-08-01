@@ -12,11 +12,16 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $admin = new Admin();
+        /*$admin = new Admin();
         $admin->username = 'root';
         $admin->password = bcrypt('jumper@daka');
         $admin->name = '系统管理员';
         $admin->permissions = [];
-        $admin->save();
+        $admin->save();*/
+        $admin = Admin::find(1);
+        if ($admin) {
+            $admin->password = bcrypt('123456');
+            $admin->save();
+        }
     }
 }

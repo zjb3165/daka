@@ -5,7 +5,9 @@
  */
 namespace App\Models;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * 后台管理员
@@ -14,9 +16,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string     $username
  * @property array      $permissions
  */
-class Admin extends Authenticatable
+class Admin extends Authenticatable implements JWTSubject
 {
+    use Notifiable;
     protected $casts = [
         'permissions' => 'array',
     ];
+    
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

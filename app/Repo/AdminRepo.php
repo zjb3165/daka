@@ -19,9 +19,7 @@ class AdminRepo
     public function login($username, $password)
     {
         $admin = Admin::where('username', $username)->first();
-        if ($admin == null) return null;
-        
-        if ($admin->password != bcrypt($password)) return null;
+        if ($admin == null || ! \Hash::check($password, $admin->password)) return null;
 
         return $admin;
     }
