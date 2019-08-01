@@ -5,7 +5,7 @@
  */
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * 后台管理员
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string     $username
  * @property array      $permissions
  */
-class Admin extends Model
+class Admin extends Authenticatable
 {
     protected $casts = [
         'permissions' => 'array',
