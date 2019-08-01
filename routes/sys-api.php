@@ -4,3 +4,4 @@
  */
 
 Route::post('/login', ['uses'=>'AuthController@login']);
+Route::post('/password', ['sues'=>'AuthController@password']);
