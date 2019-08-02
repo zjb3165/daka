@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Layout from '../layout/index'
 
 Vue.use(Router);
 
@@ -11,7 +12,16 @@ const constantRoutes = [
     },
     {
         path: '/',
-        component: () => import('../pages/home')
+        component: Layout,
+        redirect: '/dashboard',
+        children: [
+            {
+                path: 'dashboard',
+                name: 'dashboard',
+                component: () => import('../pages/home'),
+                meta: {title: '首页', icon: 'dashboard'}
+            }
+        ]
     }
 ]
 

@@ -1,6 +1,39 @@
 const state = {
     sidebar: {
         opened: true,
+        menus: [
+            {
+                menuId: 1,
+                title: '首页',
+                menuCode: 'dashboard',
+                link: '/dashboard',
+                icon: 'el-icon-menu',
+                children: [],
+            },
+            {
+                menuId: 2,
+                title: '系统设置',
+                menuCode: 'system',
+                link: '/system',
+                icon: 'el-icon-menu',
+                children: [
+                    {
+                        menuId: 3,
+                        title: '系统管理员',
+                        menuCode: 'user',
+                        link: '/system/user',
+                        icon: 'el-icon-menu',
+                    },
+                    {
+                        menuId: 4,
+                        title: '微信设置',
+                        menuCode: 'weixin',
+                        link: '/system/weixin',
+                        icon: 'el-icon-menu'
+                    }
+                ]
+            }
+        ],
         withoutAnimation: false,
     },
     device: 'desktop'
@@ -32,9 +65,14 @@ const actions = {
     }
 }
 
+const getters = {
+    sidebar: state => state.sidebar,
+    device: state => state.device,
+}
+
 export default {
-    namespaced: true,
     state,
     mutations,
     actions,
+    getters,
 }

@@ -1,19 +1,25 @@
+import UserApi from '../../api/user'
+import { setToken, removeToken } from '../../utils/auth'
+
 export const users = {
     state: {
         user: {},
         token: '',
     },
-    action: {
+    actions: {
         login({ commit }, userInfo) {
             const { username, password } = userInfo
-            commit('SET_TOKEN', 'adfasdfasdf')
-            commit('SET_USERINFO', {username:'afdafd', name: '管理员'})
+            UserApi.login(username, password)
+                .then(function(response){
+                    console.log(response)
+                    commit('SET_USERINFO', response.user)
+                    commit('SET_TOKEN', response.token)
+                    setToken(response.token)
+                })
         },
-        getInfo({ commit, state }) {
-
-        },
-        logout({ commit, state }) {
-
+        logout({ commit }) {
+            removeToken()
+            commit('SET_TOKEN', '')
         }
     },
     mutations: {

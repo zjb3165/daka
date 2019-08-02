@@ -4,14 +4,14 @@ import store from '../store'
 import { getToken } from './auth'
 
 const service = axios.create({
-    baseURL: '/api/',
+    baseURL: '/api/sys',
     timeout: 5000
 })
 
 service.interceptors.request.use(
     config => {
         if (store.getters.token) {
-            config.headers['X-Token'] = getToken()
+            config.headers['Authorization'] = 'Bearer ' + getToken()
         }
         return config
     },
@@ -23,7 +23,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         const res = response.data
-        if (res.code !== 20000) {
+        if (res.code !== 0) {
             Message({
                 message: res.message || 'Error',
                 type: 'error',

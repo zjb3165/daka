@@ -112,6 +112,7 @@ $light_gray:#eee;
 </template>
 
 <script>
+import { validUsername } from '../utils/validate'
 export default {
     name: 'Login',
     data() {
@@ -146,6 +147,7 @@ export default {
     watch: {
         handler: function(route) {
             this.redirect = route.query && route.query.redirect
+            console.log(this.redirect)
         },
         immediate: true,
     },
@@ -154,9 +156,17 @@ export default {
             this.$refs.loginForm.validate(valid => {
                 if (valid) {
                     this.loading = true
-                    console.log('login');
+                    this.$store.dispatch('login', {
+                        username: this.loginForm.username,
+                        password: this.loginForm.password
+                    }).then(() => {
+                        this.$router.push({ path: this.redirect || '/' })
+                        this.loading = false
+                    }).catch(() => {
+                        this.loading = false
+                    });
                 } else {
-                    console.log('error')
+                    this.loading = false
                     return false
                 }
             })

@@ -9,6 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _utils_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/validate */ "./resources/sys/src/utils/validate.js");
 //
 //
 //
@@ -122,11 +123,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Login',
   data: function data() {
     var validateUsername = function validateUsername(rule, value, callback) {
-      if (!validUsername(value)) {
+      if (!Object(_utils_validate__WEBPACK_IMPORTED_MODULE_0__["validUsername"])(value)) {
         callback(new Error('请输入正确的用户名'));
       } else {
         callback();
@@ -166,6 +168,7 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     handler: function handler(route) {
       this.redirect = route.query && route.query.redirect;
+      console.log(this.redirect);
     },
     immediate: true
   },
@@ -176,9 +179,21 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.loginForm.validate(function (valid) {
         if (valid) {
           _this.loading = true;
-          console.log('login');
+
+          _this.$store.dispatch('login', {
+            username: _this.loginForm.username,
+            password: _this.loginForm.password
+          }).then(function () {
+            _this.$router.push({
+              path: _this.redirect || '/'
+            });
+
+            _this.loading = false;
+          })["catch"](function () {
+            _this.loading = false;
+          });
         } else {
-          console.log('error');
+          _this.loading = false;
           return false;
         }
       });
@@ -514,6 +529,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_login_vue_vue_type_template_id_728c452e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/sys/src/utils/validate.js":
+/*!*********************************************!*\
+  !*** ./resources/sys/src/utils/validate.js ***!
+  \*********************************************/
+/*! exports provided: isExternal, validUsername */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isExternal", function() { return isExternal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validUsername", function() { return validUsername; });
+/**
+ * Created by PanJiaChen on 16/11/18.
+ */
+
+/**
+ * @param {string} path
+ * @returns {Boolean}
+ */
+function isExternal(path) {
+  return /^(https?:|mailto:|tel:)/.test(path);
+}
+/**
+ * @param {string} str
+ * @returns {Boolean}
+ */
+
+function validUsername(str) {
+  return str.trim() !== '';
+}
 
 /***/ })
 
