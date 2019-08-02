@@ -127,22 +127,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Login',
   data: function data() {
-    var validateUsername = function validateUsername(rule, value, callback) {
-      if (!Object(_utils_validate__WEBPACK_IMPORTED_MODULE_0__["validUsername"])(value)) {
-        callback(new Error('请输入正确的用户名'));
-      } else {
-        callback();
-      }
-    };
-
-    var validatePassword = function validatePassword(rule, value, callback) {
-      if (value.length < 6) {
-        callback(new Error('请输入正确的密码'));
-      } else {
-        callback();
-      }
-    };
-
     return {
       loginForm: {
         username: '',
@@ -152,12 +136,14 @@ __webpack_require__.r(__webpack_exports__);
         username: [{
           required: true,
           trigger: 'blur',
-          validator: validateUsername
+          'message': '请输入用户名'
         }],
         password: [{
           required: true,
           trigger: 'blur',
-          validator: validatePassword
+          min: 6,
+          max: 20,
+          message: '请输入正确的密码'
         }]
       },
       loading: false,
@@ -168,7 +154,6 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     handler: function handler(route) {
       this.redirect = route.query && route.query.redirect;
-      console.log(this.redirect);
     },
     immediate: true
   },

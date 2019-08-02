@@ -116,28 +116,14 @@ import { validUsername } from '../utils/validate'
 export default {
     name: 'Login',
     data() {
-        const validateUsername = (rule, value, callback) => {
-            if (!validUsername(value)) {
-                callback(new Error('请输入正确的用户名'))
-            } else {
-                callback()
-            }
-        }
-        const validatePassword = (rule, value, callback) => {
-            if (value.length < 6) {
-                callback(new Error('请输入正确的密码'))
-            } else {
-                callback()
-            }
-        }
         return {
             loginForm: {
                 username: '',
                 password: '',
             },
             loginRules: {
-                username: [{required: true, trigger: 'blur', validator: validateUsername}],
-                password: [{required: true, trigger: 'blur', validator: validatePassword}],
+                username: [{required: true, trigger: 'blur', 'message': '请输入用户名'}],
+                password: [{required: true, trigger: 'blur', min: 6, max: 20, message: '请输入正确的密码'}],
             },
             loading: false,
             showPassword: false,
@@ -147,7 +133,6 @@ export default {
     watch: {
         handler: function(route) {
             this.redirect = route.query && route.query.redirect
-            console.log(this.redirect)
         },
         immediate: true,
     },

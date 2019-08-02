@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '../layout/index'
+import store from '../store'
 
 Vue.use(Router);
 
@@ -14,12 +15,19 @@ const constantRoutes = [
         path: '/',
         component: Layout,
         redirect: '/dashboard',
+        meta: {title: '首页'},
         children: [
             {
                 path: 'dashboard',
                 name: 'dashboard',
                 component: () => import('../pages/home'),
-                meta: {title: '首页', icon: 'dashboard'}
+                meta: {title: '概览'}
+            },
+            {
+                path: 'password',
+                name: 'password',
+                component: () => import('../pages/user/password'),
+                meta: {title: '修改密码'}
             }
         ]
     }
@@ -40,8 +48,7 @@ const whiteList = ['/login']
 router.beforeEach(async(to, from, next) => {
     NProgress.start()
     
-    const hasToken = getToken()
-    if (hasToken) {
+    function proceed() {
         if (to.path === '/login') {
             next({ path: '/' })
             NProgress.done()
@@ -49,13 +56,22 @@ router.beforeEach(async(to, from, next) => {
             next()
             NProgress.done()
         }
-    } else {
-        if (whiteList.indexOf(to.path) !== -1) {
-            next()
-        } else {
-            next(`/login?redirect=${to.path}`)
-            NProgress.done()
+    }
+
+    let token = getToken()
+    let time = (new Date()).getTime()
+    if (token && token.token && token.expires > time) {
+        if (!store.getters.user || !store.getters.user.id) {
+            store.dispatch('getUser')
         }
+        if (token.expires - 600000 < time) {
+            store.dispatch('refresh')
+        }
+        proceed()
+    } else if (whiteList.indexOf(to.path) !== -1) {
+        next()
+    } else {
+        next(`/login?redirect=${to.path}`)
     }
 })
 

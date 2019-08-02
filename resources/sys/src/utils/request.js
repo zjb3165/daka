@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '../store'
-import { getToken } from './auth'
+import router from '../router'
 
 const service = axios.create({
     baseURL: '/api/sys',
@@ -11,7 +11,7 @@ const service = axios.create({
 service.interceptors.request.use(
     config => {
         if (store.getters.token) {
-            config.headers['Authorization'] = 'Bearer ' + getToken()
+            config.headers['Authorization'] = 'Bearer ' + store.getters.token
         }
         return config
     },
@@ -29,7 +29,17 @@ service.interceptors.response.use(
                 type: 'error',
                 duration: 5000,
             })
-            return Promise.reject(new Error(res.message || 'Error'))
+            if (res.code === 40002) {
+                MessageBox.alert('登陆时间超时，请重新登陆', '重新登陆', {
+                    confirmButtonText: '确定',
+                    callback: () => {
+                        router.push('/login?redirect=' + router.currentRoute.path)
+                    }
+                })
+            } else {
+                
+                return Promise.reject(new Error(res.message || 'Error'))
+            }
         } else {
             return res
         }

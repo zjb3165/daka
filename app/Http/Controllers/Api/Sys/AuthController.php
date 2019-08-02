@@ -45,7 +45,7 @@ class AuthController extends BaseController
             'name' => $admin->name,
             'username' => $admin->username,
         ];
-        return $this->success(['user'=>$userInfo, 'token'=>$token, 'expires_in'=>$expires_in]);
+        return $this->success(['user'=>$userInfo, 'token'=>$token, 'expires'=>$expires_in]);
     }
     
     /**
@@ -64,7 +64,7 @@ class AuthController extends BaseController
     {
         $token = auth('api')->refresh();
         $expires_in = auth('api')->factory()->getTTL() * 60;
-        return $this->success(['token'=>$token, 'expires_in'=>$expires_in]);
+        return $this->success(['token'=>$token, 'expires'=>$expires_in]);
     }
 
     /**
@@ -90,5 +90,18 @@ class AuthController extends BaseController
         
         $this->adminRepo->updatePassword($admin, $new_pwd);
         return $this->success();
+    }
+
+    public function info()
+    {
+        $admin = auth('api')->user();
+        $userInfo = [
+            'id' => $admin->id,
+            'name' => $admin->name,
+            'username' => $admin->username,
+        ];
+        $token = auth('api')->refresh();
+        $expires_in = auth('api')->factory()->getTTL() * 60;
+        return $this->success(['user'=>$userInfo, 'token'=>$token, 'expires'=>$expires_in]);
     }
 }
