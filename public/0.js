@@ -165,10 +165,7 @@ __webpack_require__.r(__webpack_exports__);
         if (valid) {
           _this.loading = true;
 
-          _this.$store.dispatch('login', {
-            username: _this.loginForm.username,
-            password: _this.loginForm.password
-          }).then(function () {
+          _this.$store.dispatch('login', _this.loginForm).then(function () {
             _this.$router.push({
               path: _this.redirect || '/'
             });

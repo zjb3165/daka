@@ -95,22 +95,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  watch: {
-    'updateResult': function updateResult() {
-      if (this.updateResult) {
-        Object(element_ui__WEBPACK_IMPORTED_MODULE_0__["Message"])({
-          title: '修改成功',
-          type: 'success',
-          duration: 5000
-        });
-      }
-    }
-  },
-  computed: {
-    updateResult: function updateResult() {
-      return this.$store.state.passwordUpdated;
-    }
-  },
   methods: {
     handleUpdate: function handleUpdate() {
       var _this2 = this;
@@ -123,6 +107,13 @@ __webpack_require__.r(__webpack_exports__);
             oldPassword: _this2.pwdForm.oldPassword,
             newPassword: _this2.pwdForm.newPassword
           }).then(function () {
+            Object(element_ui__WEBPACK_IMPORTED_MODULE_0__["Message"])({
+              message: '修改成功',
+              type: 'success',
+              duration: 5000
+            });
+            _this2.loading = false;
+          })["catch"](function () {
             _this2.loading = false;
           });
         } else {

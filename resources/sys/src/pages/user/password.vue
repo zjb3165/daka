@@ -66,22 +66,6 @@ export default {
             }
         }
     },
-    watch: {
-        'updateResult': function() {
-            if (this.updateResult) {
-                Message({
-                    title: '修改成功',
-                    type: 'success',
-                    duration: 5000,
-                })
-            }
-        }
-    },
-    computed: {
-        updateResult() {
-            return this.$store.state.passwordUpdated
-        }
-    },
     methods: {
         handleUpdate() {
             this.$refs.pwdForm.validate(valid => {
@@ -91,6 +75,13 @@ export default {
                         oldPassword: this.pwdForm.oldPassword,
                         newPassword: this.pwdForm.newPassword,
                     }).then(() => {
+                        Message({
+                            message: '修改成功',
+                            type: 'success',
+                            duration: 5000
+                        })
+                        this.loading = false
+                    }).catch(() => {
                         this.loading = false
                     })
                 } else {

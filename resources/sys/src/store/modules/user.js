@@ -8,20 +8,25 @@ export const users = {
         user: {},
         token: token.token,
         expires: token.expires,
-        passwordUpdated: false,
     },
     actions: {
         login({ commit }, userInfo) {
             const { username, password } = userInfo
-            UserApi.login(username, password)
+            return new Promise((resolve, reject) => {
+                UserApi.login(username, password)
                 .then(function(response){
                     commit('SET_USERINFO', response.user)
                     commit('SET_TOKEN', {token: response.token, expires: response.expires})
+                    resolve()
+                }).catch(error => {
+                    reject(error)
                 })
+            })
         },
         logout({ commit }) {
             removeToken()
-            commit('SET_TOKEN', '', 0)
+            commit('SET_TOKEN', {token: '', expires: 0})
+            commit('SET_USERINFO', {})
         },
         getUser({ commit }) {
             UserApi.info().then( response => {
@@ -32,13 +37,17 @@ export const users = {
         refresh({ commit }) {
             UserApi.refresh().then( response => {
                 commit('SET_TOKEN', {token: response.token, expires: response.expires})
-            } )
+            })
         },
         updatePassword({ commit }, {oldPassword, newPassword}) {
-            UserApi.updatePassword(oldPassword, newPassword)
+            return new Promise((resolve, reject) => {
+                UserApi.updatePassword(oldPassword, newPassword)
                 .then(() => {
-                    commit('SET_PASSWORD_UPDATED')
+                    resolve()
+                }).catch(error => {
+                    reject(error)
                 })
+            })
         }
     },
     mutations: {
@@ -50,15 +59,11 @@ export const users = {
         SET_USERINFO: (state, userInfo) => {
             state.user = userInfo
         },
-        SET_PASSWORD_UPDATED: (state) => {
-            state.passwordUpdated = true
-        },
     },
     getters: {
         user: state => state.user,
         token: state => state.token,
         expires: state => state.expires,
-        passwordUpdated: state => state.passwordUpdated,
         userLogged: state => {
             return function() {
                 return state.user && state.user.username

@@ -19,6 +19,16 @@ export default {
     computed: {
         username() {
             return this.$store.getters.user.name
+        },
+        logout() {
+            return this.$store.getters.token === ''
+        }
+    },
+    watch: {
+        'logout': function() {
+            if (this.logout) {
+                this.$router.push('/login?redirect=' + this.$route.path)
+            }
         }
     },
     methods: {
@@ -29,7 +39,7 @@ export default {
             if (command === 'password') {
                 this.$router.push({name: 'password'})
             } else if (command === 'logout') {
-                console.log('logout')
+                this.$store.dispatch('logout')
             }
         }
     }
