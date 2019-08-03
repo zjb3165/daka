@@ -5,9 +5,19 @@
 
 Route::post('/auth/login', ['uses'=>'AuthController@login']);
 
-Route::group(['prefix'=>'auth', 'middleware'=>'auth.sys'], function(){
-    Route::post('/password', ['uses'=>'AuthController@updatePassword']);
-    Route::get('/refresh', ['uses'=>'AuthController@refresh']);
-    Route::get('/logout', ['uses'=>'AuthController@logout']);
-    Route::get('/info', ['uses'=>'AuthController@info']);
+Route::group(['middleware'=>'auth.sys'], function(){
+    Route::group(['prefix'=>'auth'], function(){
+        Route::post('/password', ['uses'=>'AuthController@updatePassword']);
+        Route::get('/refresh', ['uses'=>'AuthController@refresh']);
+        Route::get('/logout', ['uses'=>'AuthController@logout']);
+        Route::get('/info', ['uses'=>'AuthController@info']);
+    });
+    
+    Route::group(['prefix'=>'admin'], function(){
+        Route::get('/', ['uses'=>'AdminController@index']);
+        Route::post('/', ['uses'=>'AdminController@store']);
+        Route::post('/{id}', ['uses'=>'AdminController@update']);
+        Route::delete('/{id}', ['uses'=>'AdminController@destroy']);
+        Route::get('/{id}', ['uses'=>'AdminController@getInfo']);
+    });
 });
