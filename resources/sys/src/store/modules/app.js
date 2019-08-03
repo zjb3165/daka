@@ -19,7 +19,7 @@ const state = {
                 children: [
                     {
                         menuId: 3,
-                        title: '系统管理员',
+                        title: '系统用户管理',
                         menuCode: 'admin',
                         link: '/system/admin',
                         icon: 'el-icon-menu',
