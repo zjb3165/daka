@@ -14,6 +14,7 @@ Route::group(['middleware'=>'auth.sys'], function(){
     });
     
     Route::group(['prefix'=>'admin'], function(){
+        Route::post('/check', ['uses'=>'AdminController@checkUserName']);
         Route::get('/', ['uses'=>'AdminController@index']);
         Route::post('/', ['uses'=>'AdminController@store']);
         Route::post('/{id}', ['uses'=>'AdminController@update']);

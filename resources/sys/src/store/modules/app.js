@@ -20,8 +20,8 @@ const state = {
                     {
                         menuId: 3,
                         title: '系统管理员',
-                        menuCode: 'user',
-                        link: '/system/user',
+                        menuCode: 'admin',
+                        link: '/system/admin',
                         icon: 'el-icon-menu',
                     },
                     {

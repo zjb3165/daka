@@ -28,6 +28,20 @@ const constantRoutes = [
                 name: 'password',
                 component: () => import('../pages/user/password'),
                 meta: {title: '修改密码'}
+            },
+        ]
+    },
+    {
+        path: '/system',
+        component: Layout,
+        redirect: '/system/admin',
+        meta: {title: '系统管理'},
+        children: [
+            {
+                path: 'admin',
+                name: 'admin',
+                component: () => import('../pages/admin/index'),
+                meta: {title: '系统用户管理'}
             }
         ]
     }

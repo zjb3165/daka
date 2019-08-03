@@ -7,6 +7,7 @@
 namespace App\Http\Controllers\Api\Sys;
 
 use Validator;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Requests\Api\AdminInsertRequest;
 use App\Http\Requests\Api\AdminUpdateRequest;
@@ -25,6 +26,9 @@ class AdminController extends BaseController
         $this->repo = $repo;
     }
 
+    /**
+     * @route /admin
+     */
     public function index()
     {
         $list = $this->repo->getList();
@@ -38,6 +42,10 @@ class AdminController extends BaseController
         return $this->success(['list'=>$list]);
     }
 
+    /**
+     * @route /admin
+     * @method post
+     */
     public function store(AdminInsertRequest $request)
     {
         $data = $request->all();
@@ -54,6 +62,10 @@ class AdminController extends BaseController
         }
     }
 
+    /**
+     * @route /admin/{id}
+     * @method post
+     */
     public function update(AdminUpdateRequest $request, $id)
     {
         $data = $request->all();
@@ -70,6 +82,10 @@ class AdminController extends BaseController
         }
     }
 
+    /**
+     * @route /admin/{id}
+     * @method delete
+     */
     public function destroy($id)
     {
         $result = $this->repo->delete($id);
@@ -80,6 +96,9 @@ class AdminController extends BaseController
         }
     }
 
+    /**
+     * @route /admin/{id}
+     */
     public function getInfo($id)
     {
         $admin = $this->repo->getById($id);
@@ -93,5 +112,17 @@ class AdminController extends BaseController
             'name' => $admin->name,
         ];
         return $this->success(['user'=>$user]);
+    }
+
+    /**
+     * @route /admin/check
+     * @method post
+     * @param string    $username
+     */
+    public function checkUserName(Request $request)
+    {
+        $result = $this->repo->exists($request->input('username'));
+
+        return $this->success(['exists'=>$result]);
     }
 }
