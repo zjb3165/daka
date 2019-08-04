@@ -28,7 +28,7 @@ const state = {
                         menuId: 4,
                         title: '微信设置',
                         menuCode: 'weixin',
-                        link: '/system/weixin',
+                        link: '/system/setting',
                         icon: 'el-icon-menu'
                     }
                 ]

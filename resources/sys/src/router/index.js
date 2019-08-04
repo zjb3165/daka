@@ -42,6 +42,12 @@ const constantRoutes = [
                 name: 'admin',
                 component: () => import('../pages/admin/index'),
                 meta: {title: '系统用户管理'}
+            },
+            {
+                path: 'setting',
+                name: 'setting',
+                component: () => import('../pages/system/setting'),
+                meta: {title: '微信公众号设置'}
             }
         ]
     }

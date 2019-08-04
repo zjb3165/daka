@@ -27,13 +27,13 @@ export default {
     name:'Sidebar',
     computed: {
         isCollapse() {
-            return this.$store.state.app.sidebar.opened
+            return this.$store.getters.sidebar.opened
         },
         menus() {
-            return this.$store.state.app.sidebar.menus
+            return this.$store.getters.sidebar.menus
         },
         title() {
-            return this.$store.state.settings.title
+            return this.$store.getters['settings/title']
         }
     }
 }

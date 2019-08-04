@@ -22,6 +22,9 @@ class JWTAuthenticate extends BaseMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if ($request->has('testMode') && config('app.debug')) {
+            return $next($request);
+        }
         if (! $this->auth->parser()->setRequest($request)->hasToken()) {
             return response()->json(['code'=>ApiErrorCode::TOKEN_ERROR, 'message'=>'用户未登陆']);
         }

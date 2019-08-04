@@ -23,7 +23,7 @@ class AuthController extends BaseController
 
     /**
      * 用户登陆
-     * @route   /api/sys/login
+     * @route   /api/sys/auth/login
      * @method  post
      * @param string    $username
      * @param string    $password
@@ -50,6 +50,7 @@ class AuthController extends BaseController
     
     /**
      * 退出
+     * @route   /api/sys/auth/logout
      */
     public function logout()
     {
@@ -59,6 +60,7 @@ class AuthController extends BaseController
     
     /**
      * 刷新token
+     * @route   /api/sys/auth/refresh
      */
     public function refresh()
     {
@@ -69,7 +71,7 @@ class AuthController extends BaseController
 
     /**
      * 修改管理员密码
-     * @route   /api/sys/password
+     * @route   /api/sys/auth/password
      * @method  post
      * @param string    $old_password
      * @param string    $new_password
@@ -92,6 +94,10 @@ class AuthController extends BaseController
         return $this->success();
     }
 
+    /**
+     * 读取登陆用户信息
+     * @route   /api/sys/auth/info
+     */
     public function info()
     {
         $admin = auth('api')->user();

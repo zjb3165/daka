@@ -21,4 +21,9 @@ Route::group(['middleware'=>'auth.sys'], function(){
         Route::delete('/{id}', ['uses'=>'AdminController@destroy']);
         Route::get('/{id}', ['uses'=>'AdminController@getInfo']);
     });
+
+    Route::group(['prefix'=>'setting'], function(){
+        Route::get('/', ['uses'=>'SettingController@get']);
+        Route::post('/', ['uses'=>'SettingController@save']);
+    });
 });
