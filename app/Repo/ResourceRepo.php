@@ -33,6 +33,7 @@ class ResourceRepo
         $resource->save();
         
         $this->appendTags($resource, $tags);
+        return $resource;
     }
 
     /**
@@ -51,6 +52,7 @@ class ResourceRepo
         $resource->save();
         
         $this->appendTags($resource, $tags);
+        return $resource;
     }
 
     /**
@@ -69,6 +71,7 @@ class ResourceRepo
         $resource->save();
 
         $this->appendTags($resource, $tags);
+        return $resource;
     }
 
     /**
