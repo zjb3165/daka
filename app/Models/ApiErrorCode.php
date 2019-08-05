@@ -8,6 +8,7 @@ namespace App\Models;
 
 class ApiErrorCode
 {
+    const NOTFOUND_ERROR = 404; //对象不存在
     const LOGIN_ERROR = 40001;  //登陆失败
     const TOKEN_ERROR = 40002;  //TOKEN验证失败
 

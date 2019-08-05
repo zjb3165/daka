@@ -108,18 +108,21 @@ class ResourceRepo
     /**
      * 读取资源列表
      * @param string    $category   默认image
-     * @param string    $tag        默认为空
+     * @param string    $tagid      默认1
      * @param integer   $page       默认1
      * @param integer   $pagesize   默认10
+     * @param array     $with       
      * @return array    [$count, $list]
      */
-    public function getList($category='image', $tag='', $page=1, $pagesize=10)
+    public function getList($category='image', $tagid=0, $page=1, $pagesize=10, $with=[])
     {
         $cursor = FileResource::where('category', $category)->where('status', FileResource::NORMAL);
-        if ($tag != '') {
-            $cursor->with(['tags' => function($query)use($tag){
-                return $query->where('title', $tag)->select('title');
+        if ($tagid > 0) {
+            $cursor->with(['tags' => function($query)use($tagid){
+                return $query->where('id', $tagid);
             }]);
+        } else if (in_array('tags', $with)) {
+            $cursor->with('tags');
         }
         $count = $cursor->count();
         $list = $cursor->skip(($page - 1) * $pagesize)->take($pagesize)->get();
@@ -142,9 +145,13 @@ class ResourceRepo
      * @param integer   $id
      * @return \App\Models\FileResource
      */
-    public function getById($id)
+    public function getById($id, $status=null)
     {
-        return FileResource::where('id', $id)->with('tags')->first();
+        $cursor = FileResource::where('id', $id);
+        if ($status != null) {
+            $cursor->where('status', $status);
+        }
+        return $cursor->with('tags')->first();
     }
     
     /**

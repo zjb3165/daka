@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Api\Sys;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Models\ApiErrorCode;
+use App\Models\FileResource;
 use App\Repo\ResourceRepo;
 use App\Utils\UploadTrait;
 use App\Utils\Exceptions\UploadException;
@@ -27,6 +28,9 @@ class ResourceController extends BaseController
 
     /**
      * 上传文件
+     * @route /api/sys/resource/upload
+     * @method post
+     * @param string    $type=image/video/audio/file
      */
     public function upload()
     {
@@ -70,5 +74,61 @@ class ResourceController extends BaseController
         } catch(UploadException $e) {
             return $this->_error(ApiErrorCode::UPLOAD_ERROR, '上传失败，原因：' . $e->getMessage());
         }
+    }
+
+    /**
+     * 读取图片列表
+     * @route /api/sys/resource
+     * @param integer   $tagid=0
+     * @param integer   $page=1
+     * @param integer   $pagesize=10
+     */
+    public function images()
+    {
+        $tagid = intval(request('tagid'));
+        $page = min(1, intval(request('page', 1)));
+        $pagesize = min(1, intval(request('pagesize', 10)));
+
+        list($count, $list) = $this->repo->getList(FileResource::IMAGE, $tagid, $page, $pagesize);
+        $pages = ceil($count / $pagesize);
+        $list = $list->map(function($res){
+            return [
+                'id' => $res->id,
+                'title' => $res->title,
+                'path' => $res->path,
+                'url' => resource_url($res->path),
+            ];
+        })->toArray();
+        
+        return $this->success(['list'=>$list, 'count'=>$count, 'pages'=>$pages]);
+    }
+
+    /**
+     * 资源信息
+     * @route /api/sys/resource/{id}
+     * @param integer   $id
+     */
+    public function info($id)
+    {
+        $resource = $this->repo->getById($id);
+        if ($resource == null) {
+            return $this->error(ApiErrorCode::NOTFOUND_ERROR, '资源不存在');
+        }
+        
+        $info = [
+            'id' => $resource->id,
+            'title' => $resource->title,
+            'category' => $resource->category,
+            'path' => $resource->path,
+            'url' => resource_url($resource->path),
+            'tags' => $resource->tags->map(function($tag){
+                return [
+                    'id' => $tag->id,
+                    'title' => $tag->title,
+                ];
+            })->toArray(),
+        ];
+        
+        return $this->success(['resource'=>$info]);
     }
 }
