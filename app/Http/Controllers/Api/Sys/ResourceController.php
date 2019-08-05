@@ -49,9 +49,8 @@ class ResourceController extends BaseController
                 $resource = $this->repo->addFiles($result['title'], $result['path'], $result['size'], $result['mime']);
                 break;
                 default:
-                $tags = $this->repo->addTags(['2019/08']);
                 $result = $this->_image('file');
-                $resource = $this->repo->addImage($result['title'], $result['path'], $result['size'], $result['mime'], $tags);
+                $resource = $this->repo->addImage($result['title'], $result['path'], $result['size'], $result['mime']);
                 break;
             }
             
