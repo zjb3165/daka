@@ -88,8 +88,8 @@ class ResourceController extends BaseController
     {
         $category = request('category');
         $tagid = intval(request('tagid'));
-        $page = min(1, intval(request('page', 1)));
-        $pagesize = min(1, intval(request('pagesize', 10)));
+        $page = max(1, intval(request('page', 1)));
+        $pagesize = max(1, intval(request('pagesize', 10)));
         if (! in_array($category, [FileResource::IMAGE, FileResource::VIDEO, FileResource::AUDIO, FileResource::FILE])) {
             $category = FileResource::IMAGE;
         }
