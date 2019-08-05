@@ -13,7 +13,11 @@ class ResourceRepo
 {
     private function appendTags(FileResource $resource, $tags=[])
     {
-        $tagids = array_map(function($tag){return $tag->id;}, $tags);
+        if (is_array($tags)) {
+            $tagids = array_map(function($tag){return $tag->id;}, $tags);
+        } else {
+            $tagids = $tags->map(function($tag){return $tag->id;})->toArray();
+        }
         $resource->tags()->sync($tagids);
     }
 
@@ -32,7 +36,9 @@ class ResourceRepo
         $resource->mime = $mime;
         $resource->save();
         
-        $this->appendTags($resource, $tags);
+        if (count($tags)) {
+            $this->appendTags($resource, $tags);
+        }
         return $resource;
     }
 
@@ -51,7 +57,9 @@ class ResourceRepo
         $resource->mime = $mime;
         $resource->save();
         
-        $this->appendTags($resource, $tags);
+        if (count($tags)) {
+            $this->appendTags($resource, $tags);
+        }
         return $resource;
     }
 
@@ -70,7 +78,30 @@ class ResourceRepo
         $resource->mime = $mime;
         $resource->save();
 
-        $this->appendTags($resource, $tags);
+        if (count($tags)) {
+            $this->appendTags($resource, $tags);
+        }
+        return $resource;
+    }
+
+    /**
+     * 其它文件
+     */
+    public function addFiles($title, $path, $size, $mime, $tags=[])
+    {
+        $resource = new FileResource();
+        $resource->category = FileResource::FILES;
+        $resource->title = $title;
+        $resource->path = $path;
+        $resource->src_path = $path;
+        $resource->size = $size;
+        $resource->status = FileResource::NORMAL;
+        $resource->mime = $mime;
+        $resource->save();
+
+        if (count($tags)) {
+            $this->appendTags($resource, $tags);
+        }
         return $resource;
     }
 
@@ -114,6 +145,46 @@ class ResourceRepo
     public function getById($id)
     {
         return FileResource::where('id', $id)->with('tags')->first();
+    }
+    
+    /**
+     * 删除资源
+     * @param integer|\App\Models\FileResource  $resource_or_id
+     */
+    public function delete($resource_or_id)
+    {
+        $resource = $resource_or_id;
+        if (is_numeric($resource_or_id)) {
+            $resource = FileResource::where('id', $resource_or_id)->first();
+        }
+
+        if ($resource != null) {
+            $resource->tags()->delete();
+            $resource->delete();
+        }
+    }
+    
+    /**
+     * 更新资源
+     * @param integer|\App\Models\FileResource  $resource_or_id
+     * @param string                            $title
+     * @param array                             $tags
+     * @return \App\Models\FileResource
+     */
+    public function updateResource($resource_or_id, $title, $tags=[])
+    {
+        $resource = $resource_or_id;
+        if (is_numeric($resource_or_id)) {
+            $resource = FileResource::where('id', $resource_or_id)->with('tags')->first();
+        }
+        
+        if ($resource == null) return null;
+
+        $tagids = array_map(function($tag){return $tag->id;}, $tags);
+        $resource->title = $title;
+        $resource->tags()->sync($tagids);
+        $resource->save();
+        return $resource;
     }
 
     /**

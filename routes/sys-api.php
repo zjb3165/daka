@@ -26,4 +26,9 @@ Route::group(['middleware'=>'auth.sys'], function(){
         Route::get('/', ['uses'=>'SettingController@get']);
         Route::post('/', ['uses'=>'SettingController@save']);
     });
+    
+    Route::group(['prefix'=>'resource'], function(){
+        Route::post('/upload', ['uses'=>'ResourceController@upload']);
+        Route::get('/test', ['uses'=>'ResourceController@test']);
+    });
 });

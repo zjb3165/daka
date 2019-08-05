@@ -16,7 +16,7 @@ class CreateFileResourcesTable extends Migration
         Schema::create('file_resources', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->enum('category', ['image', 'audio', 'video']);
+            $table->enum('category', ['image', 'audio', 'video', 'files']);
             $table->string('path', 150);
             $table->string('src_path', 150);
             $table->integer('size')->unsigned()->default(0);

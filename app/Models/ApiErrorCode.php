@@ -20,4 +20,6 @@ class ApiErrorCode
     const DELETE_ERROR = 40008; //删除失败
     const GET_ERROR = 40009;    //读取失败
     const VALIDATE_ERROR = 40010;   //验证失败
+
+    const UPLOAD_ERROR = 40011; //文件上传失败
 }

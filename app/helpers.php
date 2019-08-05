@@ -16,3 +16,9 @@ if (! function_exists('image_url')) {
         return '/storage/uploads/' . $path;
     }
 }
+
+if (! function_exists('resource_url')) {
+    function resource_url($path) {
+        return '/storage/uploads/' . $path;
+    }
+}

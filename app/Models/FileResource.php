@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * 资源文件
- * @property string     $category   文件类型: image/audio/video
+ * @property string     $category   文件类型: image/audio/video/files
  * @property string     $title      文件标题
  * @property string     $path       文件保存位置
  * @property string     $src_path   原文件保存位置
@@ -28,6 +28,7 @@ class FileResource extends Model
     const IMAGE = 'image';
     const VIDEO = 'video';
     const AUDIO = 'audio';
+    const FILES = 'files';
     
     protected $casts = [
         'size' => 'integer',
@@ -37,6 +38,6 @@ class FileResource extends Model
 
     public function tags()
     {
-        return $this->belongsTo(FileResourceTag::class, 'file_resource_tags_resources', 'resource_id', 'tag_id');
+        return $this->belongsToMany(FileResourceTag::class, 'file_resource_tags_resources', 'resource_id', 'tag_id');
     }
 }

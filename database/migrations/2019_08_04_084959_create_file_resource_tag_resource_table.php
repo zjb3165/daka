@@ -17,7 +17,6 @@ class CreateFileResourceTagResourceTable extends Migration
             $table->bigIncrements('id');
             $table->integer('resource_id')->unsigned();
             $table->integer('tag_id')->unsigned();
-            $table->timestamps();
 
             $table->index('resource_id');
             $table->index('tag_id');
