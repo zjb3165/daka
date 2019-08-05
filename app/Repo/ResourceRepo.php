@@ -90,7 +90,7 @@ class ResourceRepo
     public function addFiles($title, $path, $size, $mime, $tags=[])
     {
         $resource = new FileResource();
-        $resource->category = FileResource::FILES;
+        $resource->category = FileResource::FILE;
         $resource->title = $title;
         $resource->path = $path;
         $resource->src_path = $path;

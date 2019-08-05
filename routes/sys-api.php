@@ -28,8 +28,9 @@ Route::group(['middleware'=>'auth.sys'], function(){
     });
     
     Route::group(['prefix'=>'resource'], function(){
-        Route::post('/upload', ['uses'=>'ResourceController@upload']);
-        Route::get('/images', ['uses'=>'ResourceController@images']);
+        Route::get('/', ['uses'=>'ResourceController@lists']);
         Route::get('/{id}', ['uses'=>'ResourceController@info']);
+        Route::delete('/{id}', ['uses'=>'ResourceController@destroy']);
+        Route::post('/upload', ['uses'=>'ResourceController@upload']);
     });
 });

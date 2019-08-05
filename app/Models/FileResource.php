@@ -28,7 +28,7 @@ class FileResource extends Model
     const IMAGE = 'image';
     const VIDEO = 'video';
     const AUDIO = 'audio';
-    const FILES = 'files';
+    const FILE = 'files';
     
     protected $casts = [
         'size' => 'integer',

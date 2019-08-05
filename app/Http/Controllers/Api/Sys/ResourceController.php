@@ -79,17 +79,22 @@ class ResourceController extends BaseController
     /**
      * 读取图片列表
      * @route /api/sys/resource
+     * @param string    $category=image
      * @param integer   $tagid=0
      * @param integer   $page=1
      * @param integer   $pagesize=10
      */
-    public function images()
+    public function lists()
     {
+        $category = request('category');
         $tagid = intval(request('tagid'));
         $page = min(1, intval(request('page', 1)));
         $pagesize = min(1, intval(request('pagesize', 10)));
+        if (! in_array($category, [FileResource::IMAGE, FileResource::VIDEO, FileResource::AUDIO, FileResource::FILE])) {
+            $category = FileResource::IMAGE;
+        }
 
-        list($count, $list) = $this->repo->getList(FileResource::IMAGE, $tagid, $page, $pagesize);
+        list($count, $list) = $this->repo->getList($category, $tagid, $page, $pagesize);
         $pages = ceil($count / $pagesize);
         $list = $list->map(function($res){
             return [
@@ -130,5 +135,17 @@ class ResourceController extends BaseController
         ];
         
         return $this->success(['resource'=>$info]);
+    }
+    
+    /**
+     * 删除资源
+     * @route /api/sys/resource/{id}
+     * @method delete
+     * @param integer   $id
+     */
+    public function destroy($id)
+    {
+        $this->repo->delete($id);
+        return $this->success();
     }
 }
