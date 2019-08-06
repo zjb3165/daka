@@ -253,6 +253,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -489,7 +504,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".form-image-choose .form-image-item {\n  position: relative;\n  display: inline-block;\n  margin: 5px;\n  border: 1px solid #DCDFE6;\n  border-radius: 5px;\n  overflow: hidden;\n}\n.form-image-choose .form-image-item .mask {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: rgba(0, 0, 0, 0.7);\n  color: #fff;\n}\n.form-image-choose .form-image-item .mask .move-left {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 40px;\n  cursor: pointer;\n}\n.form-image-choose .form-image-item .mask .move-right {\n  position: absolute;\n  top: 0;\n  right: 0;\n  height: 40px;\n  cursor: pointer;\n}\n.form-image-choose .form-image-item .mask .delete {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  height: 40px;\n  cursor: pointer;\n}\n.form-image-choose .form-image-item .icon {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 25px;\n  height: 25px;\n  transform: translate(-50%, -50%);\n  font-size: 30px;\n}", ""]);
+exports.push([module.i, ".form-image-choose {\n  position: relative;\n}\n.form-image-choose .form-image-item {\n  position: relative;\n  display: inline-block;\n  margin: 5px;\n  border: 1px solid #DCDFE6;\n  border-radius: 5px;\n  overflow: hidden;\n  text-align: center;\n  vertical-align: top;\n  line-height: 0;\n}\n.form-image-choose .form-image-item .mask {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  height: 40px;\n  background: rgba(0, 0, 0, 0.7);\n  color: #fff;\n}\n.form-image-choose .form-image-item .mask .move-icon {\n  position: absolute;\n  height: 40px;\n  line-height: 40px;\n  cursor: pointer;\n}\n.form-image-choose .form-image-item .mask .move-icon.left {\n  top: 0;\n  left: 5px;\n}\n.form-image-choose .form-image-item .mask .move-icon.right {\n  top: 0;\n  right: 5px;\n}\n.form-image-choose .form-image-item .mask .move-icon.delete {\n  top: 0;\n  left: 50%;\n  transform: translate(-50%, 0);\n}\n.form-image-choose .form-image-item .icon {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 25px;\n  height: 25px;\n  transform: translate(-50%, -50%);\n  font-size: 30px;\n}\n.form-image-choose .form-image-item.single {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  border: none;\n}\n.form-image-choose .form-image-item.single .icon {\n  display: none;\n}", ""]);
 
 // exports
 
@@ -735,10 +750,13 @@ var render = function() {
           {
             key: item,
             staticClass: "form-image-item",
-            style: { width: _vm.itemSize + "px", height: _vm.itemSize + "px" }
+            style: { width: _vm.itemSize + "px" }
           },
           [
-            _c("el-image", { attrs: { src: "/storage/uploads/" + item } }),
+            _c("el-image", {
+              style: { height: _vm.itemSize + "px" },
+              attrs: { src: "/storage/uploads/" + item, fit: "contain" }
+            }),
             _vm._v(" "),
             _vm.multiple
               ? _c("div", { staticClass: "mask" }, [
@@ -746,7 +764,7 @@ var render = function() {
                     ? _c(
                         "div",
                         {
-                          staticClass: "move-left",
+                          staticClass: "move-icon left",
                           on: {
                             click: function($event) {
                               $event.stopPropagation()
@@ -762,7 +780,7 @@ var render = function() {
                     ? _c(
                         "div",
                         {
-                          staticClass: "move-right",
+                          staticClass: "move-icon right",
                           on: {
                             click: function($event) {
                               $event.stopPropagation()
@@ -777,7 +795,7 @@ var render = function() {
                   _c(
                     "div",
                     {
-                      staticClass: "delete",
+                      staticClass: "move-icon delete",
                       on: {
                         click: function($event) {
                           $event.stopPropagation()
@@ -794,26 +812,22 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _vm.images.length === 0 || _vm.multiple
-        ? _c(
-            "div",
-            {
-              staticClass: "form-image-item",
-              style: {
-                width: _vm.itemSize + "px",
-                height: _vm.itemSize + "px"
-              },
-              on: { click: _vm.showImageDialog },
-              nativeOn: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.showImageDialog($event)
-                }
-              }
-            },
-            [_c("i", { staticClass: "icon el-icon-plus" })]
-          )
-        : _vm._e()
+      _c(
+        "div",
+        {
+          staticClass: "form-image-item",
+          class: { single: !_vm.multiple && _vm.images.length > 0 },
+          style: { width: _vm.itemSize + "px", height: _vm.itemSize + "px" },
+          on: { click: _vm.showImageDialog },
+          nativeOn: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.showImageDialog($event)
+            }
+          }
+        },
+        [_c("i", { staticClass: "icon el-icon-plus" })]
+      )
     ],
     2
   )
