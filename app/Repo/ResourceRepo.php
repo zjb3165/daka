@@ -125,7 +125,8 @@ class ResourceRepo
             $cursor->with('tags');
         }
         $count = $cursor->count();
-        $list = $cursor->skip(($page - 1) * $pagesize)->take($pagesize)->get();
+        $list = $cursor->skip(($page - 1) * $pagesize)->take($pagesize)
+            ->orderBy('id', 'desc')->get();
         
         return [$count, $list];
     }

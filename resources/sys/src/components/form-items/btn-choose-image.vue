@@ -122,7 +122,7 @@ export default {
                     if (this.value && this.value.length) return this.value
                     return []
                 } else {
-                    if (this.value == '') return []
+                    if (!this.value || this.value === '') return []
                     return [this.value]
                 }
             },

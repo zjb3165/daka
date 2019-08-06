@@ -40,15 +40,7 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item label="公众号二维码">
-                    <el-input placehlder="请选择二维码"
-                        v-model="setting.qrcode"
-                    ></el-input>
-                </el-form-item>
-                <el-form-item label="公众号二维码">
-                    <btn-choose-image :name="'qrcode'" :multiple="false" v-model="qrcode" />
-                </el-form-item>
-                <el-form-item label="公众号相册">
-                    <btn-choose-image :name="'qrthumbs'" :multiple="true" v-model="thumbs" />
+                    <btn-choose-image :name="'qrcode'" :multiple="false" v-model="setting.qrcode" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="handleSave">保存</el-button>
@@ -70,7 +62,6 @@ export default {
             showImageDlg: false,
             loading: false,
             qrcode: '20190805/15650104265d4829fa5a85e.jpg',
-            thumbs: []
         }
     },
     components: {

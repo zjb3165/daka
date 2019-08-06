@@ -16,9 +16,13 @@ export const resource = {
         pagesize: 12,           //每页数量
         count: 0,               //总资源数量
         pages: 0,               //总页数
+        uploadAction: '/api/sys/resource/upload',
     },
     actions: {
-        toggleDialog({ commit }, options={}) {
+        toggleDialog({ commit, state, dispatch }, options={}) {
+            if (! state.showDialog) {
+                dispatch('getImages', 0, 1)
+            }
             commit('TOGGLE_DIALOG_SHOW')
             commit('SET_OPENER', options.opener || '')
             commit('SET_MULTI_CHECK', options.multiCheck || false)
@@ -152,5 +156,6 @@ export const resource = {
         page: state => state.page,
         count: state => state.count,
         pagesize: state => state.pagesize,
+        uploadAction: state => state.uploadAction,
     }
 }
