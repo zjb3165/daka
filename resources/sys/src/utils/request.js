@@ -16,7 +16,6 @@ service.interceptors.request.use(
         return config
     },
     error => {
-        console.log(error)
         return Promise.reject(error)
     },
 )
@@ -30,7 +29,7 @@ service.interceptors.response.use(
                 duration: 5000,
             })
             if (res.code === 40002) {
-                MessageBox.alert('登陆时间超时，请重新登陆', '重新登陆', {
+                MessageBox.alert('访问失败，请刷新重试', '', {
                     confirmButtonText: '确定',
                     callback: () => {
                         router.push('/login?redirect=' + router.currentRoute.path)

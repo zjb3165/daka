@@ -44,16 +44,18 @@
                         v-model="setting.qrcode"
                     ></el-input>
                 </el-form-item>
-                <el-form-item>
-                    <el-button @click="toggleDialog('dlg1')">选择图片1</el-button>
-                    <el-button @click="toggleDialog('dlg2')">选择图片2</el-button>
+                <el-form-item label="公众号二维码">
+                    <btn-choose-image :name="'qrcode'" :multiple="false" v-model="qrcode" />
+                </el-form-item>
+                <el-form-item label="公众号相册">
+                    <btn-choose-image :name="'qrthumbs'" :multiple="true" v-model="thumbs" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="handleSave">保存</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
-        <image-dialog v-on:check-result="handleCheckResult"></image-dialog>
+        <image-dialog></image-dialog>
     </div>
 </template>
 
@@ -61,15 +63,19 @@
 import { mapGetters } from 'vuex'
 import { Message } from 'element-ui'
 import ImageDialog from '../../components/dialog/images'
+import BtnChooseImage from '../../components/form-items/btn-choose-image'
 export default {
     data() {
         return {
             showImageDlg: false,
-            loading: false
+            loading: false,
+            qrcode: '20190805/15650104265d4829fa5a85e.jpg',
+            thumbs: []
         }
     },
     components: {
         ImageDialog,
+        BtnChooseImage,
     },
     created() {
         this.loading = true
@@ -97,9 +103,6 @@ export default {
                     duration: 2000,
                 })
             })
-        },
-        handleCheckResult(opener, checkedList) {
-            console.log(opener, checkedList)
         }
     }
 }

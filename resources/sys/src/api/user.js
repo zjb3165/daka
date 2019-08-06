@@ -8,7 +8,7 @@ export default {
         })
     },
     refresh: function() {
-        return request.get('/refresh')
+        return request.get('/auth/refresh')
     },
     updatePassword: function(old_pwd, new_pwd) {
         return request.post('/auth/password', {

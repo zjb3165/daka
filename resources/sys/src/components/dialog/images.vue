@@ -24,6 +24,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import CheckImage from './check-image'
+import { EventBus } from '../../event-bus'
+
 export default {
     components: {
         CheckImage
@@ -42,6 +44,12 @@ export default {
     },
     mounted() {
         this.$store.dispatch('resource/getImages', {tagid:0, page:1})
+        EventBus.$on('image-dialog-show', function(opener, multiple){
+            this.$store.dispatch('resource/toggleDialog', {
+                opener: opener,
+                multiCheck: multiple
+            })
+        }.bind(this))
     },
     methods: {
         toggleCheck(id) {
@@ -51,7 +59,9 @@ export default {
             this.$store.dispatch('resource/pageChange', page)
         },
         handlePrimary() {
-            this.$emit('check-result', this.opener, this.checkedList)
+            let list = this._.map(this.checkedList, 'path')
+            this.$emit('check-result', this.opener, list)
+            EventBus.$emit('image-dialog-check-result', this.opener, list)
             this.$store.dispatch('resource/toggleDialog')
         },
         handleHide() {
