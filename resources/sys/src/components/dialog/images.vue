@@ -30,6 +30,7 @@ export default {
     },
     computed: {
         ...mapGetters({
+            opener: 'resource/opener',
             showDialog: 'resource/showDialog',
             loading: 'resource/listLoading',
             list: 'resource/list',
@@ -50,7 +51,8 @@ export default {
             this.$store.dispatch('resource/pageChange', page)
         },
         handlePrimary() {
-            console.log(this.checkedList)
+            this.$emit('check-result', this.opener, this.checkedList)
+            this.$store.dispatch('resource/toggleDialog')
         },
         handleHide() {
             this.$store.dispatch('resource/toggleDialog')

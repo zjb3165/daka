@@ -3,9 +3,10 @@ import ResourceApi from '../../api/resource'
 export const resource = {
     namespaced: true,
     state: {
+        opener: '',             //打开对话框用户
         showDialog: false,      //显示选择对话框
         listLoading: false,     //是否在加载列表
-        multiCheck: false,    //是否可选择多个
+        multiCheck: false,      //是否可选择多个
         list: [],               //列表数据
         tags: [],               //标签列表
         checkedList: [],        //选中的资源文件
@@ -17,9 +18,10 @@ export const resource = {
         pages: 0,               //总页数
     },
     actions: {
-        toggleDialog({ commit }, multiCheck=false) {
+        toggleDialog({ commit }, options={}) {
             commit('TOGGLE_DIALOG_SHOW')
-            commit('SET_MULTI_CHECK', multiCheck)
+            commit('SET_OPENER', options.opener || '')
+            commit('SET_MULTI_CHECK', options.multiCheck || false)
             commit('CLEAR_CHECKED')
         },
         getImages({ commit, state }, { tagid, page }) {
@@ -63,6 +65,9 @@ export const resource = {
     mutations: {
         TOGGLE_DIALOG_SHOW: (state) => {
             state.showDialog = !state.showDialog
+        },
+        SET_OPENER: (state, opener) => {
+            state.opener = opener
         },
         SET_LIST: (state, data) => {
             state.list = _.map(data.list, (item) => {
@@ -138,6 +143,7 @@ export const resource = {
         }
     },
     getters: {
+        opener: state => state.opener,
         showDialog: state => state.showDialog,
         listLoading: state => state.listLoading,
         list: state => state.list,

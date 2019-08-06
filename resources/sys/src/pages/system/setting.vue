@@ -45,14 +45,15 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button @click="toggleDialog">选择图片</el-button>
+                    <el-button @click="toggleDialog('dlg1')">选择图片1</el-button>
+                    <el-button @click="toggleDialog('dlg2')">选择图片2</el-button>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="handleSave">保存</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
-        <image-dialog></image-dialog>
+        <image-dialog v-on:check-result="handleCheckResult"></image-dialog>
     </div>
 </template>
 
@@ -82,8 +83,8 @@ export default {
         })
     },
     methods: {
-        toggleDialog() {
-            this.$store.dispatch('resource/toggleDialog')
+        toggleDialog(opener) {
+            this.$store.dispatch('resource/toggleDialog', {opener: opener})
         },
         handleSave() {
             this.$store.dispatch('settings/saveSetting', {
@@ -96,6 +97,9 @@ export default {
                     duration: 2000,
                 })
             })
+        },
+        handleCheckResult(opener, checkedList) {
+            console.log(opener, checkedList)
         }
     }
 }

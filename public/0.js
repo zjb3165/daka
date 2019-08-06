@@ -115,6 +115,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     CheckImage: _check_image__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    opener: 'resource/opener',
     showDialog: 'resource/showDialog',
     loading: 'resource/listLoading',
     list: 'resource/list',
@@ -137,7 +138,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('resource/pageChange', page);
     },
     handlePrimary: function handlePrimary() {
-      console.log(this.checkedList);
+      this.$emit('check-result', this.opener, this.checkedList);
+      this.$store.dispatch('resource/toggleDialog');
     },
     handleHide: function handleHide() {
       this.$store.dispatch('resource/toggleDialog');
@@ -224,6 +226,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -249,8 +252,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     setting: 'settings/setting'
   })),
   methods: {
-    toggleDialog: function toggleDialog() {
-      this.$store.dispatch('resource/toggleDialog');
+    toggleDialog: function toggleDialog(opener) {
+      this.$store.dispatch('resource/toggleDialog', {
+        opener: opener
+      });
     },
     handleSave: function handleSave() {
       this.$store.dispatch('settings/saveSetting', {
@@ -263,6 +268,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           duration: 2000
         });
       });
+    },
+    handleCheckResult: function handleCheckResult(opener, checkedList) {
+      console.log(opener, checkedList);
     }
   }
 });
@@ -644,9 +652,29 @@ var render = function() {
               _c(
                 "el-form-item",
                 [
-                  _c("el-button", { on: { click: _vm.toggleDialog } }, [
-                    _vm._v("选择图片")
-                  ])
+                  _c(
+                    "el-button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.toggleDialog("dlg1")
+                        }
+                      }
+                    },
+                    [_vm._v("选择图片1")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.toggleDialog("dlg2")
+                        }
+                      }
+                    },
+                    [_vm._v("选择图片2")]
+                  )
                 ],
                 1
               ),
@@ -672,7 +700,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("image-dialog")
+      _c("image-dialog", { on: { "check-result": _vm.handleCheckResult } })
     ],
     1
   )
