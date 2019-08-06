@@ -8,7 +8,7 @@
                     </el-col>
                 </el-row>
             </div>
-            <el-form :label-position="'right'" label-width="200px" style="padding-top:20px;">
+            <el-form :label-position="'right'" label-width="200px" style="padding-top:20px;" v-loading="loading">
                 <el-form-item label="微信公众号名称">
                     <el-input placeholder="请填写公众号名称"
                         v-model="setting.name"
@@ -64,13 +64,17 @@ export default {
     data() {
         return {
             showImageDlg: false,
+            loading: false
         }
     },
     components: {
         ImageDialog,
     },
     created() {
-        this.$store.dispatch('settings/getSetting', 'wechat')
+        this.loading = true
+        this.$store.dispatch('settings/getSetting', 'wechat').then(() => {
+            this.loading = false
+        })
     },
     computed: {
         ...mapGetters({

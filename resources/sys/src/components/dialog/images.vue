@@ -1,20 +1,9 @@
-<style lang="scss" scoped>
-.dialog-img{
-    width:200px;
-    height:200px;
-    text-align:center;
-    line-height:200px;
-}
-</style>
-
 <template>
     <el-dialog title="选择图片" :visible.sync="showDialog" :before-close="handleHide">
         <div v-loading="loading">
             <el-row :gutter="10">
                 <el-col :span="6" v-for="item in list" :key="item.id" style="margin-bottom:5px;">
-                    <el-card shadow="hover">
-                        <el-image :src="item.url" fit="fill"></el-image>
-                    </el-card>
+                    <check-image shadow="hover" :src="item.url" :checked="item.checked" @click.prevent.native="toggleCheck(item.id)" />
                 </el-col>
             </el-row>
             <el-pagination small 
@@ -26,25 +15,25 @@
             ></el-pagination>
         </div>
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="handlePrimary">确定</el-button>
             <el-button @click="handleHide">取消</el-button>
+            <el-button type="primary" @click="handlePrimary">确定</el-button>
         </div>
     </el-dialog>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import CheckImage from './check-image'
 export default {
-    data() {
-        return {
-            loadComponent: undefined,
-        }
+    components: {
+        CheckImage
     },
     computed: {
         ...mapGetters({
             showDialog: 'resource/showDialog',
             loading: 'resource/listLoading',
             list: 'resource/list',
+            checkedList: 'resource/checkedList',
             page: 'resource/page',
             count: 'resource/count',
             pagesize: 'resource/pagesize',
@@ -54,11 +43,14 @@ export default {
         this.$store.dispatch('resource/getImages', {tagid:0, page:1})
     },
     methods: {
+        toggleCheck(id) {
+            this.$store.dispatch('resource/toggleCheck', id)
+        },
         handlePageChange(page) {
             this.$store.dispatch('resource/pageChange', page)
         },
         handlePrimary() {
-            console.log(this.pages)
+            console.log(this.checkedList)
         },
         handleHide() {
             this.$store.dispatch('resource/toggleDialog')
