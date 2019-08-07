@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Goal extends Model
 {
+    protected $fillable = ['start_time', 'end_time', 'credits', 'reply', 'checked_reply', 'not_in_time_reply', 'order_index'];
     protected $casts = [
         'start_time' => 'integer',
         'end_time' => 'integer',

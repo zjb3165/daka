@@ -5,7 +5,7 @@
             <headnav />
             <el-main>
                 <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-                    <el-breadcrumb-item v-for="title in _.map(breads, 'meta.title')" :key="title">
+                    <el-breadcrumb-item v-for="(title, index) in _.map(breads, 'meta.title')" :key="index">
                         {{ title }}
                     </el-breadcrumb-item>
                 </el-breadcrumb>

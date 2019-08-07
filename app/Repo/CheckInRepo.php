@@ -9,6 +9,7 @@ namespace App\Repo;
 use App\Models\Goal;
 use App\Models\Member;
 use App\Models\MemberGoalRecord;
+use App\Repo\Exceptions\RepoException;
 
 /**
  * 打卡管理
@@ -141,5 +142,38 @@ class CheckInRepo
         $records = $this->getTodayGoalRecords($member, $goal);
         if (count($records)) return true;
         return false;
+    }
+
+    /**
+     * 读取打卡目标列表
+     */
+    public function getGoalList()
+    {
+        return Goal::query()->orderBy('order_index', 'desc')->orderBy('id', 'asc')->get();
+    }
+
+    /**
+     * 更新打卡目标
+     * @param integer|\App\Models\Goal  $goal_or_id
+     * @param array                     $datas
+     * @return \App\Models\Goal
+     */
+    public function updateGoal($goal_or_id, $datas)
+    {
+        $goal = $goal_or_id;
+        if (is_numeric($goal_or_id)) {
+            $goal = Goal::find($goal_or_id);
+        }
+        if ($goal == null) {
+            throw new RepoException('打卡目标不存在');
+        }
+
+        if (isset($datas['title']) && $datas['title'] != '') {
+            $goal->title = $datas['title'];
+        }
+        $goal->fill($datas);
+        $goal->save();
+
+        return $goal;
     }
 }

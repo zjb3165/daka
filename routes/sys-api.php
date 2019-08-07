@@ -33,4 +33,10 @@ Route::group(['middleware'=>'auth.sys'], function(){
         Route::delete('/{id}', ['uses'=>'ResourceController@destroy']);
         Route::post('/upload', ['uses'=>'ResourceController@upload']);
     });
+
+    Route::group(['prefix'=>'goal'], function(){
+        Route::get('/', ['uses'=>'CheckinController@getGoals']);
+        Route::get('/{id}', ['uses'=>'CheckinController@getGoal']);
+        Route::post('/{id}', ['uses'=>'CheckinController@updateGoal']);
+    });
 });

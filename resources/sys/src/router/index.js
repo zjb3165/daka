@@ -50,6 +50,19 @@ const constantRoutes = [
                 meta: {title: '微信公众号设置'}
             }
         ]
+    },
+    {
+        path: '/goal',
+        component:Layout,
+        meta: {title: '打卡目标管理'},
+        children: [
+            {
+                path: '/',
+                name: 'goal',
+                component: () => import('../pages/goal'),
+                meta: {title: '打卡目标管理'},
+            }
+        ]
     }
 ]
 

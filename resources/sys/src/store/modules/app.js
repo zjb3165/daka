@@ -18,17 +18,33 @@ const state = {
                 icon: 'el-icon-menu',
                 children: [
                     {
-                        menuId: 3,
+                        menuId: 201,
                         title: '系统用户管理',
-                        menuCode: 'admin',
+                        menuCode: 'system-admin',
                         link: '/system/admin',
                         icon: 'el-icon-menu',
                     },
                     {
-                        menuId: 4,
+                        menuId: 202,
                         title: '微信设置',
-                        menuCode: 'weixin',
+                        menuCode: 'system-weixin',
                         link: '/system/setting',
+                        icon: 'el-icon-menu'
+                    }
+                ]
+            },
+            {
+                menuId: 3,
+                title: '打卡管理',
+                menuCode: 'goal',
+                link: '/goal',
+                icon: 'el-icon-menu',
+                children: [
+                    {
+                        menuId: 301,
+                        title: '打卡管理',
+                        menuCode: 'goal-goal',
+                        link: '/goal',
                         icon: 'el-icon-menu'
                     }
                 ]
