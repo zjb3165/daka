@@ -18,17 +18,23 @@ const constantRoutes = [
         meta: {title: '首页'},
         children: [
             {
-                path: 'dashboard',
+                path: '/dashboard',
                 name: 'dashboard',
                 component: () => import('../pages/home'),
                 meta: {title: '概览'}
             },
             {
-                path: 'password',
+                path: '/password',
                 name: 'password',
                 component: () => import('../pages/user/password'),
                 meta: {title: '修改密码'}
             },
+            {
+                path: '/member',
+                name: 'member',
+                component: () => import('../pages/member/index'),
+                meta: {title: '会员管理'},
+            }
         ]
     },
     {
@@ -63,7 +69,7 @@ const constantRoutes = [
                 meta: {title: '打卡目标管理'},
             }
         ]
-    }
+    },
 ]
 
 const createRouter = () => new Router({

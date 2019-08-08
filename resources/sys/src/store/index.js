@@ -5,6 +5,7 @@ import { settings } from './modules/settings'
 import { admins } from './modules/admins'
 import { resource } from './modules/resource'
 import { goal } from './modules/goal'
+import { member } from './modules/member'
 import app from './modules/app'
 
 Vue.use(Vuex)
@@ -17,6 +18,7 @@ const store = new Vuex.Store({
         admins,
         resource,
         goal,
+        member,
     }
 })
 

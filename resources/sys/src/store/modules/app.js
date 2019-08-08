@@ -48,6 +48,22 @@ const state = {
                         icon: 'el-icon-menu'
                     }
                 ]
+            },
+            {
+                menuId: 4,
+                title: '会员管理',
+                menuCode: 'member',
+                link: '/member',
+                icon: 'el-icon-menu',
+                children: [
+                    {
+                        menuId: 401,
+                        title: '会员管理',
+                        menuCode: 'member-member',
+                        link: '/member',
+                        icon: 'el-icon-menu'
+                    }
+                ]
             }
         ],
         withoutAnimation: false,
