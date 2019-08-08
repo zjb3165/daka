@@ -74,6 +74,7 @@ class MemberRepo
         $member->credits = 0;
         $member->balance = 0;
         $member->subscribed_at = isset($info['subscribe_time']) ? $info['subscribe_time'] : 0;
+        $member->interaction_at = time();
         $member->actived_at = time();
         if (isset($info['parent_id']) && $info['parent_id'] > 0) {
             $parent = Member::find($info['parent_id']);
@@ -82,6 +83,8 @@ class MemberRepo
                 $member->parent_path = $parent->parent_path != '' ? $parent->parent_path . ',' . $parent->id : $parent->id;
             }
         }
+        $member->memos = '';
+        $member->weixin_infos = $info;
         $member->save();
 
         return $member;
@@ -136,6 +139,7 @@ class MemberRepo
         }
         $login = $this->getSocial($openid, $type);
 
+        $member = null;
         if ($login != null) {
             $member = $this->getMemberById($login->member_id);
         }
@@ -153,7 +157,7 @@ class MemberRepo
     /**
      * 更新会员信息
      * @param mixed     $member_or_id
-     * @param array     $info
+     * @param array     $info   ['nickname', 'headimgurl', 'phone', 'sex', 'birthday', 'subscribe_time', 'actived_at', 'memos']
      * @return App\Models\Member
      */
     public function updateMember($member_or_id, $info)
@@ -184,6 +188,9 @@ class MemberRepo
         }
         if (isset($info['actived_at'])) {
             $member->actived_at = $info['actived_at'];
+        }
+        if (isset($info['memos'])) {
+            $member->memos = $info['memos'];
         }
         $member->save();
         return $member;
@@ -306,5 +313,49 @@ class MemberRepo
         
         if (empty($friend_ids)) return [];
         return Member::whereIn('id', $friend_ids)->get();
+    }
+    
+    /**
+     * 会员列表
+     * @param integer   $parent_id      推荐人id,默认0
+     * @param string    $nickname       昵称，默认空
+     * @param string    $order          排序，默认空，可选subscribed_asc/subscribed_desc/actived_asc/actived_desc
+     * @param integer   $page
+     * @param integer   $pagesize
+     * @param array     $with           关联对象
+     * @return array    [$count, $list]
+     */
+    public function getMemberList($parent_id=0, $nickname='', $order='', $page=1, $pagesize=10, $with=[])
+    {
+        $cursor = Member::query();
+        if ($parent_id > 0) {
+            $cursor->where('parent_id', $parent_id);
+        }
+        if ($nickname != '') {
+            $cursor->where('nickname', 'like', '%'. $nickname .'%');
+        }
+        if (count($with)) {
+            $cursor->with($with);
+        }
+        switch($order) {
+            case 'subscribed_asc':
+            $cursor->orderBy('subscribed_at', 'asc');
+            break;
+            case 'subscribed_desc':
+            $cursor->orderBy('subscribed_at', 'desc');
+            break;
+            case 'actived_asc':
+            $cursor->orderBy('actived_at', 'asc');
+            break;
+            case 'actived_desc':
+            $cursor->orderBy('actived_at', 'desc');
+            break;
+        }
+        $cursor->orderBy('id', 'desc');
+        
+        $count = $cursor->count();
+        $list = $cursor->skip(($page - 1) * $pagesize)->take($pagesize)->get();
+        
+        return [$count, $list];
     }
 }

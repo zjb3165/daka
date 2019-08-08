@@ -39,4 +39,10 @@ Route::group(['middleware'=>'auth.sys'], function(){
         Route::get('/{id}', ['uses'=>'CheckinController@getGoal']);
         Route::post('/{id}', ['uses'=>'CheckinController@updateGoal']);
     });
+
+    Route::group(['prefix'=>'member'], function(){
+        Route::get('/', ['uses'=>'MemberController@index']);
+        Route::get('/{id}', ['uses'=>'MemberController@show']);
+        Route::post('/{id}', ['uses'=>'MemberController@update']);
+    });
 });
