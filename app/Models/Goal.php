@@ -16,15 +16,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property    string  $reply          打卡回复
  * @property    string  $checked_reply  已打过卡回复
  * @property    string  $not_in_time_reply  不在打卡时间内回复
+ * @property    string  $code           打卡目标唯一编号
+ * @property    boolean $repeat         当天是否可重复打卡
  * @property    string  $order_index    排序位置
  */
 class Goal extends Model
 {
-    protected $fillable = ['start_time', 'end_time', 'credits', 'reply', 'checked_reply', 'not_in_time_reply', 'order_index'];
+    protected $fillable = ['start_time', 'end_time', 'credits', 'reply', 'checked_reply', 'not_in_time_reply', 'order_index', 'repeat'];
     protected $casts = [
         'start_time' => 'integer',
         'end_time' => 'integer',
         'credits' => 'integer',
         'order_index' => 'integer',
+        'repeat' => 'boolean',
     ];
 }

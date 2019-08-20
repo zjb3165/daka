@@ -39,6 +39,8 @@ class CheckinController extends BaseController
                 'end_time' => $goal->end_time,
                 'credits' => $goal->credits,
                 'orderindex' => $goal->orderindex,
+                'repeat' => $goal->repeat,
+                'code' => $goal->code,
             ];
         })->toArray();
 
@@ -67,6 +69,7 @@ class CheckinController extends BaseController
             'reply' => $goal->reply,
             'checked_reply' => $goal->checked_reply,
             'not_in_time_reply' => $goal->not_in_time_reply,
+            'repeat' => $goal->repeat,
         ];
         return $this->success(['goal'=>$goal]);
     }
@@ -97,6 +100,7 @@ class CheckinController extends BaseController
             'reply' => $goal->reply,
             'checked_reply' => $goal->checked_reply,
             'not_in_time_reply' => $goal->not_in_time_reply,
+            'repeat' => $goal->repeat,
         ];
         return $this->success(['goal' => $goal]);
     }

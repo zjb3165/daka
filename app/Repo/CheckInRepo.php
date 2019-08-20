@@ -38,6 +38,7 @@ class CheckInRepo
             $record->save();
         }
         
+        //todo 重复打卡不计算积分和连续数量
         //todo 增加打卡积分
         //todo 连续打卡
 
@@ -111,6 +112,8 @@ class CheckInRepo
     public function canCheckIn(Member $member, Goal $goal, $hour)
     {
         if ($goal->start_time >= $hour || $goal->end_time < $hour) return false;    //不在打卡时间内
+        
+        if ($goal->repeat) return true; //目标可重复打卡直接返回
         
         $records = $this->getTodayGoalRecords($member, $goal);
         if (count($records)) return false;  //今日已打卡
