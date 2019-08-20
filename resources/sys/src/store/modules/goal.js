@@ -16,6 +16,7 @@ export const goal = {
             reply: '',
             checked_reply: '',
             not_in_time_reply: '',
+            repeat: false,
         },
         updating: false,
     },

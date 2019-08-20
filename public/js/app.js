@@ -33804,7 +33804,7 @@ var constantRoutes = [{
     path: '/',
     name: 'home',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../pages/home/index */ "./resources/front/src/pages/home/index.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../pages/home/index */ "./resources/front/src/pages/home/index.vue"));
     },
     meta: {
       title: 'home'

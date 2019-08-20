@@ -70,6 +70,12 @@
                         placeholder="请填写积分"
                     ></el-input>
                 </el-form-item>
+                <el-form-item label="是否可重复打卡" prop="repeat">
+                    <el-radio-group v-model="goal.repeat">
+                        <el-radio-button label="1">是</el-radio-button>
+                        <el-radio-button label="0">否</el-radio-button>
+                    </el-radio-group>
+                </el-form-item>
                 <el-form-item label="打卡完成回复">
                     <el-input type="textarea" v-model="goal.reply"
                         name="reply"

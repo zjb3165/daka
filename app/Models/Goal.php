@@ -28,6 +28,6 @@ class Goal extends Model
         'end_time' => 'integer',
         'credits' => 'integer',
         'order_index' => 'integer',
-        'repeat' => 'boolean',
+        'repeat' => 'integer',
     ];
 }
