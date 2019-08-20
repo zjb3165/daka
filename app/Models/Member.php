@@ -5,7 +5,7 @@
  */
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * 会员信息
@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string     $memos          管理员备注
  * @property array      $weixin_infos   微信原始信息
  */
-class Member extends Model
+class Member extends Authenticatable
 {
     protected $fillable = ['nickname', 'avatar', 'phone', 'gender', 'birthday',];
     protected $casts = [

@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use EasyWeChat\Factory;
-use EasyWeChat\OfficialAccount\Application;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,12 +24,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(EasyWeChat\OfficialAccount\Application::class, function($app){
+        $this->app->singleton(\EasyWeChat\OfficialAccount\Application::class, function($app){
+            $setting = $app->make(\App\Repo\SettingRepo::class);
+            $params = $setting->get('wechat');
             $config = [
-                'app_id' => '',
-                'secret' => '',
-                'token' => '',
-                'aes_key' => '',
+                'app_id' => $params['appid'] ?? '',
+                'secret' => $params['appsecret'] ?? '',
+                'token' => $params['token'] ?? '',
+                'aes_key' => $params['aeskey'] ?? '',
                 'response_type' => 'array',
 
                 'log' => [
@@ -51,9 +52,11 @@ class AppServiceProvider extends ServiceProvider
             ];
             return Factory::officialAccount($config);
         });
+
         $this->app->singleton(\App\Services\utils\RemoteCatch::class, function($app){
             return new \App\Services\utils\RemoteCatch();
         });
+
         $this->app->bind(\App\Services\image\ShareImageBuilderInterface::class, \App\Services\image\ShareImageBuilder::class);
     }
 }
