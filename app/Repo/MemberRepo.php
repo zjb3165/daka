@@ -299,9 +299,10 @@ class MemberRepo
     /**
      * 读取好友列表
      * @param mixed     $member_or_id
+     * @param array     $fields         返回字段，默认为全部
      * @return array
      */
-    public function getFriendList($member_or_id)
+    public function getFriendList($member_or_id, $fields=[])
     {
         if (is_numeric($member_or_id)){
             $member_id = $member_or_id;
@@ -314,8 +315,30 @@ class MemberRepo
                             return $item->friend_id;
                         })-toArray();
         
-        if (empty($friend_ids)) return [];
-        return Member::whereIn('id', $friend_ids)->get();
+        if (empty($friend_ids)) return collect([]);
+        $cursor = Member::whereIn('id', $friend_ids);
+        if (count($fields)) $cursor->select($fields);
+        return $cursor->orderBy('id', 'asc')->get();
+    }
+
+    /**
+     * 读取会员好友id列表
+     * @param mixed     $member_or_id
+     */
+    public function getFriendIds($member_or_id)
+    {
+        if (is_numeric($member_or_id)){
+            $member_id = $member_or_id;
+        } else {
+            $member_id = $member_or_id->id;
+        }
+
+        return MemberFriend::where('member_id', $member_id)
+                    ->get()
+                    ->map(function($item){
+                        return $item->friend_id;
+                    })
+                    -toArray();
     }
     
     /**

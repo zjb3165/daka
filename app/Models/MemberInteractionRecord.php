@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer    $category
  * @property string     $content
  */
-class MemberInteractionRecords extends Model
+class MemberInteractionRecord extends Model
 {
     const CATEGORY_SUBSCRIBE = 1;   //关注
     const CATEGORY_UNSUBSCRIBE = 2; //取关

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer    $member_id
  * @property integer    $ip
  */
-class MemberLoginRecords extends Model
+class MemberLoginRecord extends Model
 {
     protected $casts = [
         'member_id' => 'integer',

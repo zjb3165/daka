@@ -9,6 +9,8 @@ namespace App\Repo;
 use App\Models\Goal;
 use App\Models\Member;
 use App\Models\MemberGoalRecord;
+use App\Models\MemberRecordStat;
+use App\Models\MemberCreditRecord;
 use App\Repo\Exceptions\RepoException;
 
 /**
@@ -27,20 +29,28 @@ class CheckInRepo
         if ($goal == null) return null;
         $record = MemberGoalRecord::where('member_id', $member->id)
                 ->where('goal_id', $goal->id)->first();
-        if ($record == null) {
-            $record = new MemberGoalRecord();
-            $record->member_id = $member->id;
-            $record->goal_id = $goal->id;
-            $record->picture = $picture;
-            $record->save();
-        } else {
-            $record->picture = $picture;
-            $record->save();
+
+        \DB::beginTransaction();
+        try {
+            if ($record == null) {
+                $record = new MemberGoalRecord();
+                $record->member_id = $member->id;
+                $record->goal_id = $goal->id;
+                $record->picture = $picture;
+                $record->save();
+
+                $this->updateRcordStat($member, $goal);
+                $this->updateMemberCredits($member, $goal->credits);
+            } else {
+                $record->picture = $picture;
+                $record->save();
+            }
+            \DB::commit();
+        } catch(\Exception $e) {
+            \Log::info('打卡失败');
+            \Log::info($e);
+            \DB::rollBack();
         }
-        
-        //todo 重复打卡不计算积分和连续数量
-        //todo 增加打卡积分
-        //todo 连续打卡
 
         return $record;
     }
@@ -114,7 +124,7 @@ class CheckInRepo
         if ($goal->start_time >= $hour || $goal->end_time < $hour) return false;    //不在打卡时间内
         
         if ($goal->repeat) return true; //目标可重复打卡直接返回
-        
+
         $records = $this->getTodayGoalRecords($member, $goal);
         if (count($records)) return false;  //今日已打卡
         
@@ -178,5 +188,52 @@ class CheckInRepo
         $goal->save();
 
         return $goal;
+    }
+
+    /**
+     * 更新用户打卡记录
+     */
+    private function updateRecordStat(Member $member, Goal $goal)
+    {
+        $stat = MemberRecordStat::where('member_id', $member->id)
+                    ->where('goal_id', $goal->id)->first();
+        if ($stat == null) {
+            $stat = new MemberRecordStat();
+            $stat->member_id = $member->id;
+            $stat->goal_id = $goal->id;
+            $stat->total_count = 0;
+            $stat->link_count = 0;
+        }
+        
+        $stat->total_count++;
+        
+        $yestory = date('Y-m-d', strtotime('-1 day'));
+        $yestory_record = MemberGoalRecord::where('member_id', $member->id)
+                                ->where('goal_id', $goal->id)
+                                ->whereBetween('created_at', [$yestory . ' 00:00:00', $yestory . ' 23:59:59'])
+                                ->first();
+        if ($yestory_record == null) {
+            $stat->link_count = 1;
+        } else {
+            $stat->link_count++;
+        }
+        $stat->save();
+    }
+
+    /**
+     * 更新用户积分
+     */
+    private function updateMemberCredits(Member $member, $credits)
+    {
+        $member->credits += $credits;
+        $member->save();
+
+        $record = new MemberCreditRecord();
+        $record->member_id = $member->id;
+        $record->credit = $credits;
+        $record->type = MemberCreditRecord::TYPE_INC;
+        $record->category = MemberCreditRecord::CATEGORY_CREDIT;
+        $record->remark = '用户打卡积分';
+        $record->save();
     }
 }
