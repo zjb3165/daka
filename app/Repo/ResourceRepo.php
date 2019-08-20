@@ -9,6 +9,9 @@ namespace App\Repo;
 use App\Models\FileResource;
 use App\Models\FileResourceTag;
 
+/**
+ * 上传资源文件操作
+ */
 class ResourceRepo
 {
     private function appendTags(FileResource $resource, $tags=[])

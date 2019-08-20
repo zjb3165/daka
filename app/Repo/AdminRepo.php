@@ -9,6 +9,9 @@ namespace App\Repo;
 use App\Models\Admin;
 use App\Repo\Exceptions\RepoException;
 
+/**
+ * 管理员操作
+ */
 class AdminRepo
 {
     /**

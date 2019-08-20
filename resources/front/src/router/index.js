@@ -1,11 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from '../store'
 
 Vue.use(Router)
 
-const constantRoutes = [
+import Layout from '../layout/index'
 
+const constantRoutes = [
+    {
+        path: '/',
+        component: Layout,
+        children: [
+            {
+                path: '/',
+                name: 'home',
+                component: () => import('../pages/home/index'),
+                meta: {title: 'home'}
+            }
+        ]
+    }
 ]
 
 const createRouter = () => new Router({

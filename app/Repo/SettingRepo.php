@@ -8,6 +8,9 @@ namespace App\Repo;
 
 use App\Models\Setting;
 
+/**
+ * 配置管理操作
+ */
 class SettingRepo
 {
     /**

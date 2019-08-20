@@ -11,6 +11,6 @@
     <div id="app">
         <router-view />
     </div>
-    <script src="{{ asset('js/front.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

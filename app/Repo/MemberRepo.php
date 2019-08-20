@@ -11,6 +11,9 @@ use App\Models\SocialLogins;
 use App\Models\QrTicket;
 use App\Models\MemberFriend;
 
+/**
+ * 会员操作
+ */
 class MemberRepo
 {
     /**

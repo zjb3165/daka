@@ -18,4 +18,5 @@ mix.js('resources/sys/src/app.js', 'public/js/sys.js')
                 '@': path.resolve('resources')
             }
         }
-    });
+    })
+    .js('resources/front/src/app.js', 'public/js/app.js');
