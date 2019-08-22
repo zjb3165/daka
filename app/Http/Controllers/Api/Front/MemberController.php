@@ -16,6 +16,7 @@ class MemberController extends BaseController
 
     public function __construct(RecordRepo $repo)
     {
+        parent::__construct();
         $this->recordRepo = $repo;
     }
 
@@ -85,9 +86,21 @@ class MemberController extends BaseController
 
     /**
      * 今日好友排名
+     * @route /api/front/member/ranks
      */
-    public function getFriendsRanks()
+    public function getFriendRanks()
     {
         $code = request('code');
+        
+        $ranks = $this->recordRepo->getRanks($this->member, $code);
+        $ranks = $ranks->map(function($f){
+            return [
+                'nickname' => $f->nickname,
+                'avatar' => $f->avatar,
+                'time' => $f->record != null ? $f->record->created_at->timestamp : 0,
+            ];
+        })->toArray();
+
+        return $this->success(['ranks'=>$ranks]);
     }
 }

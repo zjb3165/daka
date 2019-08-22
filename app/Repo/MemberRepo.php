@@ -310,10 +310,12 @@ class MemberRepo
             $member_id = $member_or_id->id;
         }
         
-        $friend_ids = MemberFriend::where('member_id', $member_id)->get()
+        $friend_ids = MemberFriend::where('member_id', $member_id)
+                        ->select(['friend_id'])
+                        ->get()
                         ->map(function($item){
                             return $item->friend_id;
-                        })-toArray();
+                        })->toArray();
         
         if (empty($friend_ids)) return collect([]);
         $cursor = Member::whereIn('id', $friend_ids);

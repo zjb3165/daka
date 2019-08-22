@@ -16,10 +16,13 @@ class BaseController extends Controller
 
     public function __construct()
     {
-        parent::__construct();
-        $this->middleware(function($request, $next){
-            $this->member = auth('front')->user();
-            return $next($request);
-        });
+        if (config('app.debug') && request('mock')) {
+            $this->member = \App\Models\Member::query()->orderBy('id', 'asc')->first();
+        } else {
+            $this->middleware(function($request, $next){
+                $this->member = auth('front')->user();
+                return $next($request);
+            });
+        }
     }
 }

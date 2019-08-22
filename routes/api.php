@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix'=>'member'], function(){
+    Route::get('/', ['uses'=>'MemberController@getMember']);
+    Route::get('/history', ['uses'=>'MemberController@getHistories']);
+    Route::get('/today', ['uses'=>'MemberController@getTodayStat']);
+    Route::get('/ranks', ['uses'=>'MemberController@getFriendRanks']);
 });

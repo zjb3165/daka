@@ -119,16 +119,22 @@ class RecordRepo
     {
         $goal = $this->getGoal($goal_or_code);
         $friends = $this->memberRepo->getFriendList($member, ['id', 'nickname', 'avatar']);
-        $friends->put($member);
-        $friend_ids = $friends->map(function($m){
-            return $m->id;
-        })->toArray();
+        $friends_map = [];
+        foreach($friends as $friend) {
+            $friend->record = null;
+            $friends_map[$friend->id] = $friend;
+        }
+        $member->record = null;
+        $friends_map[$member->id] = $member;
+        unset($friends);
+        $friends = $friends_map;
+        $friend_ids = array_keys($friends);
 
         $records = MemberGoalRecord::whereIn('member_id', $friend_ids)
                 ->where('goal_id', $goal->id)
                 ->whereBetween('created_at', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])
                 ->get();
-        $friends->getDictionary();
+        
         foreach($records as $record) {
             if (isset($friends[$record->member_id])){
                 $friends[$record->member_id]->record = $record;
@@ -136,11 +142,11 @@ class RecordRepo
         }
 
         return collect($friends)->sort(function($a, $b){
-            if (isset($a->record) && isset($b->record)) {
+            if ($a->record != null && $b->record != null) {
                 return $a->record->updated_at < $b->record->updated_at ? -1 : 1;
-            } else if (isset($a->record)) {
+            } else if ($a->record != null) {
                 return -1;
-            } else if (isset($b->record)) {
+            } else if ($b->record != null) {
                 return 1;
             } else {
                 return $a->id < $b->id ? -1 : 1;
