@@ -6,7 +6,6 @@
 namespace App\Http\Controllers;
 use App\Repo\MemberRepo;
 use App\Repo\SettingRepo;
-use App\Models\Member;
 
 class FrontController extends Controller {
     /**
@@ -18,14 +17,10 @@ class FrontController extends Controller {
      * @var \App\Repo\SettingRepo
      */
     private $setting;
-
-    /**
-     * @var \App\Models\Member
-     */
-    private $member;
     
     public function __construct(MemberRepo $repo, SettingRepo $setting)
     {
+        
         $this->repo = $repo;
         $this->setting = $setting;
     }

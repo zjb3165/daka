@@ -36,6 +36,14 @@ class WeChatAuthenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if (auth('front')->guest()) {
+            if (config('app.debug')) {
+                $member = auth('front')->user();
+                if ($member == null) {
+                    $member = $this->repo->getMemberById(4);
+                    auth('front')->login($member);
+                    return $next($request);
+                }
+            }
             if ($request->has('code')) {
                 $user = $this->wechat->oauth->user();
 

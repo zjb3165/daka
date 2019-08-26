@@ -1,0 +1,67 @@
+@import './variables.scss';
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  background:#fff;
+}
+
+#app {
+  background-color: #fff;
+}
+
+.page{
+  padding-bottom: torem(20px);
+}
+
+.head-container{
+  height: torem(340px);
+
+  &.morning{
+    background-color: #f9ee69;
+  }
+  &.evening{
+    background-color: #25284c;
+  }
+}
+
+.head-btns{
+  width: torem(680px);
+  height: torem(155px);
+  border-radius: torem(20px);
+  padding-top: torem(20px);
+  background-color:#fff;
+  margin: 0 auto;
+  margin-top: torem(-140px);
+  display:flex;
+  justify-content: space-around;
+  box-shadow: torem(5px) torem(20px) torem(5px) #ebebeb;
+
+  .btn{
+    width: torem(85px);
+
+    .icon{
+      width: torem(85px);
+      height: torem(85px);
+    }
+
+    .text{
+      height: torem(40px);
+      line-height: torem(40px);
+      text-align:center;
+      color:#686868;
+      font-size: torem(18px);
+      margin-top: torem(5px);
+    }
+  }
+}
+
+.stat-img{
+  width: torem(680px);
+  height: torem(680px);
+  box-shadow: torem(5px) torem(20px) torem(5px) #ebebeb;
+  margin: 0 auto;
+  margin-top: torem(40px);
+  border-radius: torem(20px);
+}

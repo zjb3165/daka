@@ -16,6 +16,7 @@ export const users = {
                 UserApi.login(username, password)
                 .then(function(response){
                     commit('SET_USERINFO', response.user)
+                    commit('SET_TOKEN', {token: response.token, expires: response.expires})
                     resolve()
                 }).catch(error => {
                     reject(error)
@@ -30,7 +31,6 @@ export const users = {
         getUser({ commit }) {
             UserApi.info().then( response => {
                 commit('SET_USERINFO', response.user)
-                commit('SET_TOKEN', {token: response.token, expires: response.expires})
             })
         },
         refresh({ commit }) {
