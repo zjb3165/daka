@@ -141,7 +141,7 @@ class RecordRepo
             }
         }
 
-        return collect($friends)->sort(function($a, $b){
+        return collect(array_values($friends))->sort(function($a, $b){
             if ($a->record != null && $b->record != null) {
                 return $a->record->updated_at < $b->record->updated_at ? -1 : 1;
             } else if ($a->record != null) {

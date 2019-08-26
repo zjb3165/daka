@@ -575,4 +575,9 @@ class HomeController extends Controller
         $result = $this->builder->build($bg, $style3, true, 'style3.jpg');
         return '<img src="'. image_url($result) .'" />';
     }
+
+    public function sys()
+    {
+        return view('sys');
+    }
 }

@@ -95,6 +95,7 @@ class MemberController extends BaseController
         $ranks = $this->recordRepo->getRanks($this->member, $code);
         $ranks = $ranks->map(function($f){
             return [
+                'id' => $f->id,
                 'nickname' => $f->nickname,
                 'avatar' => $f->avatar,
                 'time' => $f->record != null ? $f->record->created_at->timestamp : 0,
