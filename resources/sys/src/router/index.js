@@ -101,10 +101,15 @@ router.beforeEach(async(to, from, next) => {
     let time = (new Date()).getTime()
     if (token && token.token && token.expires > time) {
         if (!store.getters.user || !store.getters.user.id) {
-            store.dispatch('getUser')
+            setTimeout(() => {
+                store.dispatch('getUser')
+            }, 1000)
         }
+        //toke还有10分钟过期时刷新token
         if (token.expires - 600000 < time) {
-            store.dispatch('refresh')
+            setTimeout(() => {
+                store.dispatch('refresh')
+            }, 1000)
         }
         proceed()
     } else if (whiteList.indexOf(to.path) !== -1) {

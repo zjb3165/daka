@@ -106,8 +106,8 @@ class AuthController extends BaseController
             'name' => $admin->name,
             'username' => $admin->username,
         ];
-        $token = auth('api')->refresh();
-        $expires_in = auth('api')->factory()->getTTL() * 60;
-        return $this->success(['user'=>$userInfo, 'token'=>$token, 'expires'=>$expires_in]);
+        //$token = auth('api')->refresh();
+        //$expires_in = auth('api')->factory()->getTTL() * 60;
+        return $this->success(['user'=>$userInfo]);
     }
 }

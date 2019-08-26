@@ -6,7 +6,7 @@ let token = getToken()
 export const users = {
     state: {
         user: {},
-        token: token.token,
+        token: token.token || '',
         expires: token.expires,
     },
     actions: {
@@ -16,7 +16,6 @@ export const users = {
                 UserApi.login(username, password)
                 .then(function(response){
                     commit('SET_USERINFO', response.user)
-                    commit('SET_TOKEN', {token: response.token, expires: response.expires})
                     resolve()
                 }).catch(error => {
                     reject(error)
