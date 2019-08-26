@@ -25,6 +25,6 @@ const createRouter = () => new Router({
     routes: constantRoutes
 })
 
-const router = createRouter
+const router = createRouter()
 
 export default router

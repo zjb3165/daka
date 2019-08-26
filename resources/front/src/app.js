@@ -5,7 +5,7 @@ import router from './router'
 import store from './store'
 
 Vue.prototype._ = _
-new View({
+new Vue({
     router,
     store
 }).$mount('#app');

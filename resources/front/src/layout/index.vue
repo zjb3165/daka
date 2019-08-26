@@ -1,11 +1,14 @@
 <template>
-    <el-container>
+    <div>
         <router-view></router-view>
-    </el-container>
+    </div>
 </template>
 
 <script>
 export default {
-    name: 'layout'
+    name: 'layout',
+    mounted() {
+        this.$store.dispatch('app/getMember')
+    }
 }
 </script>
