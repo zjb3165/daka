@@ -1,5 +1,8 @@
+import Vue from 'vue'
 import API from '../../api'
 import { MORNING } from '../../utils/constants'
+
+let vue = new Vue()
 
 export const member = {
     namespaced: true,
@@ -8,6 +11,7 @@ export const member = {
         type: MORNING,
         histories: [],
         ranks: [],
+        myRank: {},
         loading: false,
     },
     actions: {
@@ -33,16 +37,23 @@ export const member = {
                 console.log(error)
             })
         },
-        getRanks({ commit }, code) {
+        getRanks({ commit, rootGetters }, code) {
             commit('SET_LOADING', true)
             commit('SET_TYPE', code)
             API.getRanks(code).then(res => {
                 commit('SET_RANKS', res.ranks)
                 commit('SET_LOADING', false)
+                let member = rootGetters['app/member']
+                if (member) {
+                    commit('SET_MY_RANK', member.id)
+                }
             }).catch(error => {
                 commit('SET_LOADING', false)
                 console.log(error)
             })
+        },
+        getMyRank({ commit }, id) {
+            commit('SET_MY_RANK', id)
         }
     },
     mutations: {
@@ -58,6 +69,14 @@ export const member = {
         SET_RANKS: (state, list) => {
             state.ranks = list
         },
+        SET_MY_RANK: (state, id) => {
+            vue._.forEach(state.ranks, (item, index) => {
+                if (item.id === id) {
+                    item.index = index + 1
+                    state.myRank = {...state.myRank, ...item}
+                }
+            })
+        },
         SET_LOADING: (state, status) => {
             state.loading = status
         },
@@ -67,6 +86,7 @@ export const member = {
         stat: state => state.stat,
         histories: state => state.histories,
         ranks: state => state.ranks,
+        myRank: state => state.myRank,
         loading: state => state.loading,
     }
 }

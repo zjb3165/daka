@@ -1848,7 +1848,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "body,\nhtml {\n  margin: 0;\n  padding: 0;\n  background: #fff;\n}\n\n#app {\n  background-color: #fff;\n}\n\n.page {\n  padding-bottom: 0.2666666667rem;\n}\n\n.head-container {\n  height: 4.5333333333rem;\n}\n.head-container.morning {\n  background-color: #f9ee69;\n}\n.head-container.evening {\n  background-color: #25284c;\n}\n\n.head-btns {\n  width: 9.0666666667rem;\n  height: 2.0666666667rem;\n  border-radius: 0.2666666667rem;\n  padding-top: 0.2666666667rem;\n  background-color: #fff;\n  margin: 0 auto;\n  margin-top: -1.8666666667rem;\n  display: flex;\n  justify-content: space-around;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n}\n.head-btns .btn {\n  width: 1.1333333333rem;\n}\n.head-btns .btn .icon {\n  width: 1.1333333333rem;\n  height: 1.1333333333rem;\n}\n.head-btns .btn .text {\n  height: 0.5333333333rem;\n  line-height: 0.5333333333rem;\n  text-align: center;\n  color: #686868;\n  font-size: 0.24rem;\n  margin-top: 0.0666666667rem;\n}\n\n.stat-img {\n  width: 9.0666666667rem;\n  height: 9.0666666667rem;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n  margin: 0 auto;\n  margin-top: 0.5333333333rem;\n  border-radius: 0.2666666667rem;\n}\n\n.home-nav {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 1.3333333333rem;\n  padding-top: 0.2666666667rem;\n  background: #fff;\n  display: flex;\n  text-align: center;\n  justify-content: space-around;\n  border-top: 1px solid #ececec;\n}\n.home-nav .nav-btn .icon {\n  color: #cabe7d;\n  height: 0.6666666667rem;\n}\n.home-nav .nav-btn .text {\n  color: #5a5a5a;\n  text-align: center;\n  height: 0.4rem;\n  line-height: 0.4rem;\n  padding-top: 0.0666666667rem;\n  font-size: 0.24rem;\n}\n.home-nav .nav-btn.active .icon {\n  color: #cabe7d;\n}\n.home-nav .nav-btn.active .text {\n  color: #cabe7d;\n}\n\n.home-nav-fixed {\n  height: 1.6rem;\n}", ""]);
+exports.push([module.i, "body,\nhtml {\n  margin: 0;\n  padding: 0;\n  background: #f4f4f4;\n}\n\n#app {\n  background-color: #f4f4f4;\n}\n\n.page {\n  padding-bottom: 0.2666666667rem;\n}\n\n.head-container {\n  height: 4.5333333333rem;\n}\n.head-container.morning {\n  background-color: #f9ee69;\n}\n.head-container.evening {\n  background-color: #25284c;\n}\n\n.head-btns {\n  width: 9.0666666667rem;\n  height: 2.0666666667rem;\n  border-radius: 0.2666666667rem;\n  padding-top: 0.2666666667rem;\n  background-color: #fff;\n  margin: 0 auto;\n  margin-top: -1.8666666667rem;\n  display: flex;\n  justify-content: space-around;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n}\n.head-btns .btn {\n  width: 1.1333333333rem;\n}\n.head-btns .btn .icon {\n  width: 1.1333333333rem;\n  height: 1.1333333333rem;\n}\n.head-btns .btn .text {\n  height: 0.5333333333rem;\n  line-height: 0.5333333333rem;\n  text-align: center;\n  color: #686868;\n  font-size: 0.24rem;\n  margin-top: 0.0666666667rem;\n}\n\n.stat-img {\n  width: 9.0666666667rem;\n  height: 9.0666666667rem;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n  margin: 0 auto;\n  margin-top: 0.5333333333rem;\n  border-radius: 0.2666666667rem;\n  background: #fff;\n}\n\n.home-nav {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 1.3333333333rem;\n  padding-top: 0.2666666667rem;\n  background: #fff;\n  display: flex;\n  text-align: center;\n  justify-content: space-around;\n  border-top: 1px solid #ececec;\n}\n.home-nav .nav-btn {\n  text-decoration: none;\n}\n.home-nav .nav-btn .icon {\n  color: #cabe7d;\n  height: 0.6666666667rem;\n}\n.home-nav .nav-btn .text {\n  color: #5a5a5a;\n  text-align: center;\n  height: 0.4rem;\n  line-height: 0.4rem;\n  padding-top: 0.0666666667rem;\n  font-size: 0.24rem;\n}\n.home-nav .nav-btn.active .icon {\n  color: #cabe7d;\n}\n.home-nav .nav-btn.active .text {\n  color: #cabe7d;\n}\n\n.home-nav-fixed {\n  height: 1.6rem;\n}", ""]);
 
 // exports
 
@@ -36089,10 +36089,19 @@ var constantRoutes = [{
     path: '/',
     name: 'home',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../pages/home/index */ "./resources/front/src/pages/home/index.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../pages/home/index */ "./resources/front/src/pages/home/index.vue"));
     },
     meta: {
       title: 'home'
+    }
+  }, {
+    path: 'ranks',
+    name: 'ranks',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../pages/home/ranks */ "./resources/front/src/pages/home/ranks.vue"));
+    },
+    meta: {
+      title: 'ranks'
     }
   }]
 }];
@@ -36154,6 +36163,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "app", function() { return app; });
 /* harmony import */ var _api_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api/index */ "./resources/front/src/api/index.js");
 /* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/constants */ "./resources/front/src/utils/constants.js");
+/* harmony import */ var _utils_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/storage */ "./resources/front/src/utils/storage.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -36162,10 +36172,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+var m = _utils_storage__WEBPACK_IMPORTED_MODULE_2__["default"].get(_utils_constants__WEBPACK_IMPORTED_MODULE_1__["MEMBER_INFO"]);
 var app = {
   namespaced: true,
   state: {
-    member: {},
+    member: m || {},
     style: _utils_constants__WEBPACK_IMPORTED_MODULE_1__["MORNING"]
   },
   actions: {
@@ -36183,6 +36195,7 @@ var app = {
   mutations: {
     SET_MEMBER: function SET_MEMBER(state, member) {
       state.member = _objectSpread({}, state.member, {}, member);
+      _utils_storage__WEBPACK_IMPORTED_MODULE_2__["default"].set(_utils_constants__WEBPACK_IMPORTED_MODULE_1__["MEMBER_INFO"], member);
     },
     SET_STYLE: function SET_STYLE(state, style) {
       state.style = style;
@@ -36210,8 +36223,10 @@ var app = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "member", function() { return member; });
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api */ "./resources/front/src/api/index.js");
-/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/constants */ "./resources/front/src/utils/constants.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api */ "./resources/front/src/api/index.js");
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/constants */ "./resources/front/src/utils/constants.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -36228,13 +36243,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+var vue = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 var member = {
   namespaced: true,
   state: {
     stat: {},
-    type: _utils_constants__WEBPACK_IMPORTED_MODULE_1__["MORNING"],
+    type: _utils_constants__WEBPACK_IMPORTED_MODULE_2__["MORNING"],
     histories: [],
     ranks: [],
+    myRank: {},
     loading: false
   },
   actions: {
@@ -36242,7 +36260,7 @@ var member = {
       var commit = _ref.commit;
       commit('SET_LOADING', true);
       commit('SET_TYPE', code);
-      _api__WEBPACK_IMPORTED_MODULE_0__["default"].getToday(code).then(function (res) {
+      _api__WEBPACK_IMPORTED_MODULE_1__["default"].getToday(code).then(function (res) {
         commit('SET_STAT', res.stat);
         commit('SET_LOADING', false);
       })["catch"](function (error) {
@@ -36254,7 +36272,7 @@ var member = {
       var commit = _ref2.commit;
       commit('SET_LOADING', true);
       commit('SET_TYPE', code);
-      _api__WEBPACK_IMPORTED_MODULE_0__["default"].getHistory(code, month).then(function (res) {
+      _api__WEBPACK_IMPORTED_MODULE_1__["default"].getHistory(code, month).then(function (res) {
         commit('SET_HISTORIES', res.list);
         commit('SET_LOADING', false);
       })["catch"](function (error) {
@@ -36263,16 +36281,26 @@ var member = {
       });
     },
     getRanks: function getRanks(_ref3, code) {
-      var commit = _ref3.commit;
+      var commit = _ref3.commit,
+          rootGetters = _ref3.rootGetters;
       commit('SET_LOADING', true);
       commit('SET_TYPE', code);
-      _api__WEBPACK_IMPORTED_MODULE_0__["default"].getRanks(code).then(function (res) {
+      _api__WEBPACK_IMPORTED_MODULE_1__["default"].getRanks(code).then(function (res) {
         commit('SET_RANKS', res.ranks);
         commit('SET_LOADING', false);
+        var member = rootGetters['app/member'];
+
+        if (member) {
+          commit('SET_MY_RANK', member.id);
+        }
       })["catch"](function (error) {
         commit('SET_LOADING', false);
         console.log(error);
       });
+    },
+    getMyRank: function getMyRank(_ref4, id) {
+      var commit = _ref4.commit;
+      commit('SET_MY_RANK', id);
     }
   },
   mutations: {
@@ -36287,6 +36315,14 @@ var member = {
     },
     SET_RANKS: function SET_RANKS(state, list) {
       state.ranks = list;
+    },
+    SET_MY_RANK: function SET_MY_RANK(state, id) {
+      vue._.forEach(state.ranks, function (item, index) {
+        if (item.id === id) {
+          item.index = index + 1;
+          state.myRank = _objectSpread({}, state.myRank, {}, item);
+        }
+      });
     },
     SET_LOADING: function SET_LOADING(state, status) {
       state.loading = status;
@@ -36304,6 +36340,9 @@ var member = {
     },
     ranks: function ranks(state) {
       return state.ranks;
+    },
+    myRank: function myRank(state) {
+      return state.myRank;
     },
     loading: function loading(state) {
       return state.loading;
@@ -36347,15 +36386,17 @@ if(false) {}
 /*!************************************************!*\
   !*** ./resources/front/src/utils/constants.js ***!
   \************************************************/
-/*! exports provided: MORNING, EVENING */
+/*! exports provided: MORNING, EVENING, MEMBER_INFO */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MORNING", function() { return MORNING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EVENING", function() { return EVENING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MEMBER_INFO", function() { return MEMBER_INFO; });
 var MORNING = 'morning';
 var EVENING = 'evening';
+var MEMBER_INFO = 'member_info';
 
 /***/ }),
 
@@ -36404,6 +36445,36 @@ service.interceptors.response.use(function (response) {
   return res;
 });
 /* harmony default export */ __webpack_exports__["default"] = (service);
+
+/***/ }),
+
+/***/ "./resources/front/src/utils/storage.js":
+/*!**********************************************!*\
+  !*** ./resources/front/src/utils/storage.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var set = function set(key, item) {
+  localStorage.setItem(key, JSON.stringify(item));
+};
+
+var get = function get(key) {
+  var r = localStorage.getItem(key);
+  return r ? JSON.parse(r) : r;
+};
+
+var remove = function remove(key) {
+  localStorage.removeItem(key);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  set: set,
+  get: get,
+  remove: remove
+});
 
 /***/ }),
 

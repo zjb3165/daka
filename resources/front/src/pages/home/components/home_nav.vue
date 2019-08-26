@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="home-nav">
-            <div class="nav-btn" :class="{'active': active === 0}">
+            <router-link :to="{name: 'home'}" class="nav-btn" :class="{'active': active === 0}">
                 <div class="icon"></div>
                 <div class="text">我的</div>
-            </div>
-            <div class="nav-btn" :class="{'active': active === 1}">
+            </router-link>
+            <router-link :to="{name: 'ranks'}" class="nav-btn" :class="{'active': active === 1}">
                 <div class="icon"></div>
                 <div class="text">排名</div>
-            </div>
+            </router-link>
             <div class="nav-btn" :class="{'active': active === 2}">
                 <div class="icon"></div>
                 <div class="text">好友</div>

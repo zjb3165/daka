@@ -4,11 +4,11 @@ body,
 html {
   margin: 0;
   padding: 0;
-  background:#fff;
+  background:#f4f4f4;
 }
 
 #app {
-  background-color: #fff;
+  background-color: #f4f4f4;
 }
 
 .page{
@@ -64,6 +64,7 @@ html {
   margin: 0 auto;
   margin-top: torem(40px);
   border-radius: torem(20px);
+  background: #fff;
 }
 
 .home-nav{
@@ -80,6 +81,8 @@ html {
   border-top: 1px solid #ececec;
   
   .nav-btn{
+    text-decoration: none;
+    
     .icon{
       color:#cabe7d;
       height: torem(50px);
