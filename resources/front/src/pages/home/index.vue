@@ -25,6 +25,7 @@
 
         </div>
         <toggle :goal-style="style" @click.prevent.native="changeStyle" />
+        <home-nav :active="0" />
     </div>
 </template>
 
@@ -33,20 +34,27 @@ import { mapGetters } from 'vuex'
 import { MORNING, EVENING } from '../../utils/constants'
 import MemberInfo from './components/member_info'
 import Toggle from './components/toggle'
+import HomeNav from './components/home_nav'
 
 export default {
     components: {
         MemberInfo,
         Toggle,
+        HomeNav,
     },
     computed: {
         ...mapGetters({
             member: 'app/member',
             style: 'app/style',
+            stat: 'member/stat',
         }),
         statText() {
-            return '累计早起30天'
+            let text = this.style === MORNING ? '早起' : '早睡'
+            return '累计' + text + this.stat.total + '天'
         }
+    },
+    mounted() {
+        this.$store.dispatch('member/getStat', this.style)
     },
     methods: {
         changeStyle() {

@@ -65,3 +65,44 @@ html {
   margin-top: torem(40px);
   border-radius: torem(20px);
 }
+
+.home-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height: torem(100px);
+  padding-top:torem(20px);
+  background:#fff;
+  display:flex;
+  text-align:center;
+  justify-content: space-around;
+  border-top: 1px solid #ececec;
+  
+  .nav-btn{
+    .icon{
+      color:#cabe7d;
+      height: torem(50px);
+    }
+    .text{
+      color:#5a5a5a;
+      text-align:center;
+      height: torem(30px);
+      line-height: torem(30px);
+      padding-top: torem(5px);
+      font-size: torem(18px);
+    }
+
+    &.active{
+      .icon{
+        color:#cabe7d;
+      }
+      .text{
+        color:#cabe7d;
+      }
+    }
+  }
+}
+.home-nav-fixed{
+  height: torem(120px);
+}

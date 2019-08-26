@@ -1823,8 +1823,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'layout',
@@ -1850,7 +1848,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "body,\nhtml {\n  margin: 0;\n  padding: 0;\n  background: #fff;\n}\n\n#app {\n  background-color: #fff;\n}\n\n.page {\n  padding-bottom: 0.2666666667rem;\n}\n\n.head-container {\n  height: 4.5333333333rem;\n}\n.head-container.morning {\n  background-color: #f9ee69;\n}\n.head-container.evening {\n  background-color: #25284c;\n}\n\n.head-btns {\n  width: 9.0666666667rem;\n  height: 2.0666666667rem;\n  border-radius: 0.2666666667rem;\n  padding-top: 0.2666666667rem;\n  background-color: #fff;\n  margin: 0 auto;\n  margin-top: -1.8666666667rem;\n  display: flex;\n  justify-content: space-around;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n}\n.head-btns .btn {\n  width: 1.1333333333rem;\n}\n.head-btns .btn .icon {\n  width: 1.1333333333rem;\n  height: 1.1333333333rem;\n}\n.head-btns .btn .text {\n  height: 0.5333333333rem;\n  line-height: 0.5333333333rem;\n  text-align: center;\n  color: #686868;\n  font-size: 0.24rem;\n  margin-top: 0.0666666667rem;\n}\n\n.stat-img {\n  width: 9.0666666667rem;\n  height: 9.0666666667rem;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n  margin: 0 auto;\n  margin-top: 0.5333333333rem;\n  border-radius: 0.2666666667rem;\n}", ""]);
+exports.push([module.i, "body,\nhtml {\n  margin: 0;\n  padding: 0;\n  background: #fff;\n}\n\n#app {\n  background-color: #fff;\n}\n\n.page {\n  padding-bottom: 0.2666666667rem;\n}\n\n.head-container {\n  height: 4.5333333333rem;\n}\n.head-container.morning {\n  background-color: #f9ee69;\n}\n.head-container.evening {\n  background-color: #25284c;\n}\n\n.head-btns {\n  width: 9.0666666667rem;\n  height: 2.0666666667rem;\n  border-radius: 0.2666666667rem;\n  padding-top: 0.2666666667rem;\n  background-color: #fff;\n  margin: 0 auto;\n  margin-top: -1.8666666667rem;\n  display: flex;\n  justify-content: space-around;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n}\n.head-btns .btn {\n  width: 1.1333333333rem;\n}\n.head-btns .btn .icon {\n  width: 1.1333333333rem;\n  height: 1.1333333333rem;\n}\n.head-btns .btn .text {\n  height: 0.5333333333rem;\n  line-height: 0.5333333333rem;\n  text-align: center;\n  color: #686868;\n  font-size: 0.24rem;\n  margin-top: 0.0666666667rem;\n}\n\n.stat-img {\n  width: 9.0666666667rem;\n  height: 9.0666666667rem;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n  margin: 0 auto;\n  margin-top: 0.5333333333rem;\n  border-radius: 0.2666666667rem;\n}\n\n.home-nav {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 1.3333333333rem;\n  padding-top: 0.2666666667rem;\n  background: #fff;\n  display: flex;\n  text-align: center;\n  justify-content: space-around;\n  border-top: 1px solid #ececec;\n}\n.home-nav .nav-btn .icon {\n  color: #cabe7d;\n  height: 0.6666666667rem;\n}\n.home-nav .nav-btn .text {\n  color: #5a5a5a;\n  text-align: center;\n  height: 0.4rem;\n  line-height: 0.4rem;\n  padding-top: 0.0666666667rem;\n  font-size: 0.24rem;\n}\n.home-nav .nav-btn.active .icon {\n  color: #cabe7d;\n}\n.home-nav .nav-btn.active .text {\n  color: #cabe7d;\n}\n\n.home-nav-fixed {\n  height: 1.6rem;\n}", ""]);
 
 // exports
 
@@ -20074,7 +20072,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "page" }, [_c("router-view")], 1)
+  return _c("router-view")
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -36128,13 +36126,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/app */ "./resources/front/src/store/modules/app.js");
+/* harmony import */ var _modules_member__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/member */ "./resources/front/src/store/modules/member.js");
+
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    app: _modules_app__WEBPACK_IMPORTED_MODULE_2__["app"]
+    app: _modules_app__WEBPACK_IMPORTED_MODULE_2__["app"],
+    member: _modules_member__WEBPACK_IMPORTED_MODULE_3__["member"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
@@ -36193,6 +36194,119 @@ var app = {
     },
     style: function style(state) {
       return state.style;
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/front/src/store/modules/member.js":
+/*!*****************************************************!*\
+  !*** ./resources/front/src/store/modules/member.js ***!
+  \*****************************************************/
+/*! exports provided: member */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "member", function() { return member; });
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api */ "./resources/front/src/api/index.js");
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/constants */ "./resources/front/src/utils/constants.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var member = {
+  namespaced: true,
+  state: {
+    stat: {},
+    type: _utils_constants__WEBPACK_IMPORTED_MODULE_1__["MORNING"],
+    histories: [],
+    ranks: [],
+    loading: false
+  },
+  actions: {
+    getStat: function getStat(_ref, code) {
+      var commit = _ref.commit;
+      commit('SET_LOADING', true);
+      commit('SET_TYPE', code);
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].getToday(code).then(function (res) {
+        commit('SET_STAT', res.stat);
+        commit('SET_LOADING', false);
+      })["catch"](function (error) {
+        commit('SET_LOADING', false);
+        console.log(error);
+      });
+    },
+    getHistories: function getHistories(_ref2, code, month) {
+      var commit = _ref2.commit;
+      commit('SET_LOADING', true);
+      commit('SET_TYPE', code);
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].getHistory(code, month).then(function (res) {
+        commit('SET_HISTORIES', res.list);
+        commit('SET_LOADING', false);
+      })["catch"](function (error) {
+        commit('SET_LOADING', false);
+        console.log(error);
+      });
+    },
+    getRanks: function getRanks(_ref3, code) {
+      var commit = _ref3.commit;
+      commit('SET_LOADING', true);
+      commit('SET_TYPE', code);
+      _api__WEBPACK_IMPORTED_MODULE_0__["default"].getRanks(code).then(function (res) {
+        commit('SET_RANKS', res.ranks);
+        commit('SET_LOADING', false);
+      })["catch"](function (error) {
+        commit('SET_LOADING', false);
+        console.log(error);
+      });
+    }
+  },
+  mutations: {
+    SET_TYPE: function SET_TYPE(state, type) {
+      state.type = type;
+    },
+    SET_STAT: function SET_STAT(state, data) {
+      state.stat = _objectSpread({}, state.stat, {}, data);
+    },
+    SET_HISTORIES: function SET_HISTORIES(state, list) {
+      state.histories = [].concat(_toConsumableArray(state.histories), _toConsumableArray(list));
+    },
+    SET_RANKS: function SET_RANKS(state, list) {
+      state.ranks = list;
+    },
+    SET_LOADING: function SET_LOADING(state, status) {
+      state.loading = status;
+    }
+  },
+  getters: {
+    type: function type(state) {
+      return state.type;
+    },
+    stat: function stat(state) {
+      return state.stat;
+    },
+    histories: function histories(state) {
+      return state.histories;
+    },
+    ranks: function ranks(state) {
+      return state.ranks;
+    },
+    loading: function loading(state) {
+      return state.loading;
     }
   }
 };

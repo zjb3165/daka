@@ -1,7 +1,8 @@
 import API from '../../api'
-import { MORNING } from '../../utils/constant'
+import { MORNING } from '../../utils/constants'
 
 export const member = {
+    namespaced: true,
     state: {
         stat: {},
         type: MORNING,
@@ -13,7 +14,7 @@ export const member = {
         getStat({ commit }, code) {
             commit('SET_LOADING', true)
             commit('SET_TYPE', code)
-            API.getStat(code).then(res => {
+            API.getToday(code).then(res => {
                 commit('SET_STAT', res.stat)
                 commit('SET_LOADING', false)
             }).catch(error => {
