@@ -273,6 +273,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     statText: function statText() {
       var text = this.style === _utils_constants__WEBPACK_IMPORTED_MODULE_1__["MORNING"] ? '早起' : '早睡';
       return '累计' + text + this.stat.total + '天';
+    },
+    showNav: function showNav() {
+      return this.style === _utils_constants__WEBPACK_IMPORTED_MODULE_1__["MORNING"];
     }
   }),
   mounted: function mounted() {
@@ -545,7 +548,11 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "stat-img" }),
+      _c("div", { staticClass: "stat-img" }, [
+        _vm.stat.record
+          ? _c("img", { attrs: { src: _vm.stat.record.picture } })
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c("toggle", {
         attrs: { "goal-style": _vm.style },
@@ -557,7 +564,7 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("home-nav", { attrs: { active: 0 } })
+      _vm.showNav ? _c("home-nav", { attrs: { active: 0 } }) : _vm._e()
     ],
     1
   )

@@ -22,10 +22,10 @@
             </div>
         </div>
         <div class="stat-img">
-
+            <img v-if="stat.record" :src="stat.record.picture" />
         </div>
         <toggle :goal-style="style" @click.prevent.native="changeStyle" />
-        <home-nav :active="0" />
+        <home-nav v-if="showNav" :active="0" />
     </div>
 </template>
 
@@ -51,6 +51,9 @@ export default {
         statText() {
             let text = this.style === MORNING ? '早起' : '早睡'
             return '累计' + text + this.stat.total + '天'
+        },
+        showNav() {
+            return this.style === MORNING
         }
     },
     mounted() {
