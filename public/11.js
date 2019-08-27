@@ -26,7 +26,13 @@ __webpack_require__.r(__webpack_exports__);
     prop: 'checked',
     event: 'change'
   },
-  props: ['checked'],
+  props: {
+    checked: false,
+    styles: {
+      type: String,
+      "default": ''
+    }
+  },
   methods: {
     toggle: function toggle() {
       this.checkedValue = !this.checkedValue;
@@ -129,7 +135,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".daka-switch[data-v-31b4e6f4] {\n  position: relative;\n  width: 1.3333333333rem;\n  height: 0.8rem;\n  border-radius: 0.4rem;\n  background: #ccc;\n  border: 1px solid #ccc;\n}\n.daka-switch .round[data-v-31b4e6f4] {\n  float: left;\n  width: 0.7466666667rem;\n  height: 0.7466666667rem;\n  border-radius: 50%;\n  background: #fff;\n  padding: 0.0266666667rem;\n}\n.daka-switch.checked[data-v-31b4e6f4] {\n  background: #374674;\n}\n.daka-switch.checked .round[data-v-31b4e6f4] {\n  float: right;\n}", ""]);
+exports.push([module.i, ".daka-switch[data-v-31b4e6f4] {\n  position: relative;\n  width: 1.3333333333rem;\n  height: 0.8rem;\n  border-radius: 0.4rem;\n  background: #ccc;\n  border: 1px solid #ccc;\n}\n.daka-switch .round[data-v-31b4e6f4] {\n  float: left;\n  width: 0.7466666667rem;\n  height: 0.7466666667rem;\n  border-radius: 50%;\n  background: #fff;\n  padding: 0.0266666667rem;\n}\n.daka-switch.checked[data-v-31b4e6f4] {\n  background: #374674;\n  border-color: #374674;\n}\n.daka-switch.checked.morning[data-v-31b4e6f4] {\n  background: #f7e234;\n  border-color: #f7e234;\n}\n.daka-switch.checked .round[data-v-31b4e6f4] {\n  float: right;\n}", ""]);
 
 // exports
 
@@ -234,7 +240,7 @@ var render = function() {
     "div",
     {
       staticClass: "daka-switch",
-      class: { checked: _vm.checkedValue },
+      class: [_vm.styles, { checked: _vm.checkedValue }],
       on: { click: _vm.toggle }
     },
     [_c("div", { staticClass: "round" })]
@@ -286,7 +292,11 @@ var render = function() {
           _c("div", { staticClass: "notice-info" }, [
             _c(
               "span",
-              [_c("daka-switch", { attrs: { checked: _vm.first.morning } })],
+              [
+                _c("daka-switch", {
+                  attrs: { styles: "morning", checked: _vm.first.morning }
+                })
+              ],
               1
             ),
             _vm._v(" "),
@@ -313,7 +323,11 @@ var render = function() {
             _c("div", { staticClass: "notice-info" }, [
               _c(
                 "span",
-                [_c("daka-switch", { attrs: { checked: friend.morning } })],
+                [
+                  _c("daka-switch", {
+                    attrs: { styles: "morning", checked: friend.morning }
+                  })
+                ],
                 1
               ),
               _vm._v(" "),

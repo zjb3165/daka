@@ -1,5 +1,5 @@
 <template>
-    <div class="daka-switch" :class="{checked: checkedValue}" @click="toggle">
+    <div class="daka-switch" :class="[styles, {checked: checkedValue}]" @click="toggle">
         <div class="round"></div>
     </div>
 </template>
@@ -16,7 +16,13 @@ export default {
         prop: 'checked',
         event: 'change'
     },
-    props: ['checked'],
+    props: {
+        checked: false,
+        styles: {
+            type: String,
+            default: ''
+        }
+    },
     methods: {
         toggle() {
             this.checkedValue = ! this.checkedValue
@@ -48,6 +54,12 @@ export default {
 
     &.checked{
         background: #374674;
+        border-color: #374674;
+
+        &.morning{
+            background: #f7e234;
+            border-color: #f7e234;
+        }
 
         .round{
             float: right;

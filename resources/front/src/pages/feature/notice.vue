@@ -16,7 +16,7 @@
                 </div>
                 <div class="notice-info">
                     <span>
-                        <daka-switch :checked="first.morning" />
+                        <daka-switch styles="morning" :checked="first.morning" />
                     </span>
                     <span>
                         <daka-switch :checked="first.evening" />
@@ -32,7 +32,7 @@
                 </div>
                 <div class="notice-info">
                     <span>
-                        <daka-switch :checked="friend.morning" />
+                        <daka-switch styles="morning" :checked="friend.morning" />
                     </span>
                     <span>
                         <daka-switch :checked="friend.evening" />
