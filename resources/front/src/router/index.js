@@ -33,6 +33,12 @@ const constantRoutes = [
                 name: 'caution',
                 component: () => import('../pages/feature/caution'),
                 meta: {title: 'caution'}
+            },
+            {
+                path: 'notice',
+                name: 'notice',
+                component: () => import('../pages/feature/notice'),
+                meta: {title: 'notice'}
             }
         ]
     }

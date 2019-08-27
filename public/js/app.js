@@ -53726,6 +53726,15 @@ var constantRoutes = [{
     meta: {
       title: 'caution'
     }
+  }, {
+    path: 'notice',
+    name: 'notice',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/feature/notice */ "./resources/front/src/pages/feature/notice.vue"));
+    },
+    meta: {
+      title: 'notice'
+    }
   }]
 }];
 
@@ -53761,6 +53770,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_member__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/member */ "./resources/front/src/store/modules/member.js");
 /* harmony import */ var _modules_rest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/rest */ "./resources/front/src/store/modules/rest.js");
 /* harmony import */ var _modules_caution__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/caution */ "./resources/front/src/store/modules/caution.js");
+/* harmony import */ var _modules_notice__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/notice */ "./resources/front/src/store/modules/notice.js");
+
 
 
 
@@ -53773,7 +53784,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     app: _modules_app__WEBPACK_IMPORTED_MODULE_2__["app"],
     member: _modules_member__WEBPACK_IMPORTED_MODULE_3__["member"],
     rest: _modules_rest__WEBPACK_IMPORTED_MODULE_4__["rest"],
-    caution: _modules_caution__WEBPACK_IMPORTED_MODULE_5__["caution"]
+    caution: _modules_caution__WEBPACK_IMPORTED_MODULE_5__["caution"],
+    notice: _modules_notice__WEBPACK_IMPORTED_MODULE_6__["notice"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
@@ -54036,6 +54048,99 @@ var member = {
     },
     loading: function loading(state) {
       return state.loading;
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/front/src/store/modules/notice.js":
+/*!*****************************************************!*\
+  !*** ./resources/front/src/store/modules/notice.js ***!
+  \*****************************************************/
+/*! exports provided: notice */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "notice", function() { return notice; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var vue = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+var notice = {
+  namespaced: true,
+  state: {
+    friends: [{
+      id: 1,
+      nickname: 'jumper',
+      avatar: 'http://thirdwx.qlogo.cn/mmopen/PiajxSqBRaEIQZxJy1t1jrhJQNEVrFYVC8mhAbrSr8TxDkZibDo7Ph1oMoTKISQcMa27MOWckXAY5fphqIkTicLNg/132',
+      morning: false,
+      evening: false
+    }, {
+      id: 2,
+      nickname: 'zhezhe',
+      avatar: 'http://thirdwx.qlogo.cn/mmopen/PiajxSqBRaEIQZxJy1t1jrhJQNEVrFYVC8mhAbrSr8TxDkZibDo7Ph1oMoTKISQcMa27MOWckXAY5fphqIkTicLNg/132',
+      morning: true,
+      evening: false
+    }, {
+      id: 3,
+      nickname: 'taotao',
+      avatar: 'http://thirdwx.qlogo.cn/mmopen/PiajxSqBRaEIQZxJy1t1jrhJQNEVrFYVC8mhAbrSr8TxDkZibDo7Ph1oMoTKISQcMa27MOWckXAY5fphqIkTicLNg/132',
+      morning: true,
+      evening: true
+    }],
+    first: {
+      morning: false,
+      evening: false
+    }
+  },
+  actions: {
+    setFirstNotice: function setFirstNotice(_ref, _ref2) {
+      var commit = _ref.commit;
+      var code = _ref2.code,
+          status = _ref2.status;
+      commit('SET_FIRST_STATUS', {
+        code: code,
+        status: status
+      });
+    },
+    setFriendNotice: function setFriendNotice(_ref3, _ref4) {
+      var commit = _ref3.commit;
+      var id = _ref4.id,
+          code = _ref4.code,
+          status = _ref4.status;
+      commit('SET_FRIENDS_NOTICE', {
+        id: id,
+        code: code,
+        status: status
+      });
+    }
+  },
+  mutations: {
+    SET_FIRST_STATUS: function SET_FIRST_STATUS(state, _ref5) {
+      var code = _ref5.code,
+          status = _ref5.status;
+      state.first[code] = status;
+    },
+    SET_FRIENDS_NOTICE: function SET_FRIENDS_NOTICE(state, _ref6) {
+      var id = _ref6.id,
+          code = _ref6.code,
+          status = _ref6.status;
+
+      vue._.forEach(state.friends, function (friend) {
+        if (friend.id === id) {
+          friend[code] = status;
+        }
+      });
+    }
+  },
+  getters: {
+    friends: function friends(state) {
+      return state.friends;
+    },
+    first: function first(state) {
+      return state.first;
     }
   }
 };

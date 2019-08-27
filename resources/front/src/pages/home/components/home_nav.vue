@@ -13,10 +13,10 @@
                 <div class="icon"></div>
                 <div class="text">作息</div>
             </router-link>
-            <div class="nav-btn" :class="{'active': active === 3}">
+            <router-link :to="{name: 'notice'}" class="nav-btn" :class="{'active': active === 3}">
                 <div class="icon"></div>
                 <div class="text">好友</div>
-            </div>
+            </router-link>
         </div>
         <div class="home-nav-fixed"></div>
     </div>

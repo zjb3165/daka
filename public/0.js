@@ -261,8 +261,12 @@ var render = function() {
         ),
         _vm._v(" "),
         _c(
-          "div",
-          { staticClass: "nav-btn", class: { active: _vm.active === 3 } },
+          "router-link",
+          {
+            staticClass: "nav-btn",
+            class: { active: _vm.active === 3 },
+            attrs: { to: { name: "notice" } }
+          },
           [
             _c("div", { staticClass: "icon" }),
             _vm._v(" "),
