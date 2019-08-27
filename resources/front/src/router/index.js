@@ -39,6 +39,12 @@ const constantRoutes = [
                 name: 'notice',
                 component: () => import('../pages/feature/notice'),
                 meta: {title: 'notice'}
+            },
+            {
+                path: 'history',
+                name: 'history',
+                component: () => import('../pages/feature/history'),
+                meta: {title: 'history'}
             }
         ]
     }

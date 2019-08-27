@@ -12,10 +12,10 @@
                 <div class="icon"></div>
                 <div class="text">补签</div>
             </div>
-            <div class="btn">
+            <router-link :to="{name: 'history'}" class="btn">
                 <div class="icon"></div>
                 <div class="text">历史</div>
-            </div>
+            </router-link>
             <div class="btn">
                 <div class="icon"></div>
                 <div class="text">成就</div>

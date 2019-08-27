@@ -53694,7 +53694,7 @@ var constantRoutes = [{
     path: '/',
     name: 'home',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../pages/home/index */ "./resources/front/src/pages/home/index.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../pages/home/index */ "./resources/front/src/pages/home/index.vue"));
     },
     meta: {
       title: 'home'
@@ -53703,7 +53703,7 @@ var constantRoutes = [{
     path: 'ranks',
     name: 'ranks',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../pages/home/ranks */ "./resources/front/src/pages/home/ranks.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../pages/home/ranks */ "./resources/front/src/pages/home/ranks.vue"));
     },
     meta: {
       title: 'ranks'
@@ -53712,7 +53712,7 @@ var constantRoutes = [{
     path: 'rest',
     name: 'rest',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../pages/home/rest */ "./resources/front/src/pages/home/rest.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ../pages/home/rest */ "./resources/front/src/pages/home/rest.vue"));
     },
     meta: {
       title: 'rest'
@@ -53721,7 +53721,7 @@ var constantRoutes = [{
     path: 'caution',
     name: 'caution',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../pages/feature/caution */ "./resources/front/src/pages/feature/caution.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../pages/feature/caution */ "./resources/front/src/pages/feature/caution.vue"));
     },
     meta: {
       title: 'caution'
@@ -53730,10 +53730,19 @@ var constantRoutes = [{
     path: 'notice',
     name: 'notice',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(null, /*! ../pages/feature/notice */ "./resources/front/src/pages/feature/notice.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../pages/feature/notice */ "./resources/front/src/pages/feature/notice.vue"));
     },
     meta: {
       title: 'notice'
+    }
+  }, {
+    path: 'history',
+    name: 'history',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../pages/feature/history */ "./resources/front/src/pages/feature/history.vue"));
+    },
+    meta: {
+      title: 'history'
     }
   }]
 }];
@@ -53771,6 +53780,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_rest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/rest */ "./resources/front/src/store/modules/rest.js");
 /* harmony import */ var _modules_caution__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/caution */ "./resources/front/src/store/modules/caution.js");
 /* harmony import */ var _modules_notice__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/notice */ "./resources/front/src/store/modules/notice.js");
+/* harmony import */ var _modules_history__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/history */ "./resources/front/src/store/modules/history.js");
+
 
 
 
@@ -53785,7 +53796,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     member: _modules_member__WEBPACK_IMPORTED_MODULE_3__["member"],
     rest: _modules_rest__WEBPACK_IMPORTED_MODULE_4__["rest"],
     caution: _modules_caution__WEBPACK_IMPORTED_MODULE_5__["caution"],
-    notice: _modules_notice__WEBPACK_IMPORTED_MODULE_6__["notice"]
+    notice: _modules_notice__WEBPACK_IMPORTED_MODULE_6__["notice"],
+    history: _modules_history__WEBPACK_IMPORTED_MODULE_7__["history"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
@@ -53909,6 +53921,108 @@ var caution = {
     },
     time: function time(state) {
       return state.time;
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/front/src/store/modules/history.js":
+/*!******************************************************!*\
+  !*** ./resources/front/src/store/modules/history.js ***!
+  \******************************************************/
+/*! exports provided: history */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "history", function() { return history; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _api_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../api/index */ "./resources/front/src/api/index.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+
+
+var history = {
+  namespaced: true,
+  state: {
+    date: moment__WEBPACK_IMPORTED_MODULE_0___default()().format('YYYY-MM-DD'),
+    month: moment__WEBPACK_IMPORTED_MODULE_0___default()().format('YYYY-MM'),
+    choosedDate: moment__WEBPACK_IMPORTED_MODULE_0___default()().format('YYYY-MM-DD'),
+    list: [],
+    loading: false
+  },
+  actions: {
+    getHistory: function getHistory(_ref) {
+      var commit = _ref.commit,
+          state = _ref.state;
+      commit('SET_LOADING', true);
+      _api_index__WEBPACK_IMPORTED_MODULE_1__["default"].getHistory('morning', state.month).then(function (res) {
+        commit('SET_LIST', res.list);
+        commit('SET_LOADING', false);
+      })["catch"](function (error) {
+        commit('SET_LOADING', false);
+        console.log(error);
+      });
+    },
+    chooseDate: function chooseDate(_ref2, date) {
+      var commit = _ref2.commit;
+      commit('SET_CHOOSED_DATE', date);
+    },
+    goPrev: function goPrev(_ref3) {
+      var commit = _ref3.commit,
+          state = _ref3.state,
+          dispatch = _ref3.dispatch;
+      var month = moment__WEBPACK_IMPORTED_MODULE_0___default()(state.month + '-01');
+      commit('SET_MONTH', month.subtract(1, 'month').format('YYYY-MM'));
+      dispatch('getHistory');
+    },
+    goNext: function goNext(_ref4) {
+      var commit = _ref4.commit,
+          state = _ref4.state,
+          dispatch = _ref4.dispatch;
+      var month = moment__WEBPACK_IMPORTED_MODULE_0___default()(state.month + '-01');
+      var date = moment__WEBPACK_IMPORTED_MODULE_0___default()(state.date);
+
+      if (month.format('YYYY-MM') !== date.format('YYYY-MM')) {
+        commit('SET_MONTH', month.add(1, 'month').format('YYYY-MM'));
+        dispatch('getHistory');
+      }
+    }
+  },
+  mutations: {
+    SET_LOADING: function SET_LOADING(state, status) {
+      state.loading = status;
+    },
+    SET_CHOOSED_DATE: function SET_CHOOSED_DATE(state, date) {
+      state.choosedDate = date;
+    },
+    SET_LIST: function SET_LIST(state, list) {
+      state.list = [].concat(_toConsumableArray(state.list), _toConsumableArray(list));
+    },
+    SET_MONTH: function SET_MONTH(state, month) {
+      state.month = month;
+    }
+  },
+  getters: {
+    date: function date(state) {
+      return state.date;
+    },
+    month: function month(state) {
+      return state.month;
+    },
+    choosedDate: function choosedDate(state) {
+      return state.choosedDate;
+    },
+    list: function list(state) {
+      return state.list;
     }
   }
 };

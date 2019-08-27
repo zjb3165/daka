@@ -6,6 +6,7 @@ import { member } from './modules/member'
 import { rest } from './modules/rest'
 import { caution } from './modules/caution'
 import { notice } from './modules/notice'
+import { history } from './modules/history'
 
 Vue.use(Vuex)
 
@@ -16,6 +17,7 @@ const store = new Vuex.Store({
         rest,
         caution,
         notice,
+        history,
     }
 })
 
