@@ -9,13 +9,13 @@
                 <div class="icon"></div>
                 <div class="text">排名</div>
             </router-link>
-            <div class="nav-btn" :class="{'active': active === 2}">
-                <div class="icon"></div>
-                <div class="text">好友</div>
-            </div>
-            <div class="nav-btn" :class="{'active': active === 3}">
+            <router-link :to="{name: 'rest'}" class="nav-btn" :class="{'active': active === 2}">
                 <div class="icon"></div>
                 <div class="text">作息</div>
+            </router-link>
+            <div class="nav-btn" :class="{'active': active === 3}">
+                <div class="icon"></div>
+                <div class="text">好友</div>
             </div>
         </div>
         <div class="home-nav-fixed"></div>

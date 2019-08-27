@@ -24,7 +24,7 @@
         <div class="stat-img">
             <img v-if="stat.record" :src="stat.record.picture" />
         </div>
-        <toggle :goal-style="style" @click.prevent.native="changeStyle" />
+        <toggle :goal-style="style" @click.native="changeStyle" />
         <home-nav v-if="showNav" :active="0" />
     </div>
 </template>
