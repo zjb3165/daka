@@ -9,6 +9,7 @@ html {
 
 #app {
   background-color: #f4f4f4;
+  font-size: torem(32px);
 }
 
 .page{
@@ -40,6 +41,7 @@ html {
 
   .btn{
     width: torem(85px);
+    text-decoration: none;
 
     .icon{
       width: torem(85px);

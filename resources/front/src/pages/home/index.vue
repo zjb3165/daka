@@ -4,10 +4,10 @@
             <member-info :text="statText" />
         </div>
         <div class="head-btns">
-            <div class="btn">
+            <router-link :to="{name: 'caution'}" class="btn">
                 <div class="icon"></div>
                 <div class="text">提醒</div>
-            </div>
+            </router-link>
             <div class="btn">
                 <div class="icon"></div>
                 <div class="text">补签</div>

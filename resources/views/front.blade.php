@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>打卡</title>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1372113_psqe95drbup.css" />
 </head>
 <body>
     <div id="app">

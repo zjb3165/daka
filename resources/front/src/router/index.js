@@ -27,6 +27,12 @@ const constantRoutes = [
                 name: 'rest',
                 component: () => import('../pages/home/rest'),
                 meta: {title: 'rest'}
+            },
+            {
+                path: 'caution',
+                name: 'caution',
+                component: () => import('../pages/feature/caution'),
+                meta: {title: 'caution'}
             }
         ]
     }

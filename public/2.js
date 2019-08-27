@@ -563,7 +563,28 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm._m(0),
+      _c(
+        "div",
+        { staticClass: "head-btns" },
+        [
+          _c(
+            "router-link",
+            { staticClass: "btn", attrs: { to: { name: "caution" } } },
+            [
+              _c("div", { staticClass: "icon" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "text" }, [_vm._v("提醒")])
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._m(2)
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "stat-img" }, [
         _vm.stat.record
@@ -590,30 +611,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "head-btns" }, [
-      _c("div", { staticClass: "btn" }, [
-        _c("div", { staticClass: "icon" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "text" }, [_vm._v("提醒")])
-      ]),
+    return _c("div", { staticClass: "btn" }, [
+      _c("div", { staticClass: "icon" }),
       _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [
-        _c("div", { staticClass: "icon" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "text" }, [_vm._v("补签")])
-      ]),
+      _c("div", { staticClass: "text" }, [_vm._v("补签")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn" }, [
+      _c("div", { staticClass: "icon" }),
       _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [
-        _c("div", { staticClass: "icon" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "text" }, [_vm._v("历史")])
-      ]),
+      _c("div", { staticClass: "text" }, [_vm._v("历史")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn" }, [
+      _c("div", { staticClass: "icon" }),
       _vm._v(" "),
-      _c("div", { staticClass: "btn" }, [
-        _c("div", { staticClass: "icon" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "text" }, [_vm._v("成就")])
-      ])
+      _c("div", { staticClass: "text" }, [_vm._v("成就")])
     ])
   }
 ]

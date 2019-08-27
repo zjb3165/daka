@@ -1848,7 +1848,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "body,\nhtml {\n  margin: 0;\n  padding: 0;\n  background: #f4f4f4;\n}\n\n#app {\n  background-color: #f4f4f4;\n}\n\n.page {\n  padding-bottom: 0.2666666667rem;\n}\n\n.head-container {\n  height: 4.5333333333rem;\n}\n.head-container.morning {\n  background-color: #f9ee69;\n}\n.head-container.evening {\n  background-color: #25284c;\n}\n\n.head-btns {\n  width: 9.0666666667rem;\n  height: 2.0666666667rem;\n  border-radius: 0.2666666667rem;\n  padding-top: 0.2666666667rem;\n  background-color: #fff;\n  margin: 0 auto;\n  margin-top: -1.8666666667rem;\n  display: flex;\n  justify-content: space-around;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n}\n.head-btns .btn {\n  width: 1.1333333333rem;\n}\n.head-btns .btn .icon {\n  width: 1.1333333333rem;\n  height: 1.1333333333rem;\n}\n.head-btns .btn .text {\n  height: 0.5333333333rem;\n  line-height: 0.5333333333rem;\n  text-align: center;\n  color: #686868;\n  font-size: 0.24rem;\n  margin-top: 0.0666666667rem;\n}\n\n.stat-img {\n  width: 9.0666666667rem;\n  height: 9.0666666667rem;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n  margin: 0 auto;\n  margin-top: 0.5333333333rem;\n  border-radius: 0.2666666667rem;\n  background: #fff;\n}\n\n.home-nav {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 1.3333333333rem;\n  padding-top: 0.2666666667rem;\n  background: #fff;\n  display: flex;\n  text-align: center;\n  justify-content: space-around;\n  border-top: 1px solid #ececec;\n}\n.home-nav .nav-btn {\n  text-decoration: none;\n}\n.home-nav .nav-btn .icon {\n  color: #cabe7d;\n  height: 0.6666666667rem;\n}\n.home-nav .nav-btn .text {\n  color: #5a5a5a;\n  text-align: center;\n  height: 0.4rem;\n  line-height: 0.4rem;\n  padding-top: 0.0666666667rem;\n  font-size: 0.24rem;\n}\n.home-nav .nav-btn.active .icon {\n  color: #cabe7d;\n}\n.home-nav .nav-btn.active .text {\n  color: #cabe7d;\n}\n\n.home-nav-fixed {\n  height: 1.6rem;\n}", ""]);
+exports.push([module.i, "body,\nhtml {\n  margin: 0;\n  padding: 0;\n  background: #f4f4f4;\n}\n\n#app {\n  background-color: #f4f4f4;\n  font-size: 0.4266666667rem;\n}\n\n.page {\n  padding-bottom: 0.2666666667rem;\n}\n\n.head-container {\n  height: 4.5333333333rem;\n}\n.head-container.morning {\n  background-color: #f9ee69;\n}\n.head-container.evening {\n  background-color: #25284c;\n}\n\n.head-btns {\n  width: 9.0666666667rem;\n  height: 2.0666666667rem;\n  border-radius: 0.2666666667rem;\n  padding-top: 0.2666666667rem;\n  background-color: #fff;\n  margin: 0 auto;\n  margin-top: -1.8666666667rem;\n  display: flex;\n  justify-content: space-around;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n}\n.head-btns .btn {\n  width: 1.1333333333rem;\n  text-decoration: none;\n}\n.head-btns .btn .icon {\n  width: 1.1333333333rem;\n  height: 1.1333333333rem;\n}\n.head-btns .btn .text {\n  height: 0.5333333333rem;\n  line-height: 0.5333333333rem;\n  text-align: center;\n  color: #686868;\n  font-size: 0.24rem;\n  margin-top: 0.0666666667rem;\n}\n\n.stat-img {\n  width: 9.0666666667rem;\n  height: 9.0666666667rem;\n  box-shadow: 0.0666666667rem 0.2666666667rem 0.0666666667rem #ebebeb;\n  margin: 0 auto;\n  margin-top: 0.5333333333rem;\n  border-radius: 0.2666666667rem;\n  background: #fff;\n}\n\n.home-nav {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 1.3333333333rem;\n  padding-top: 0.2666666667rem;\n  background: #fff;\n  display: flex;\n  text-align: center;\n  justify-content: space-around;\n  border-top: 1px solid #ececec;\n}\n.home-nav .nav-btn {\n  text-decoration: none;\n}\n.home-nav .nav-btn .icon {\n  color: #cabe7d;\n  height: 0.6666666667rem;\n}\n.home-nav .nav-btn .text {\n  color: #5a5a5a;\n  text-align: center;\n  height: 0.4rem;\n  line-height: 0.4rem;\n  padding-top: 0.0666666667rem;\n  font-size: 0.24rem;\n}\n.home-nav .nav-btn.active .icon {\n  color: #cabe7d;\n}\n.home-nav .nav-btn.active .text {\n  color: #cabe7d;\n}\n\n.home-nav-fixed {\n  height: 1.6rem;\n}", ""]);
 
 // exports
 
@@ -53717,6 +53717,15 @@ var constantRoutes = [{
     meta: {
       title: 'rest'
     }
+  }, {
+    path: 'caution',
+    name: 'caution',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../pages/feature/caution */ "./resources/front/src/pages/feature/caution.vue"));
+    },
+    meta: {
+      title: 'caution'
+    }
   }]
 }];
 
@@ -53751,6 +53760,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/app */ "./resources/front/src/store/modules/app.js");
 /* harmony import */ var _modules_member__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/member */ "./resources/front/src/store/modules/member.js");
 /* harmony import */ var _modules_rest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/rest */ "./resources/front/src/store/modules/rest.js");
+/* harmony import */ var _modules_caution__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/caution */ "./resources/front/src/store/modules/caution.js");
+
 
 
 
@@ -53761,7 +53772,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
     app: _modules_app__WEBPACK_IMPORTED_MODULE_2__["app"],
     member: _modules_member__WEBPACK_IMPORTED_MODULE_3__["member"],
-    rest: _modules_rest__WEBPACK_IMPORTED_MODULE_4__["rest"]
+    rest: _modules_rest__WEBPACK_IMPORTED_MODULE_4__["rest"],
+    caution: _modules_caution__WEBPACK_IMPORTED_MODULE_5__["caution"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
@@ -53824,6 +53836,67 @@ var app = {
     },
     style: function style(state) {
       return state.style;
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/front/src/store/modules/caution.js":
+/*!******************************************************!*\
+  !*** ./resources/front/src/store/modules/caution.js ***!
+  \******************************************************/
+/*! exports provided: caution */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "caution", function() { return caution; });
+var caution = {
+  namespaced: true,
+  state: {
+    checked: true,
+    cautionType: 1,
+    time: '07:00'
+  },
+  actions: {
+    toggleCheck: function toggleCheck(_ref, _ref2) {
+      var commit = _ref.commit;
+      var code = _ref2.code,
+          status = _ref2.status;
+      commit('SET_CHECKED', status);
+    },
+    setType: function setType(_ref3, type) {
+      var commit = _ref3.commit;
+      commit('SET_CAUTION_TYPE', type);
+    },
+    setTime: function setTime(_ref4, _ref5) {
+      var commit = _ref4.commit;
+      var code = _ref5.code,
+          time = _ref5.time;
+      commit('SET_CAUTION_TIME', time);
+    }
+  },
+  mutations: {
+    SET_CHECKED: function SET_CHECKED(state, status) {
+      state.checked = status;
+    },
+    SET_CAUTION_TYPE: function SET_CAUTION_TYPE(state, type) {
+      state.cautionType = type;
+    },
+    SET_CAUTION_TIME: function SET_CAUTION_TIME(state, time) {
+      state.time = time;
+    }
+  },
+  getters: {
+    checked: function checked(state) {
+      return state.checked;
+    },
+    type: function type(state) {
+      return state.cautionType;
+    },
+    time: function time(state) {
+      return state.time;
     }
   }
 };
